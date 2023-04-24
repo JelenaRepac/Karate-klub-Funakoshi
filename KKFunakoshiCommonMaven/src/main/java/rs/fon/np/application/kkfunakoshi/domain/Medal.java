@@ -5,7 +5,7 @@
 package rs.fon.np.application.kkfunakoshi.domain;
 
 /**
- *
+ * Enum koji oznacava medalje.
  * @author Jeks
  */
 public enum Medal {
