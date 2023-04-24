@@ -9,8 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
- * @author Jeks
+ * Predstavlja grad iz kojeg je clan kluba. Klasa koja sadrzi informacije kao sto su id grada, ptt, kao i ime grada.
+ * Implementira interfejs Serializable, sto dopusta da instance klase budu serijalizovane i deserijalizovane.
+ * Nasledjuje abstraktnu klasu AbstractDO.
+ * @author Jelena Repac
  */
 public class City extends AbstractDO implements Serializable {
    
