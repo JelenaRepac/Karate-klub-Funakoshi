@@ -5,8 +5,8 @@
 package rs.fon.np.application.kkfunakoshi.domain;
 
 /**
- *
- * @author Jeks
+ * Enum koji oznacava takmicarske kategorije.
+ * @author Jelena Repac
  */
 public enum Category {
     

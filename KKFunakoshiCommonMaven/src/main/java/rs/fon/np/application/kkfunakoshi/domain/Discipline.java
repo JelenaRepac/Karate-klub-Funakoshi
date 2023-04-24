@@ -5,8 +5,8 @@
 package rs.fon.np.application.kkfunakoshi.domain;
 
 /**
- *
- * @author Jeks
+ * Enum koji oznacava disciplinu u kojoj se takmici clan kluba.
+ * @author Jelena Repac
  */
 public enum Discipline {
     
