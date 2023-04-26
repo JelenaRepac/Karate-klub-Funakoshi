@@ -11,18 +11,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Jeks
+ * Predstavlja tim koga cine 3 clana kluba istog pola i istog godista.
+ * Sadrzi id, naziv, clanove koji cine tim kao i kategoriju u kojoj se tim takmici. 
+ * Implementira interfejs Serializable, sto dopusta da instance klase budu serijalizovane i deserijalizovane.
+ * Nasledjuje abstraktnu klasu AbstractDO.
+ * @author Jelena Repac
  */
 public class Team extends AbstractDO implements Serializable {
-    
+    /**
+     * Id tima
+     */
     private Long id;
+    /**
+     * Naziv tima
+     */
     private String name;
+    /**
+     * Lista clanova tima
+     */
     private List<Member> members;
+    /**
+     * Kategorija u kojoj se tim takmici
+     */
     private Category category;
-    
+    /**
+     * Lista clanova tima
+     */
     private List<Member> teamMembers= new ArrayList<>();
-
+    /**
+     * Bezparametarski konstruktor
+     */
     public Team() {
     }
 
@@ -34,35 +52,59 @@ public class Team extends AbstractDO implements Serializable {
     }
 
   
-
+    /**
+     * Vraca vrednost id-a tima
+     * @return id tima
+     */
     public Long getId() {
         return id;
     }
-
+    /**
+     * Postavlja id tima
+     * @param id tima
+     */
     public void setId(Long id) {
         this.id = id;
     }
-
+    /**
+     * Vraca naziv tima
+     * @return naziv tima
+     */
     public String getName() {
         return name;
     }
-
+	/**
+	 * Postavlja ime tima
+	 * @param name
+	 */
     public void setName(String name) {
         this.name = name;
     }
-
+    /**
+     * Vraca listu clanova tima
+     * @return lista clanova tima
+     */
     public List<Member> getMembers() {
         return members;
     }
-
+    /**
+     * Postavlja clanove tima
+     * @param teamMembers
+     */
     public void setMembers(List<Member> teamMembers) {
         this.members = teamMembers;
     }
-
+    /**
+     * Vraca kategoriju u kojoj se tim takmicio
+     * @return kategorija u kojoj se tim takmicio
+     */
     public Category getCategory() {
         return category;
     }
-
+    /**
+     * Postavlja kategoriju u kojoj se tim takmicio
+     * @param category
+     */
     public void setCategory(Category category) {
         this.category = category;
     }

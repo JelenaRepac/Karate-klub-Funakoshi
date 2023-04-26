@@ -10,18 +10,42 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 /**
- *
- * @author Jeks
+ * Predstavlja trenera karate kluba. 
+ * Dodatno je definisan id-om, imenom, prezimenom, korisnickim imenom kao i lozinkom.
+ * Implementira interfejs Serializable, sto dopusta da instance klase budu serijalizovane i deserijalizovane.
+ * Nasledjuje abstraktnu klasu AbstractDO.
+ * @author Jelena Repac
  */
 public class Trainer extends AbstractDO implements Serializable{
     
+	/**
+	 * Id trenera
+	 */
     private Long id;
+    /**
+     * Ime trenera
+     */
     private String firstname;
+    /**
+     * Prezime trenera
+     */
     private String lastname;
+    /**
+     * Korisnicko ime trenera
+     */
     private String username;
+    /**
+     * Lozinka trenera
+     */
     private String password;
+    /**
+     * Status prijavljivanja 
+     */
     private boolean loggedIn;
 
+    /**
+     * Bezparametarski konstruktor
+     */
     public Trainer() {
     }
 
@@ -34,54 +58,88 @@ public class Trainer extends AbstractDO implements Serializable{
         this.loggedIn = loggedIn;
     }
 
-    
+    /**
+     * Vraca status prijavljivanja trenera
+     * @return status prijavljivanja trenera
+     */
     public boolean isLoggedIn() {
         return loggedIn;
     }
-
+    /**
+     * Postavlja status prijavljivanja trenera
+     * @param loggedIn
+     */
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
-
+    /**
+     * Vraca id trenera
+     * @return id trenera
+     */
     public Long getId() {
         return id;
     }
-
-    
-
+    /**
+     * Postavlja id trenera.
+     * @param id trenera
+     */
     @Override
     public void setId(Long id) {
         this.id = id;
     }
-
+    /**
+     * Vraca ime trenera
+     * @return ime trenera
+     */
     public String getFirstname() {
         return firstname;
     }
-
+    /**
+     * Postavlja ime trenera
+     * @param firstname
+     */
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
-
+    /**
+     * Vraca prezime trenera
+     * @return prezime trenera
+     */
     public String getLastname() {
         return lastname;
     }
-
+    /**
+     * Postavlja prezime trenera
+     * @param lastname
+     */
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-
+    /**
+     * Vraca korisnicko ime trenera
+     * @return korisnicko ime trenera
+     */
     public String getUsername() {
         return username;
     }
-
+    /**
+     * Postavlja korisnicko ime trenera
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
-
+    /**
+     * Vraca lozinku trenera
+     * @return lozinku trenera
+     */
     public String getPassword() {
         return password;
     }
-
+    /**
+     * Postavlja lozinku trenera
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }

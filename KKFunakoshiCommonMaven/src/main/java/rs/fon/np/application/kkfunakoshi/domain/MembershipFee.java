@@ -11,18 +11,37 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- *
- * @author Jeks
+ * Predstavlja clanarinu clana. Sadrzi informacije o tome kada je clan izvrsio uplatu clanarine, 
+ * id clanarine, kao i iznos koji je uplacen.
+ * 
+ * Implementira interfejs Serializable, sto dopusta da instance klase budu serijalizovane i deserijalizovane.
+ * Nasledjuje abstraktnu klasu AbstractDO.
+ * @author Jelena Repac
  */
 public class MembershipFee extends AbstractDO implements Serializable{
+	/**
+	 * Id clanarine
+	 */
     private Long id;
+    /**
+     * Clan koji je izvrsio uplatu clanarine
+     */
     private Member member;
+    /**
+     * Datum uplate 
+     */
     private Date date;
+    /**
+     * Novcani iznos clanarine
+     */
     private double Amount;
 
+    /**
+     * Bezparametarski konstruktor
+     */
     public MembershipFee() {
     }
-
+    
     public MembershipFee(Long id, Member member, Date date, double Amount) {
         this.id = id;
         this.member = member;
@@ -36,34 +55,59 @@ public class MembershipFee extends AbstractDO implements Serializable{
         this.Amount = Amount;
     }
 
+    /**
+     * Vraca vrednost id-a clanarine.
+     * @return id clanarine
+     */
     public Long getId() {
         return id;
     }
-
+    /**
+     * Postavlja vrednost id-a clanarine
+     * @param id clanarine
+     */
     public void setId(Long id) {
         this.id = id;
     }
-
+    /**
+     * Vraca datum kada je clanarina uplacena.
+     * @return datum uplate
+     */
     public Date getDate() {
         return date;
     }
-
+    /**
+     * Postavlja datum uplate clanarine
+     * @param date
+     */
     public void setDate(Date date) {
         this.date = date;
     }
-
+    /**
+     * Vraca novcani iznos clanarine
+     * @return novcani iznos clanarine
+     */
     public double getAmount() {
         return Amount;
     }
-
+    /**
+     * Postavlja novcani iznos clanarine
+     * @param Amount novcani iznos clanarine
+     */
     public void setAmount(double Amount) {
         this.Amount = Amount;
     }
-
+    /**
+     * Vraca clana koji je izvrsio uplatu clanarine
+     * @return clan koji je izvrsio uplatu clanarine
+     */
     public Member getMember() {
         return member;
     }
-
+    /**
+     * Postavlja clana koji je uplatio clanarinu
+     * @param member 
+     */
     public void setMember(Member member) {
         this.member = member;
     }

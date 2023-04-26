@@ -9,18 +9,42 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
- * @author Jeks
+ * Predstavlja rezultat ostvaren na takmicenju. 
+ * Sadrzi id, takmicenje na kome je ostvaren rezultat, clana i tim koji su ostvarili rezultat i kategoriju u kojoj su se takmicili kao i osvojenu medalju. 
+ * Implementira interfejs Serializable, sto dopusta da instance klase budu serijalizovane i deserijalizovane.
+ * Nasledjuje abstraktnu klasu AbstractDO.
+ * @author Jelena Repac
  */
 public class Result extends AbstractDO implements Serializable {
     
+	/**
+	 * Id rezultat
+	 */
     private Long id;
+    /**
+     * Takmicenje na kome je rezultat ostvaren
+     */
     private Competition competition;
+    /**
+     * Clan koji je rezultat ostvario
+     */
     private Member member;
+    /**
+     * Tim koji je ostvario rezultat
+     */
     private Team team;
+    /**
+     * Osvojena medalja
+     */
     private Medal medals;
+    /**
+     * Kategorija u kojoj je takmicar ostvario rezultat
+     */
     private Category category;
 
+    /**
+     * Bezparametarski konstruktor
+     */
     public Result() {
     }
 
@@ -41,50 +65,87 @@ public class Result extends AbstractDO implements Serializable {
         this.medals = medals;
         this.category = category;
     }
+    /**
+     * Vraća ID rezultata takmičenja
+	 * @return ID  rezultata takmičenja
+     */
     public Long getId() {
         return id;
     }
-
+    /**
+     * Postavlja ID rezultata takmicenja
+     * @param ID rezultata takmicenja
+     */
     public void setId(Long id) {
         this.id = id;
     }
-
+    /**
+     * Vraca takmicenje na kome je ostvaren rezultat
+     * @return  takmicenje na kome je ostvaren rezultat
+     */
     public Competition getCompetition() {
         return competition;
     }
-
+    /**
+     * Postavlja takmicenje na kome je ostvaren rezultat
+     * @param competition
+     */
     public void setCompetition(Competition competition) {
         this.competition = competition;
     }
-
+    /**
+     * Vraca clana koji je ostvario rezultat
+     * @return clan koji je ostvario rezultat
+     */
     public Member getMember() {
         return member;
     }
-
+    /**
+     * Postavlja clana koji je ostvario rezultat
+     * @param member
+     */
     public void setMember(Member member) {
         this.member = member;
     }
-
+    /**
+     * Vraca medalju koja je osvojena na takmicenju
+     * @return medalja ostvarena na takmicenju
+     */
     public Medal getMedals() {
         return medals;
     }
-
+    /**
+     * Postavlja medalju osvojenu na takmicenju
+     * @param medals
+     */
     public void setMedals(Medal medals) {
         this.medals = medals;
     }
-
+    /**
+     * Vraca tim koji je osvojio medalju na takmicenju
+     * @return
+     */
     public Team getTeam() {
         return team;
     }
-
+    /**
+     * Postavlja tim koji je osvojio medalju na takmicenju
+     * @param team
+     */
     public void setTeam(Team team) {
         this.team = team;
     }
-
+    /**
+     * Vraca kategoriju u kojoj se clan kluba takmicio i osvojio medalju
+     * @return kategorija clana
+     */
     public Category getCategory() {
         return category;
     }
-
+    /**
+     * Postavlja kategoriju u kojoj se clan takmicio i osvojio medalju
+     * @param category
+     */
     public void setCategory(Category category) {
         this.category = category;
     }

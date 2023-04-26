@@ -7,6 +7,7 @@ package rs.fon.np.application.kkfunakoshi.domain;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 /**
  * Predstavlja grad iz kojeg je clan kluba. Klasa koja sadrzi informacije kao sto su id grada, ptt, kao i ime grada.
@@ -97,8 +98,25 @@ public class City extends AbstractDO implements Serializable {
         this.name = name;
     }
 
-
+    
     @Override
+	public int hashCode() {
+		return Objects.hash(id, ptt);
+	}
+    
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		City other = (City) obj;
+		return Objects.equals(id, other.id) && Objects.equals(ptt, other.ptt);
+	}
+
+	@Override
     public String toString() {
         return name;
     }

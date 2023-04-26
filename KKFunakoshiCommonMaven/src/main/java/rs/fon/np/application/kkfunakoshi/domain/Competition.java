@@ -11,21 +11,49 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- *
- * @author Jeks
+ * Predstavlja karate takmicenje. Sadrzi informacije kao sto su id takmicenja, naziv istog, kao i grad, datum i mesto odrzavanja takmicenja.
+ * Implementira interfejs Serializable, sto dopusta da instance klase budu serijalizovane i deserijalizovane.
+ * Nasledjuje abstraktnu klasu AbstractDO.
+ * @author Jelena Repac
  */
 public class Competition extends AbstractDO implements Serializable {
     
+	/**
+	 * Id takmicenja.
+	 */
     private Long id;
+    /**
+     * Naziv takmicenja.
+     */
     private String name;
+    /**
+     * Datum odrzavanja takmicenja.
+     */
     private Date date;
+    /**
+     * Hala u kojoj se odrzava takmicenje.
+     */
     private String competitionHall;
+    /**
+     * Grad u kojem se odrzava takmicenje.
+     */
     private City city;
     
     SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
+    /**
+     * Bezparametarski konstruktor
+     */
     public Competition() {
     }
 
+    /**
+     * Konstruktor koji kao parametar prima sva polja klase.
+     * @param id id takmicenja
+     * @param name naziv takmicenja
+     * @param date datum odrzavanja
+     * @param competitionHall hala u kojoj se odrzava
+     * @param city grad u kojem se odrzava 
+     */
     public Competition(Long id, String name, Date date, String competitionHall, City city) {
         this.id = id;
         this.name = name;
@@ -34,43 +62,76 @@ public class Competition extends AbstractDO implements Serializable {
         this.city = city;
     }
 
-   
+   /**
+    * Vraca vrednost id-a.
+    * @return id id takmicenja
+    */
     public Long getId() {
         return id;
     }
-
+    
+    /**
+     * Postavlja vrednost id-a.
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Vraca naziv takmicenja.
+     * @return naziv takmicenja
+     */
     public String getName() {
         return name;
     }
-
+    /**
+     * Postavlja naziv takmicenja.
+     * @param name naziv takmicenja
+     */
     public void setName(String name) {
         this.name = name;
     }
-
+    /**
+     * Vraca datum odrzavanja.
+     * @return datum odrzavanja takmicenja
+     */
     public Date getDate() {
         return date;
     }
-
+    
+    /**
+     * Postavlja datum odrzavanja takmicenja
+     * @param date datum odrzavanja
+     */
     public void setDate(Date date) {
         this.date = date;
     }
-
+    
+    /**
+     * Vraca grad u kojem se odrzava takmicenje
+     * @return grad u kojem se odrzava takmicenje
+     */
     public City getCity() {
         return city;
     }
-
+    /**
+     * Postavlja grad u kojem se odrzava takmmicenje
+     * @param city grad u kojem se odrzava takmicenje
+     */
     public void setCity(City city) {
         this.city = city;
     }
-
+    /**
+     * Vraca halu u kojoj se odrzava takmicenje
+     * @return naziv hale u kojoj se takmicenje odrzava
+     */
     public String getCompetitionHall() {
         return competitionHall;
     }
-
+    /**
+     * Postavlja halu u kojoj se odrzava takmicenje
+     * @param competitionHall hala odrzavanja
+     */
     public void setCompetitionHall(String competitionHall) {
         this.competitionHall = competitionHall;
     }
@@ -100,7 +161,6 @@ public class Competition extends AbstractDO implements Serializable {
         return "id="+getId();
     }
 
-    
 
     @Override
     public int getNumberOfBountObject() {

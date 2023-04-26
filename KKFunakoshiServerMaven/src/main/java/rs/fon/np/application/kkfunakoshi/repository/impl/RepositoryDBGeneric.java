@@ -263,6 +263,7 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
                     statement.executeUpdate(queryBound);
                  }
             }
+            
     }
 
     @Override
