@@ -16,87 +16,53 @@ import java.sql.SQLException;
  */
 public class City extends AbstractDO implements Serializable {
    
-	/**
-	 * Id grada.
-	 */
     private Long id;
-    /**
-     * Ptt, postanski broj grada.
-     */
     private Long ptt;
-    /**
-     * Ime grada.
-     */
     private String name;
 
-    /**
-     * Konstruktor koji kao parametar prima sva polja klase.
-     * @param id id grada 
-     * @param ptt Postanski broj grada
-     * @param name Ime grada kao String
-     */
     public City(Long id, Long ptt, String name) {
         this.id = id;
         this.ptt = ptt;
         this.name = name;
     }
 
-    /**
-     * Bezparametarski konstruktor.
-     */
     public City() {
        
     }
-    
-    /**
-     * Vraca ID grada.
-     * @return id grada
-     */
+
+    public City(Long adress, String cName) {
+        
+    }
+
+   
+
     public Long getId() {
         return id;
     }
-    /**
-     * Postavlja ID grada, na onu vrednost koju prosledimo kao parametar
-     * @param id grada 
-     * @throws Exception 
-     */
-    public void setId(Long id) throws Exception {
-    	if(id < 0)
-             throw new Exception("ID must be 0 or larger number");
-    	this.id = id;
+
+    public void setId(Long id) {
+        this.id = id;
     }
-    /**
-     * Vraca postanski broj grada.
-     * @return postanski broj grada
-     */
+    
+
+   
     public Long getPtt() {
         return ptt;
     }
-    /**
-     * Postavlja vrednost postanskog broja grada.
-     * @param ptt nova vrednost postanskog broja grada
-     */
+
     public void setPtt(Long ptt) {
         this.ptt = ptt;
     }
-    /**
-     * Vraca ime grada.
-     * @return ime grada
-     */
+
     public String getName() {
         return name;
     }
-    /**
-     * Postavlja vrednost imena grada na onu vrednost koju prosledimo kao parametar.
-     * @param name ime grada 
-     * @throws Exception ukoliko je prosledjeno ime krace od 2 karaktera.
-     */
-    public void setName(String name) throws Exception {
-    	if(name.length() < 2)
-            throw new Exception("City name must have at least 2 characters");     
+
+    public void setName(String name) {
         this.name = name;
     }
 
+   
 
     @Override
     public String toString() {

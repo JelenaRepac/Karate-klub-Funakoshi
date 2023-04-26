@@ -53,9 +53,8 @@ public abstract class AbstractDO {
     /**
      * Postavlja vrednost atributa id.
      * @param id nova vrednost atributa id
-     * @throws Exception 
      */
-    public abstract void setId(Long id) throws Exception;
+    public abstract void setId(Long id);
     /**
      * Vraca vrednost atributa id.
      * @return vrednost atributa id
