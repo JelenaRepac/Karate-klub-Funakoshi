@@ -7,7 +7,7 @@ package rs.fon.np.application.kkfunakoshi.communication;
 /**
  * Klasa koja predstavlja listu operacija.
  * Svaka operacija je predstavljena tipom integer.
- * Konstante se koriste kako bi se olakšala komunikacija između različitih delova programa koji se bave različitim funkcijama.
+ * Konstante se koriste kako bi se olaksala komunikacija izmedju razlicitih delova programa koji se bave razlicitim funkcijama.
  * @author Jelena Repac
  */
 public class Operations {

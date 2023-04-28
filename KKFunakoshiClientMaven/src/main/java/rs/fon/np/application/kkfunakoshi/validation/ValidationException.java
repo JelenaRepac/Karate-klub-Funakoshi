@@ -5,12 +5,15 @@
 package rs.fon.np.application.kkfunakoshi.validation;
 
 /**
- *
- * @author Jeks
+ * Klasa namenjena za upravljanje greskama, baca se greska ukoliko validacija nije uspesna.
+ * @author Jelena Repac
  */
 public class ValidationException extends Exception{
     
-    
+    /**
+     * Kreira ValidationException sa specificnom porukom
+     * @param message prosledjena poruka
+     */
     public ValidationException(String message) {
         super(message);
     }

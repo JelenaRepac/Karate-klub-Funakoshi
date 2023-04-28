@@ -24,16 +24,24 @@ import rs.fon.np.application.kkfunakoshi.domain.Trainer;
 import rs.fon.np.application.kkfunakoshi.view.form.component.table.MemberTableModel;
 
 /**
- *
- * @author Jeks
+ * Predstavlja glavnu formu aplikacije, koja omogucava korisnicima kretanje kroz aplikaciju uz pomoc navigacionog menija.
+ * @author Jelena Repac
  */
 public class FrmMain extends javax.swing.JFrame {
 
+	/**
+	 * Trenutno prijavljeni korisnik na sistem.
+	 */
     private Trainer currentUser;
     /**
-     * Creates new form FrmMain
+     * Soket koriscen za komunikaciju sa serverom
      */
     private Socket socket;
+    /**
+     * Konstruktor, kreiranje nove forme FrmMain
+     * @param currentUser trenutno prijavljeni korisnik
+     * @param socket soket koriscen za komunikaciju sa serverom
+     */
     public FrmMain(final Trainer currentUser,Socket socket) {
         
         initComponents();
@@ -273,6 +281,11 @@ public class FrmMain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne na stavku iz menija pod nazivom AddMember.
+     * Kreira novu formu FrmMember.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void jMenuItemAddMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddMemberActionPerformed
         try {
             new FrmMember(this, true).setVisible(true);
@@ -281,11 +294,20 @@ public class FrmMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemAddMemberActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne na stavku iz menija pod nazivom ViewAllMembers.
+     * Kreira novu formu FrmViewMembers.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void jMenuItemViewAllMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemViewAllMembersActionPerformed
         new FrmViewMembers(this, true).setVisible(true);
        
     }//GEN-LAST:event_jMenuItemViewAllMembersActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne na stavku iz menija pod nazivom AddCompetition.
+     * Kreira novu formu FrmCompetition.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void jMenuItemAddCompetitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddCompetitionActionPerformed
         try {
             new FrmCompetition(this, true).setVisible(true);
@@ -293,11 +315,20 @@ public class FrmMain extends javax.swing.JFrame {
             Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItemAddCompetitionActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne na stavku iz menija pod nazivom ViewAllCompetition.
+     * Kreira novu formu FrmViewCompetitions.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void jMenuItemViewAllCompetitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemViewAllCompetitionActionPerformed
        new FrmViewCompetitions(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItemViewAllCompetitionActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne na dugme LogOut.
+     * Odjavljuje korsnika sa sistema.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
          int answer=JOptionPane.showConfirmDialog(this, "Do you realy want to logout?");
             if(answer==0){
@@ -319,18 +350,38 @@ public class FrmMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne na stavku iz menija pod nazivom AddTeam.
+     * Kreira novu formu FrmTeam.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void jMenuItemAddTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddTeamActionPerformed
         new FrmTeam(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItemAddTeamActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne na stavku iz menija pod nazivom AddResult.
+     * Kreira novu formu FrmCompetitionResult.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void jMenuItemAddResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddResultActionPerformed
         new FrmCompetitionResult(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItemAddResultActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne na stavku iz menija pod nazivom ViewResults.
+     * Kreira novu formu FrmViewResults.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void jMenuItemViewResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemViewResultsActionPerformed
         new FrmViewResults(null).setVisible(true);
     }//GEN-LAST:event_jMenuItemViewResultsActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne na stavku iz menija pod nazivom Statistics.
+     * Kreira novu formu FrmStatistics.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void jMenuItemShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemShowActionPerformed
         new FrmStatistics(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItemShowActionPerformed
@@ -364,7 +415,5 @@ public class FrmMain extends javax.swing.JFrame {
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 
-    public void jmiProductShowAllActionListener(ActionListener actionListener) {
-        jMenuItemViewAllMembers.addActionListener(actionListener);
-    }
+   
 }

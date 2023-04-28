@@ -5,8 +5,9 @@
 package rs.fon.np.application.kkfunakoshi.client.thread;
 
 /**
- *
- * @author Jeks
+ * Interfejs za osluskivanje dogadjaja za zaustavljanje servera.
+ * 
+ * @author Jelena Repac
  */
 public interface ServerStoppedListener {
     

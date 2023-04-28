@@ -19,13 +19,17 @@ import rs.fon.np.application.kkfunakoshi.validation.ValidationException;
 import rs.fon.np.application.kkfunakoshi.validation.Validator;
 
 /**
- *
- * @author Jeks
+ * Forma koja sadrzi sva takmicenja.
+ * @author Jelena Repac
  */
 public class FrmCompetition extends javax.swing.JDialog {
 
     /**
-     * Creates new form FrmCompetition
+     * Konstruktor
+     * 
+     * @param parent forma iz koje je pozvana 
+     * @param modal odredjuje da li dijalog treba da bude modalan ili ne 
+     * @throws Exception Ukoliko dodje do greske
      */
     public FrmCompetition(java.awt.Frame parent, boolean modal) throws Exception {
         super(parent, modal);
@@ -164,6 +168,13 @@ public class FrmCompetition extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Save.
+     * Validira korisnicki unos, kreira novi objekat Competition sa podacima unetim u polja,
+     * i prosleđuje ga instanci ControllerUI koja ga dodaje u sistem.
+     * Prikazuje poruku o uspehu i pita korisnika da li zeli da doda jos takmicenja ili da zatvori prozor.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         try {
             validateInput();
@@ -204,6 +215,11 @@ public class FrmCompetition extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada se unosi naziv takmicenja.
+     * Ukoliko je duzina naziva manja od 2 karaktera, postavlja se poruka o gresci u labelu.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
          if(txtName.getText().length()<2){
             lblNameError.setText("The competition name must contain at least 2 letters");
@@ -211,7 +227,11 @@ public class FrmCompetition extends javax.swing.JDialog {
             lblNameError.setText(null);
         }
     }//GEN-LAST:event_txtNameKeyTyped
-
+    /**
+     * Obradjuje dogadjaj kada se unosi datum takmicenja.
+     * Ukoliko datum nije odgovarajuceg formata, postavlja se poruka u gresci u labelu.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void txtDateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDateKeyTyped
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -240,6 +260,12 @@ public class FrmCompetition extends javax.swing.JDialog {
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Priprema prikaz forme.
+     * Ucitava gradove iz sistema, postavlja sliku i brise prethodne poruke o greskama.
+     * 
+     * @throws Exception Ukoliko se desi greska pri ucitavanju gradova iz sistema.
+     */
     private void prepareView() throws Exception {
         loadCities();
         lblNameError.setText(null);
@@ -248,19 +274,32 @@ public class FrmCompetition extends javax.swing.JDialog {
         lblPhoto.setIcon(img);
     }
 
+    /**
+     * Ucitava gradove iz baze i postavlja ih u formu, JComboBox.
+     * 
+     * @throws Exception Ukoliko dodje do greske prilikom citanja gradova iz baze
+     */
     private void loadCities() throws Exception {
        List<City> cities= ControllerUI.getInstance().getCities();
        cbCity.setModel(new DefaultComboBoxModel(cities.toArray()));
        cbCity.setSelectedItem(null);
     }
 
+    /**
+     * Resetuje polja na formi na pocetne vrednosti.
+     */
     private void resetField() {
         txtDate.setText(null);
         txtName.setText(null);
         txtCompetitionHall.setText(null);
         cbCity.setSelectedItem(null);
     }
-
+    /**
+     * Vrsi validaciju korisnickog unosa za naziv takmicenja, datum i salu za takmicenje.
+     * Koristi Validator klasu za proveru i generisanje odgovarajuce poruke o gresci.
+     * 
+     * @throws ValidationException Ukoliko postoji neka greška u unosu
+     */
     private void validateInput() throws ValidationException {
         Validator.startValidation().validateNotNullOrEmpty(txtName.getText(), "You must insert a competition name!").
                 validateNotNullOrEmpty(txtDate.getText(), "You must insert a date!").

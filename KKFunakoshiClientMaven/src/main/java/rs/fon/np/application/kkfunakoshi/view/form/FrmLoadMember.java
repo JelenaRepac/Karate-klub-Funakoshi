@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,20 +31,34 @@ import rs.fon.np.application.kkfunakoshi.view.form.component.table.MemberTableMo
 import rs.fon.np.application.kkfunakoshi.view.form.component.table.MembershipFeeTableModel;
 
 /**
- *
- * @author Jeks
+ * Forma koja prikazuje podatke o konkretnom clanu karate kluba.
+ * @author Jelena Repac
  */
 public class FrmLoadMember extends javax.swing.JDialog {
 
-    /**
-     * Creates new form FrmLoadMember
-     */
-    
+   /**
+    * Clan koji se prikazuje na formi.
+    */
     private Member member;
+    /**
+     * Tabela za prikaz clanarina clanova.
+     */
     private JTable table;
+    /**
+     * Lista novo dodatih clanarina.
+     */
     private List<MembershipFee> newFees;
+    /**
+     * Formator datuma
+     */
     SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
-    
+
+    /**
+     * Konstruktor, kreira novi prozor FrmLoadMember
+     * @param parent forma iz koje je pozvana 
+     * @param modal odredjuje da li dijalog treba da bude modalan ili ne 
+     * @param m clan koji se prikazuje na formi
+     */
     public FrmLoadMember(java.awt.Frame parent, boolean modal, Member m) {
         super(parent, modal);
         initComponents();
@@ -66,7 +81,10 @@ public class FrmLoadMember extends javax.swing.JDialog {
     }
 
     
-
+    /**
+     * Postavlja tabelu
+     * @param t tabela
+     */
     public void setTableMember(JTable t) {
         table=t;
     }
@@ -601,6 +619,11 @@ public class FrmLoadMember extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMemberIdActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Delete.
+     * Brise clana iz sistema. Nakon pokusaja brisanja prikazuje prozor sa porukom o uspesnom ili neuspesnom brisanju.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         try {
             int answer=JOptionPane.showConfirmDialog(this, "Do you realy want to delete member?");
@@ -621,7 +644,13 @@ public class FrmLoadMember extends javax.swing.JDialog {
        
 
     }//GEN-LAST:event_btnDeleteActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme AddMembershipFee.
+     * Dodaje clanarinu, ukoliko clan vec nije izvrsio placanje clanarine za konkretan mesec.
+     * Vrsi validaciju da li su odgovarajuci uneti datum i iznos. Ukoliko nisu, prikazuje se prozor sa porukom o gresci.
+     * 
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnAddMembershipFeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMembershipFeeActionPerformed
         try {
                 validateMembershipFee();
@@ -664,6 +693,11 @@ public class FrmLoadMember extends javax.swing.JDialog {
          }
     }//GEN-LAST:event_btnAddMembershipFeeActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Change.
+     * Omogucava promenu licnih informacija clana.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         btnUpdate.setVisible(true);
         jPanelMF.setVisible(true);
@@ -671,7 +705,11 @@ public class FrmLoadMember extends javax.swing.JDialog {
         txtAmount.setText("3000.00");
         enableFields();
     }//GEN-LAST:event_btnChangeActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Update.
+     * Omogucava promenu licnih informacija clana, cuvanjem nastalih izmena u bazi.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         try {
             validateInput();
@@ -721,7 +759,11 @@ public class FrmLoadMember extends javax.swing.JDialog {
             
             
     }//GEN-LAST:event_btnUpdateActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se unosi ime clana.
+     * Ukoliko je duzina imena manja od 2 karaktera, postavlja se poruka o gresci u labelu.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void txtMemberNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMemberNameKeyTyped
         if(txtMemberName.getText().length()<2){
             lblNameError.setText("The member name must contain at least 2 letters");
@@ -730,7 +772,11 @@ public class FrmLoadMember extends javax.swing.JDialog {
         lblNameError.setText(null);
         }
     }//GEN-LAST:event_txtMemberNameKeyTyped
-
+    /**
+     * Obradjuje dogadjaj kada se unosi prezime clana.
+     * Ukoliko je duzina prezimena manja od 2 karaktera, postavlja se poruka o gresci u labelu.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void txtMemberLastnameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMemberLastnameKeyTyped
         if(txtMemberLastname.getText().length()<2){
             lblLastnameError.setText("The member lastname must contain at least 2 letters");
@@ -739,7 +785,11 @@ public class FrmLoadMember extends javax.swing.JDialog {
         lblLastnameError.setText(null);
         }
     }//GEN-LAST:event_txtMemberLastnameKeyTyped
-
+    /**
+     * Obradjuje dogadjaj kada se unosi datum rodjenja clana.
+     * Ukoliko datum nije odgovarajuceg formata, postavlja se poruka o gresci u labelu.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void txtDateOfbirthKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDateOfbirthKeyTyped
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -749,7 +799,11 @@ public class FrmLoadMember extends javax.swing.JDialog {
             lblDateError.setText("Date must be in format yyyy-MM-dd!");
         }
     }//GEN-LAST:event_txtDateOfbirthKeyTyped
-
+    /**
+     * Obradjuje dogadjaj kada se unosi ime majke clana.
+     * Ukoliko je duzina imena majke manja od 2 karaktera, postavlja se poruka o gresci u labelu.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void txtMothersnameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMothersnameKeyTyped
          if(txtMothersname.getText().length()<2){
             lblMothersNameError.setText("The mothers name must contain at least 2 letters");
@@ -758,7 +812,11 @@ public class FrmLoadMember extends javax.swing.JDialog {
         lblMothersNameError.setText(null);
         }
     }//GEN-LAST:event_txtMothersnameKeyTyped
-
+    /**
+     * Obradjuje dogadjaj kada se unosi ime oca clana.
+     * Ukoliko je duzina imena oca manja od 2 karaktera, postavlja se poruka o gresci u labelu.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void txtFathersNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFathersNameKeyTyped
         if(txtFathersName.getText().length()<2){
             lblFathersNameError.setText("The fathers name must contain at least 2 letters");
@@ -766,7 +824,11 @@ public class FrmLoadMember extends javax.swing.JDialog {
         lblFathersNameError.setText(null);
         }
     }//GEN-LAST:event_txtFathersNameKeyTyped
-
+    /**
+     * Obradjuje dogadjaj kada se unosi datum uclanjenja clana u karate klub.
+     * Ukoliko datum nije odgovarajuceg formata, postavlja se poruka o gresci u labelu.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void txtDateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDateKeyTyped
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -776,7 +838,11 @@ public class FrmLoadMember extends javax.swing.JDialog {
             lblDateMembershipError.setText("Date must be in format yyyy-MM-dd!");
         }
     }//GEN-LAST:event_txtDateKeyTyped
-
+    /**
+     * Obradjuje dogadjaj kada se iznos clanarine.
+     * Ukoliko je uneti iznos jednak nuli ili negativan broj, postavlja se poruka o gresci u labelu.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void txtAmountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAmountKeyTyped
         if(txtAmount.getText().contains("-")){
             lblAmountError.setText("Amount of membership fee can't be zero or less than zero!");
@@ -787,13 +853,16 @@ public class FrmLoadMember extends javax.swing.JDialog {
     }//GEN-LAST:event_txtAmountKeyTyped
 
    
-
+    /**
+     * Priprema prikaza forme.
+     * @throws Exception Ukoliko se desi greska pri ucitavanju gradova iz sistema.
+     */
     private void prepareView() throws Exception {
        load();
        setValues();
        disableFields();
-        ImageIcon img = new ImageIcon("logoIcon.png");
-        lblPhoto.setIcon(img);
+	    ImageIcon img = new ImageIcon("logoIcon.png");
+	    lblPhoto.setIcon(img);
        loadCities();
       
     }
@@ -859,6 +928,9 @@ public class FrmLoadMember extends javax.swing.JDialog {
     private javax.swing.JTextField txtTotalDebt;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Onemogucava editovanje polja.
+     */
     private void disableFields() {
        txtMemberName.setEditable(false);
        txtMothersname.setEditable(false);
@@ -876,7 +948,9 @@ public class FrmLoadMember extends javax.swing.JDialog {
        tblMembershipFee.setEnabled(false);
        
     }
-
+	/**
+	 * Postavlja vrednosti atributa prosledjenog clana.
+	 */
     private void setValues() {
         
         txtMemberName.setText(member.getName());
@@ -913,19 +987,27 @@ public class FrmLoadMember extends javax.swing.JDialog {
         totalDebt();
         
    }
-
+    /**
+     * Ucitava gradove iz baze i postavlja ih u formu, JComboBox.
+     * 
+     * @throws Exception Ukoliko dodje do greske prilikom citanja gradova iz baze
+     */
     private void loadCities() throws Exception {
        List<City> cities= ControllerUI.getInstance().getCities();
        cbCity.setModel(new DefaultComboBoxModel(cities.toArray()));
     }
-
+    /**
+     * Setuje model za tabelu za prikaz svih clanarina koji sadrzi listu svih clanarina clana iz baze.
+     */
     private void formatTable() {
         List<MembershipFee> membershipFees=member.getMembershipFee();
         MembershipFeeTableModel model= new MembershipFeeTableModel(membershipFees);
         tblMembershipFee.setModel(model);
     }
 
-
+    /**
+     * Omogucava editovanje polja.
+     */
     private void enableFields() {
        txtMemberName.setEditable(true);
        txtMothersname.setEditable(true);
@@ -945,90 +1027,70 @@ public class FrmLoadMember extends javax.swing.JDialog {
       
     }
 
+    /**
+     * Metoda za izracunavanje ukupnog duga clana.
+     */
     private void totalDebt() {
-        int months=0;
-        Date dateOfMembership= member.getDateOfMembership();
-        //MESEC UCLANJENJA
-        String[] dateMember= dateOfMembership.toString().split("-");
-        int monthMembership= Integer.parseInt(dateMember[1]);
-        int yearMembership= Integer.parseInt(dateMember[0]);
-        
-        //trenutni mesec
-        Date current= new Date();
-        Date currentDate= new java.sql.Date(current.getTime());
-        String[] dateCurrent= currentDate.toString().split("-");
-        int currentMonth= Integer.parseInt(dateCurrent[1]);
-        int currentYear= Integer.parseInt(dateCurrent[0]);
-        
-        MembershipFeeTableModel model= (MembershipFeeTableModel) tblMembershipFee.getModel();
-        List<MembershipFee> mfees=model.getMembershipFees();
-        
-        
-        if(yearMembership==currentYear){
-            String meseci="";
-            if(monthMembership<=currentMonth){
-                //uzimamo sve one mesece za koje je clanarina placena
-              for(MembershipFee mf:mfees){
-                    Date membership=mf.getDate();
-                    Date dateMembership=new java.sql.Date(membership.getTime());
-                    String[] membershipFee= dateMembership.toString().split("-");
-                    int m= Integer.parseInt(membershipFee[1]);
-                    meseci=meseci+m+"-";
-              }
-            }
+    	 int months = 0;
+    	    Date dateOfMembership = member.getDateOfMembership();
+    	    //MESEC UCLANJENJA
+    	    String[] dateMember = dateOfMembership.toString().split("-");
+    	    int monthMembership = Integer.parseInt(dateMember[1]);
+    	    int yearMembership = Integer.parseInt(dateMember[0]);
 
-            for(int i=currentMonth;i>=monthMembership;i--){
-                  if(!meseci.contains(String.valueOf(i))){
-                      months++;
-                  }
-            }
-        }
-        //u slucaju da godina uclanjenja nije ista kao trenutna godina
-        else{
-            String meseci="";
-           
-              for(MembershipFee mf:member.getMembershipFee()){
-                    Date membership=mf.getDate();
-                    Date dateMembership=new java.sql.Date(membership.getTime());
-                    String[] membershipFee= dateMembership.toString().split("-");
-                    
-                    int m= Integer.parseInt(membershipFee[1]);
-                    meseci=meseci+m+"-";
-              }
-            
-            for(int i=12;i>=monthMembership;i--){
-                  if(!meseci.contains(String.valueOf(i))){
-                      months++;
-                    }
-            }
-            for(int i=1; i<=currentMonth;i++){
-                if(!meseci.contains("-"+String.valueOf(i)+"-")){
-                    months++;
-                }
-                 
-            }
-            System.out.println(months);
-            if(meseci.equals("")){
-                if(currentMonth==monthMembership){
-                    months=13;
-                }
-                else{
-                    months=12-monthMembership+currentMonth;
-                }
-            }
-        }
-        if(months<0){
-            txtTotalDebt.setText((-months)*3000+"");
-        }
-        else{
-             txtTotalDebt.setText(months*3000+"");
-        }
-        if(months==0){
-            txtTotalDebt.setForeground(Color.BLACK);
-            txtTotalDebt.setText("0");
-        }
-      }
+    	    //trenutni mesec
+    	    Calendar cal = Calendar.getInstance();
+    	    int currentMonth = cal.get(Calendar.MONTH) + 1;
+    	    int currentYear = cal.get(Calendar.YEAR);
 
+    	    MembershipFeeTableModel model = (MembershipFeeTableModel) tblMembershipFee.getModel();
+    	    List<MembershipFee> mfees = model.getMembershipFees();
+
+    	    if (yearMembership == currentYear) {
+    	        for (MembershipFee mf : mfees) {
+    	            Date membership = mf.getDate();
+    	            Calendar calMf = Calendar.getInstance();
+    	            calMf.setTime(membership);
+    	            int monthMf = calMf.get(Calendar.MONTH) + 1;
+    	            if (monthMf <= currentMonth) {
+    	                months++;
+    	            }
+    	        }
+    	        months = currentMonth - monthMembership - months + 1;
+    	    } else {
+    	        months = 12 - monthMembership + currentMonth;
+    	        for (MembershipFee mf : member.getMembershipFee()) {
+    	            Date membership = mf.getDate();
+    	            Calendar calMf = Calendar.getInstance();
+    	            calMf.setTime(membership);
+    	            int yearMf = calMf.get(Calendar.YEAR);
+    	            int monthMf = calMf.get(Calendar.MONTH) + 1;
+    	            if (yearMf == currentYear) {
+    	                if (monthMf <= currentMonth) {
+    	                    months--;
+    	                }
+    	            } else if (yearMf > yearMembership && yearMf < currentYear) {
+    	                months -= 12;
+    	            }
+    	        }
+    	    }
+    	    if (months < 0) {
+    	        txtTotalDebt.setText((-months) * 3000 + "");
+    	    } else {
+    	        txtTotalDebt.setText(months * 3000 + "");
+    	    }
+    	    if (months == 0) {
+    	        txtTotalDebt.setForeground(Color.BLACK);
+    	        txtTotalDebt.setText("0");
+    	    }
+    	}
+
+    /**
+     * Proverava da li calanarina vec postoji u tabeli clanarina.
+     * @param membershipFee clanarina koja se proverava
+     * @param model model odgovarajuce tabele
+     * @return true ukoliko se clanarina vec nalazi u tabeli
+     */
     private boolean exists(MembershipFee membershipFee, MembershipFeeTableModel model) {
         String[] date= format.format(membershipFee.getDate()).split("-");
         int monthOfPaying= Integer.parseInt(date[1]);
@@ -1043,7 +1105,9 @@ public class FrmLoadMember extends javax.swing.JDialog {
         return false;
     }
 
-  
+    /**
+     * Postavlja pocetne vrednosti polja forme.
+     */
     private void load() {
         cbBelt.setModel(new DefaultComboBoxModel(Belt.values()));
         cbBelt.setSelectedItem(null);
@@ -1060,13 +1124,23 @@ public class FrmLoadMember extends javax.swing.JDialog {
         cbDiscipline.setEnabled(false);
         cbGender.setEnabled(false);
     }
-
+    /**
+     * Vrsi validaciju korisnickog unosa za informacije koje su vezane za clanarinu.
+     * Koristi Validator klasu za proveru i generisanje odgovarajuće poruke o gresci.
+     * 
+     * @throws ValidationException Ukoliko postoji neka greška u unosu
+     */
     private void validateMembershipFee() throws ValidationException {
       Validator.startValidation().validateNotNullOrEmpty(txtAmount.getText(), "Amount can't be null!").
                 validateValueIsDate(txtDate.getText() ,"yyyy-MM-dd", "Date must be in the format yyyy-MM-dd").
               validateNumberNotNegative(txtAmount.getText(), "Amount can't be zero or lest then zero!").throwIfInvalide();
     }
-
+    /**
+     * Vrsi validaciju korisnickog unosa za informacije koje su vezane za licne informacije clana.
+     * Koristi Validator klasu za proveru i generisanje odgovarajuce poruke o gresci.
+     * 
+     * @throws ValidationException Ukoliko postoji neka greška u unosu
+     */
     private void validateInput() throws ValidationException {
         
         Validator.startValidation().validateNotNullOrEmpty(txtMemberName.getText(), "You didn't insert member's name!").

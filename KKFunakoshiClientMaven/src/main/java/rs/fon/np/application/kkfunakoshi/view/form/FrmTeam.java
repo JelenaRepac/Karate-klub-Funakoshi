@@ -26,13 +26,15 @@ import rs.fon.np.application.kkfunakoshi.view.form.component.table.MemberTableMo
 import rs.fon.np.application.kkfunakoshi.view.form.component.table.TeamTableModel;
 
 /**
- *
- * @author Jeks
+ *	Predstavlja formu za kreiranje tima.
+ * @author Jelena Repac
  */
 public class FrmTeam extends javax.swing.JDialog {
 
-    /**
-     * Creates new form FrmTeam
+	/**
+     * Konstruktor
+     * @param parent forma iz koje je pozvana 
+     * @param modal odredjuje da li dijalog treba da bude modalan ili ne 
      */
     public FrmTeam(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -295,6 +297,11 @@ public class FrmTeam extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Add.
+     * Dodaje izabranog clana u tabelu za formiranje tima.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
             if(btnSearch.isEnabled()==false){
                 int selectedRow= tblMembers.getSelectedRow();
@@ -320,7 +327,11 @@ public class FrmTeam extends javax.swing.JDialog {
             
             
     }//GEN-LAST:event_btnAddActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Search.
+     * Pretrazuje clanove na osnovu izabranih parametara, pola, discipline i kategorije.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         try {
             Gender gender= (Gender) cbGender.getSelectedItem();
@@ -342,7 +353,11 @@ public class FrmTeam extends javax.swing.JDialog {
            JOptionPane.showMessageDialog(this, "You must select gender, category and discipline!!");
         }
     }//GEN-LAST:event_btnSearchActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Delete.
+     * Brise izabranog clana iz tabele za formiranje tima.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int selectedRow= tblTeam.getSelectedRow();
             if(selectedRow==-1){
@@ -354,7 +369,11 @@ public class FrmTeam extends javax.swing.JDialog {
         tblTeam.clearSelection();
         
     }//GEN-LAST:event_btnDeleteActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Save.
+     * Cuva dodate clanove, kao tim u bazi.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
        
         try {
@@ -379,7 +398,11 @@ public class FrmTeam extends javax.swing.JDialog {
         }
         
     }//GEN-LAST:event_btnSaveActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme ResetSearch.
+     * Postavlja polja za unos i izbor podataka na pocetne vrednosti.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         cbCategory.setEnabled(true);
         cbDiscipline.setEnabled(true);
@@ -394,6 +417,11 @@ public class FrmTeam extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btnResetActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne na clana u tabeli za prikaz clanova.
+     * Ukoliko se prethodno ne unese naziv tima, prikazuje se prozor sa porukom o gresci.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void tblMembersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMembersMouseClicked
         if(txtNameTeam.getText().trim()==null){
             JOptionPane.showConfirmDialog(this, "You didn't inserted name of the team!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -427,7 +455,9 @@ public class FrmTeam extends javax.swing.JDialog {
     private javax.swing.JTextField txtNameTeam;
     private javax.swing.JTextField txtTeamId;
     // End of variables declaration//GEN-END:variables
-
+    /**
+     * Priprema prikaza forme.
+     */
     private void prepareView() {
         loadGender();
         loadDiscipline();
@@ -439,31 +469,51 @@ public class FrmTeam extends javax.swing.JDialog {
         lblPhoto.setIcon(img);
     }
 
+    /**
+     * Ucitava vrednosti za pol i setuje ih u ComboBox.
+     */
     private void loadGender() {
         cbGender.setModel(new DefaultComboBoxModel(Gender.values()));
         cbGender.setSelectedItem(null);
     }
-    
+    /**
+     * Ucitava vrednosti za discipline i setuje ih u ComboBox.
+     */
     private void loadDiscipline() {
         cbDiscipline.setModel(new DefaultComboBoxModel(Discipline.values()));
         cbDiscipline.setSelectedItem(null);
     }
-
+    /**
+     * Ucitava vrednosti za kategorije i setuje ih u ComboBox.
+     */
     private void loadCategory(){
         cbCategory.setModel(new DefaultComboBoxModel(Category.values()));
         cbCategory.setSelectedItem(null);
     }
-    
+    /**
+     * Formatira tabelu za prikaz clanova. 
+     * @param members lista clanova
+     */
     private void formatTableMember(List<Member> members) {
         MemberTableModelSimpler model= new MemberTableModelSimpler(members);
         tblMembers.setModel(model);
     }
-
+    /**
+     * Formatira tabelu za prikaz timova. 
+     * @param members lista timova
+     */
     private void formatTableTeam(List<Member> members) {
         MemberTableModelSimpler model= new MemberTableModelSimpler(members);
         tblTeam.setModel(model);
     }
-
+    /**
+     * Vrsi validaciju korisnickog unosa. 
+     * Tim mora sadrzati 3 clana. Ukoliko tim sadrzi manje ili vise od 3 clana baca se izuzetak.
+     * Koristi Validator klasu za proveru i generisanje odgovarajuce poruke o gresci.
+     * 
+     * @throws ValidationException Ukoliko postoji neka greška u unosu
+     * @throws Exception Ukoliko velicina tima nije odgovarajuca
+     */
     private void validateInput() throws ValidationException, Exception {
         MemberTableModelSimpler model= (MemberTableModelSimpler) tblTeam.getModel();
         Validator.startValidation().validateNotNullOrEmpty(txtNameTeam.getText(), "You must insert name for the team!").
@@ -476,6 +526,9 @@ public class FrmTeam extends javax.swing.JDialog {
         }
     }
 
+    /**
+     * Azurira formu. 
+     */
     private void refreshView() {
         txtNameTeam.setText(null);
         MemberTableModelSimpler modelMember= new MemberTableModelSimpler(new ArrayList<Member>());
@@ -495,11 +548,13 @@ public class FrmTeam extends javax.swing.JDialog {
         
     }
 
+    /**
+     * Onemogucava editovanje polja.
+     */
     private void disableFields() {
         cbGender.setEnabled(false);
         cbDiscipline.setEnabled(false);
         cbCategory.setEnabled(false);
-       
         btnSearch.setEnabled(false);
         
     }

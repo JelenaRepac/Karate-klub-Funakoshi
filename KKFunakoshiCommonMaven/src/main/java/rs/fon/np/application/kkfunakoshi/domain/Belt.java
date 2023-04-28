@@ -5,7 +5,7 @@
 package rs.fon.np.application.kkfunakoshi.domain;
 
 /**
- * Enum koji označava pojas, ucenicka i majstorska zvanja.
+ * Enum koji oznacava pojas, ucenicka i majstorska zvanja.
  * @author Jelena Repac
  */
 public enum Belt {

@@ -12,15 +12,21 @@ import rs.fon.np.application.kkfunakoshi.domain.Medal;
 import rs.fon.np.application.kkfunakoshi.domain.Result;
 
 /**
- *
- * @author Jeks
+ * Forma koja prikazuje podatke o konkretnom rezultatu tima karate kluba.
+ * @author Jelena Repac
  */
 public class FrmLoadResultTeam extends javax.swing.JDialog {
 
-    /**
-     * Creates new form FrmLoadResult
-     */
+	/**
+	* Rezultat koji se prikazuje na formi
+    */
     Result r=null;
+    /**
+     * Konstruktor, kreira novi prozor FrmLoadResult
+     * @param parent forma iz koje je pozvana 
+     * @param modal odredjuje da li dijalog treba da bude modalan ili ne 
+     * @param r rezultat koji se prikazuje na formi
+     */
     public FrmLoadResultTeam(java.awt.Frame parent, boolean modal,Result r) {
         super(parent, modal);
         this.r=r;
@@ -141,7 +147,12 @@ public class FrmLoadResultTeam extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme ResultTeam.
+     * Omogucava promenu informacija vezanih za ostvareni rezultat tima.
+     * Vrsi azuriranje rezultat u bazi.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnResultTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResultTeamActionPerformed
         try {
             Result newResult= new Result();
@@ -176,19 +187,25 @@ public class FrmLoadResultTeam extends javax.swing.JDialog {
     private javax.swing.JTextField txtCompetition;
     private javax.swing.JTextField txtTeam;
     // End of variables declaration//GEN-END:variables
-
+    /**
+     * Priprema prikaz forme.
+     */
     private void prepareView() {
         load();
         setValues();
        
     }
-
+    /**
+     * Postavlja pocetne vrednosti polja forme.
+     */
     private void load() {
         cbCategory.setModel(new DefaultComboBoxModel(Category.values()));
         cbMedals.setModel(new DefaultComboBoxModel(Medal.values()));
         
     }
-
+    /**
+     * Postavlja vrednosti atributa prosledjenog rezultata.
+     */
     private void setValues() {
        txtCompetition.setText(r.getCompetition().toString());
        txtTeam.setText(r.getTeam().toString());

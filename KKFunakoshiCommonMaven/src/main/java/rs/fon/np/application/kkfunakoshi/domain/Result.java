@@ -47,7 +47,15 @@ public class Result extends AbstractDO implements Serializable {
      */
     public Result() {
     }
-
+	/**
+	 * Konstruktor
+	 * @param id id rezultat
+	 * @param competition takmicenje
+	 * @param member clan
+	 * @param team tim
+	 * @param medals medalja
+	 * @param category kategorija
+	 */
     public Result(Long id, Competition competition, Member member, Team team, Medal medals, Category category) {
         this.id = id;
         this.competition = competition;
@@ -57,6 +65,15 @@ public class Result extends AbstractDO implements Serializable {
         this.category = category;
     }
 
+    /**
+    /**
+	 * Konstruktor
+	 * @param competition takmicenje
+	 * @param member clan
+	 * @param team tim
+	 * @param medals medalja
+	 * @param category kategorija
+	 */
     public Result(Competition competition, Member member, Team team, Medal medals, Category category) {
         
         this.competition = competition;
@@ -66,8 +83,8 @@ public class Result extends AbstractDO implements Serializable {
         this.category = category;
     }
     /**
-     * Vraća ID rezultata takmičenja
-	 * @return ID  rezultata takmičenja
+     * Vraca ID rezultata takmicenja
+	 * @return ID  rezultata takmicenja
      */
     public Long getId() {
         return id;
@@ -102,7 +119,7 @@ public class Result extends AbstractDO implements Serializable {
     }
     /**
      * Postavlja clana koji je ostvario rezultat
-     * @param member
+     * @param member clan koji je ostvario rezultat
      */
     public void setMember(Member member) {
         this.member = member;
@@ -116,21 +133,21 @@ public class Result extends AbstractDO implements Serializable {
     }
     /**
      * Postavlja medalju osvojenu na takmicenju
-     * @param medals
+     * @param medals osvojena medalja
      */
     public void setMedals(Medal medals) {
         this.medals = medals;
     }
     /**
      * Vraca tim koji je osvojio medalju na takmicenju
-     * @return
+     * @return tim
      */
     public Team getTeam() {
         return team;
     }
     /**
      * Postavlja tim koji je osvojio medalju na takmicenju
-     * @param team
+     * @param team tim
      */
     public void setTeam(Team team) {
         this.team = team;

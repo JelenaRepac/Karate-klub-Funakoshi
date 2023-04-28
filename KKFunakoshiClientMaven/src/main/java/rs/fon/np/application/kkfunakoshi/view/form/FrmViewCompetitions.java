@@ -21,13 +21,15 @@ import rs.fon.np.application.kkfunakoshi.validation.Validator;
 import rs.fon.np.application.kkfunakoshi.view.form.component.table.CompetitionTableModel;
 
 /**
- *
- * @author Jeks
+ * Forma za prikaz svih takmicenja.
+ * @author Jelena Repac
  */
 public class FrmViewCompetitions extends javax.swing.JDialog {
 
-    /**
-     * Creates new form FrmViewCompetitions
+	/**
+     * Konstruktor, kreira novi prozor FrmViewCompetitions
+     * @param parent forma iz koje je pozvana 
+     * @param modal odredjuje da li dijalog treba da bude modalan ili ne 
      */
     public FrmViewCompetitions(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -62,7 +64,7 @@ public class FrmViewCompetitions extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         cbCity = new javax.swing.JComboBox<>();
-        btnSearchCity = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
         btnShowCompetitions = new javax.swing.JButton();
         btnShowResults = new javax.swing.JButton();
         lblPhoto = new javax.swing.JLabel();
@@ -90,8 +92,8 @@ public class FrmViewCompetitions extends javax.swing.JDialog {
 
         cbCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnSearchCity.setText("Search");
-        btnSearchCity.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchCityActionPerformed(evt);
             }
@@ -146,7 +148,7 @@ public class FrmViewCompetitions extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(cbCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSearchCity, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(129, 129, 129)
                         .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23))
@@ -167,7 +169,7 @@ public class FrmViewCompetitions extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(cbCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSearchCity)))
+                            .addComponent(btnSearch)))
                     .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,6 +186,12 @@ public class FrmViewCompetitions extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obradjuje dogadjaj kada korisnik klikne na dugme Show all competitions.
+     * Prikazuje sva takmicenja iz baze.
+     * 
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnShowCompetitionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowCompetitionsActionPerformed
         try {
             formatTable();
@@ -193,6 +201,12 @@ public class FrmViewCompetitions extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btnShowCompetitionsActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada korisnik klikne na dugme Shearch.
+     * Pretrazuje takmicenje na osnovu unetog naziva i grada u kome je takmicenje odrzano.
+     * 
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnSearchCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCityActionPerformed
 
         try {
@@ -245,6 +259,14 @@ public class FrmViewCompetitions extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btnSearchCityActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada korisnik klikne na dugme Show results.
+     * Prikazuje sve rezultate za izabrano takmicenje.
+     * Ukoliko korisnik nije izabrao nijedno takmicenje i ukoliko za izabrano takmicenje nema postignutih rezultata prikazuje se prozor sa porukom o gresci.
+     * 
+     * 
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnShowResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowResultsActionPerformed
         try {
             int selectedRow= tblCompetition.getSelectedRow();
@@ -271,6 +293,14 @@ public class FrmViewCompetitions extends javax.swing.JDialog {
             
     }//GEN-LAST:event_btnShowResultsActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada korisnik klikne na dugme Details.
+     * Prikazuje izabrano takmicenje u novoj formi. 
+     * Ukoliko korisnik nije izabrao nijedno takmicenje prikazuje se prozor sa porukom o gresci.
+     * 
+     * 
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
        int selectedRow= tblCompetition.getSelectedRow();
        if(selectedRow<0){
@@ -294,7 +324,7 @@ public class FrmViewCompetitions extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDetails;
-    private javax.swing.JButton btnSearchCity;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnShowCompetitions;
     private javax.swing.JButton btnShowResults;
     private javax.swing.JComboBox<String> cbCity;
@@ -305,7 +335,12 @@ public class FrmViewCompetitions extends javax.swing.JDialog {
     private javax.swing.JTable tblCompetition;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
-
+    /**
+     * Priprema prikaz forme.
+     * Ucitava gradove iz sistema i postavlja sliku.
+     * 
+     * @throws Exception Ukoliko se desi greska pri ucitavanju gradova iz sistema.
+     */
     private void prepareView() throws Exception {
         CompetitionTableModel model= new CompetitionTableModel(new ArrayList<Competition>());
         tblCompetition.setModel(model);
@@ -315,13 +350,23 @@ public class FrmViewCompetitions extends javax.swing.JDialog {
         lblPhoto.setIcon(img);
        
     }
-
+    /**
+     * Ucitava gradove iz baze i postavlja ih u formu, JComboBox.
+     * 
+     * @throws Exception Ukoliko dodje do greske prilikom citanja gradova iz baze
+     */
     private void loadCities() throws Exception {
        List<City> cities=ControllerUI.getInstance().getCities();
        cbCity.setModel(new DefaultComboBoxModel(cities.toArray()));
        cbCity.setSelectedItem(null);
     }
 
+    /**
+     * Formatira tabelu takmicenja.
+     * Ukoliko lista takmicenja preuzeta iz baze ne sadrzi nijedno takmicenje sistem prikazuje prozor sa porukom o gresci.
+     * U suprotnom, prikazuje prozor sa porukom o uspesnom ucitavanju takmicenja i setuje model tabele sa listom takmicenja.
+     * @throws Exception koliko dodje do greske prilikom citanja takmicenja iz baze
+     */
     private void formatTable() throws Exception {
         List<Competition> competitions=loadCompetitions();
         if(competitions.size()!=0){
@@ -336,11 +381,23 @@ public class FrmViewCompetitions extends javax.swing.JDialog {
         
     }
 
+    /**
+     * Vraca listu svih takmicenja iz baze. 
+     * @return lista takmicenja
+     * @throws Exception Ukoliko dodje do greske prilikom citanja takmicenja iz baze.
+     */
     private List<Competition> loadCompetitions() throws Exception {
         List<Competition> competitions= ControllerUI.getInstance().getByQueryCompetition("");
         return competitions;
     }
-
+    /**
+     *  
+     * Vrsi validaciju korisnickog unosa za naziv takmicenja.
+     * Koristi Validator klasu za proveru i generisanje odgovarajuce poruke o gresci.
+     * 
+     * @throws ValidationException Ukoliko postoji neka greska u unosu
+     *
+     */
     private void validateInput() throws ValidationException {
         Validator.startValidation().validateNotNullOrEmpty(txtName.getText(), "Insert value for search!").throwIfInvalide();
     }
