@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 public class Response implements Serializable {
     
-  private Object result;
+	private Object result;
     private ResponseType responseType;
     private Exception exception;
     private int operation;
