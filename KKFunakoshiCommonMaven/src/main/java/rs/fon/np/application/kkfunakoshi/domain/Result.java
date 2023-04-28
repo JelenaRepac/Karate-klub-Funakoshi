@@ -66,8 +66,6 @@ public class Result extends AbstractDO implements Serializable {
     }
 
     /**
-<<<<<<< HEAD
-    /**
 	 * Konstruktor
 	 * @param competition takmicenje
 	 * @param member clan
