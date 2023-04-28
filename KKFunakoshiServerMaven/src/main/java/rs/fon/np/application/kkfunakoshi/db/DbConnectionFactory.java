@@ -10,16 +10,28 @@ import java.sql.DriverManager;
 import java.util.Properties;
 
 /**
- *
- * @author Jeks
+ * Predstavlja klasu koja sluzi za ostvarivanje konekcije sa bazom.
+ * @author Jelena Repac
  */
 public class DbConnectionFactory {
+	/**
+	 * Objekat kalse Connection
+	 */
     private Connection connection;
+    /**
+     * Staticka instanca klase DbConnectionFactory
+     */
     private static DbConnectionFactory instance;
 
+    /**
+     * Besparametarski konstruktor
+     */
     private DbConnectionFactory() {
     }
-
+	/**
+	 * Singleton metoda
+	 * @return instancu klase DbConnectionFactory
+	 */
     public static DbConnectionFactory getInstance() {
         if (instance == null) {
             instance = new DbConnectionFactory();
@@ -27,6 +39,11 @@ public class DbConnectionFactory {
         return instance;
     }
 
+    /**
+     * Metoda koja vraca konekciju sa bazom.
+     * @return konekcija sa bazom
+     * @throws Exception Ukoliko dodje do greske prilikom konektovanja sa bazom
+     */
     public Connection getConnection() throws Exception {
         if (connection == null || connection.isClosed()) {
             Properties properties = new Properties();

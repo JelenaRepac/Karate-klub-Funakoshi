@@ -24,7 +24,7 @@ import rs.fon.np.application.kkfunakoshi.domain.Trainer;
 
 /**
  *
- * @author Jeks
+ * @author Jelena Repac
  */
 public class HandleClientsRequest extends Thread {
     

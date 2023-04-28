@@ -7,11 +7,15 @@ package rs.fon.np.application.kkfunakoshi.main;
 import  rs.fon.np.application.kkfunakoshi.form.ServerForm;
 
 /**
- *
- * @author Jeks
+ * Klasa koja pokrece serversku aplikaciju.
+ * @author Jelena Repac
  */
 public class Server {
 
+	/**
+	 * Poziva metodu za otvaranje serverske forme
+	 * @param args
+	 */
     public static void main(String[] args) {
         Server server = new Server();
         try {
@@ -22,6 +26,10 @@ public class Server {
 
     }
 
+    /**
+     * Otvara servesku formu
+     * @throws Exception Ukoliko dodjde do greske prilikom otvaranja serverske forme
+     */
     private void startServer() throws Exception {
         new ServerForm().setVisible(true);
     }

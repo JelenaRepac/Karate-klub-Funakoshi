@@ -22,7 +22,7 @@ import rs.fon.np.application.kkfunakoshi.form.tableModel.TableModelTrainer;
 
 /**
  *
- * @author Jeks
+ * @author Jelena Repac
  */
 public class ServerThread  extends Thread{
     
