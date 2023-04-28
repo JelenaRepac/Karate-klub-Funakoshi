@@ -22,13 +22,15 @@ import rs.fon.np.application.kkfunakoshi.validation.Validator;
 import rs.fon.np.application.kkfunakoshi.view.form.component.table.MemberTableModel;
 
 /**
- *
- * @author Jeks
+ * Predstavlja formu za prikaz svih clanova.
+ * @author Jelena Repac
  */
 public class FrmViewMembers extends javax.swing.JDialog {
 
     /**
-     * Creates new form FrmViewMembers
+     * Konstruktor
+     * @param parent forma iz koje je pozvana 
+     * @param modal odredjuje da li dijalog treba da bude modalan ili ne 
      */
     public FrmViewMembers(java.awt.Frame parent, boolean modal){
         super(parent, modal);
@@ -69,7 +71,7 @@ public class FrmViewMembers extends javax.swing.JDialog {
         btnSearch = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtDate = new javax.swing.JTextField();
-        btnSBelts1 = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
         btnSearchNameYear = new javax.swing.JButton();
         lblPhoto = new javax.swing.JLabel();
 
@@ -139,8 +141,8 @@ public class FrmViewMembers extends javax.swing.JDialog {
 
         jLabel5.setText("Search by birth year: ");
 
-        btnSBelts1.setText("Reset search");
-        btnSBelts1.addActionListener(new java.awt.event.ActionListener() {
+        btnReset.setText("Reset search");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSBelts1ActionPerformed(evt);
             }
@@ -184,7 +186,7 @@ public class FrmViewMembers extends javax.swing.JDialog {
                             .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSearchNameYear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(14, 14, 14)
-                        .addComponent(btnSBelts1)))
+                        .addComponent(btnReset)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnShowAll, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
@@ -195,7 +197,7 @@ public class FrmViewMembers extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnSBelts1, btnSearch});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnReset, btnSearch});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +229,7 @@ public class FrmViewMembers extends javax.swing.JDialog {
                     .addComponent(jLabel4)
                     .addComponent(cbBelt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch)
-                    .addComponent(btnSBelts1))
+                    .addComponent(btnReset))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,6 +243,12 @@ public class FrmViewMembers extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Details.
+     * Na osnovu selektovanog reda, clan se prikazuje u novom prozoru.
+     * Ukoliko red nije selektovan ili prozor sa informacijama o clanu ne moze da se prikaze, prikazuje se prozor sa porukom o gresci.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
         try {
             int selectedRow= tblMember.getSelectedRow();
@@ -266,7 +274,11 @@ public class FrmViewMembers extends javax.swing.JDialog {
        
        
     }//GEN-LAST:event_btnDetailsActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Show all members.
+     * Poziva se metoda koja povlaci sve clanove karate kluba iz baze.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnShowAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowAllActionPerformed
         try {
             formatTable();
@@ -275,70 +287,71 @@ public class FrmViewMembers extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnShowAllActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Search.
+     * Pretrazuje clanove na osnovu unetih parametara.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        
-        if(txtName.getText().isEmpty() && txtDate.getText().isEmpty() && cbBelt.getSelectedItem()==null && cbCategory.getSelectedItem()==null 
-                && cbDiscipline.getSelectedItem()!=null){
-            searchByDiscipline();
+        String query = buildQuery();
+        if (query == null) {
             return;
         }
-        else if(txtName.getText().isEmpty() && txtDate.getText().isEmpty() && cbBelt.getSelectedItem()!=null && cbCategory.getSelectedItem()==null 
-                && cbDiscipline.getSelectedItem()==null){
-            searchByBelt();
-            return;
-        }
-        else if(txtName.getText().isEmpty() && txtDate.getText().isEmpty() && cbBelt.getSelectedItem()==null && cbCategory.getSelectedItem()!=null 
-                && cbDiscipline.getSelectedItem()==null){
-            searchByCategory();
-            return;
-        }
-        
-        else{
-            try {
-                  
-                    Discipline discipline= (Discipline) cbDiscipline.getSelectedItem();
-                    Belt belt= (Belt) cbBelt.getSelectedItem();
-                    Category category= (Category) cbCategory.getSelectedItem();
-                    String query="WHERE ";
-                    
-                    if(discipline!=null){
-                        String qDiscipline="  discipline='"+discipline+"'";
-                        query=query+qDiscipline+" AND";
-                        
-                    }
-                    if(belt!=null){
-                        String qBelt=" belt='"+belt+"'";
-                        query=query+qBelt+" AND";
-                    }
-                    if(category!=null){
-                        String qCategory="  category='"+category+"'";
-                        query=query+qCategory;
-                    }
-                    System.out.println(query);
-                    if(query.equals("WHERE ")){
-                        JOptionPane.showMessageDialog(this, "You must select eather discipline, belt or category for search!","ERROR", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    else{
-                        List<Member> members= (List<Member>) ControllerUI.getInstance().getByQuery(query);
-                        if(members.size()!=0){
-                            JOptionPane.showMessageDialog(this, "The system found members at the specified value!");
-                        }else{
-                            JOptionPane.showMessageDialog(this, "The system cannot find members by the given value!","Error",JOptionPane.ERROR_MESSAGE);
-                        }
-                        ((MemberTableModel) tblMember.getModel()).setMembers(members);
-                        cbDiscipline.setSelectedItem(null);
-                        cbBelt.setSelectedItem(null);
-                        cbCategory.setSelectedItem(null);
-                    }
-                } catch (Exception ex) {
-                    Logger.getLogger(FrmViewMembers.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        try {
+            List<Member> members = (List<Member>) ControllerUI.getInstance().getByQuery(query);
+            if (members.size() != 0) {
+                JOptionPane.showMessageDialog(this, "The system found members at the specified value!");
+            } else {
+                JOptionPane.showMessageDialog(this, "The system cannot find members by the given value!", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        
-    }//GEN-LAST:event_btnSearchActionPerformed
+            ((MemberTableModel) tblMember.getModel()).setMembers(members);
+            cbDiscipline.setSelectedItem(null);
+            cbBelt.setSelectedItem(null);
+            cbCategory.setSelectedItem(null);
+        } catch (Exception ex) {
+            Logger.getLogger(FrmViewMembers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
+    /**
+     * Kreira upit na osnovu unetih parametara od strane korisnika.
+     * @return string upit za pretrazivanje clanova
+     */
+    private String buildQuery() {
+        String name = txtName.getText();
+        String date = txtDate.getText();
+        Discipline discipline = (Discipline) cbDiscipline.getSelectedItem();
+        Belt belt = (Belt) cbBelt.getSelectedItem();
+        Category category = (Category) cbCategory.getSelectedItem();
+
+        if (!name.isEmpty() || !date.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "You cannot search by name or date!");
+            return null;
+        }
+
+        String query = "WHERE ";
+        if (discipline != null) {
+            query += "discipline='" + discipline + "' AND ";
+        }
+        if (belt != null) {
+            query += "belt='" + belt + "' AND ";
+        }
+        if (category != null) {
+            query += "category='" + category + "' AND ";
+        }
+        if (query.equals("WHERE ")) {
+            JOptionPane.showMessageDialog(this, "You must select either discipline, belt or category for search!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        query = query.substring(0, query.length() - 5); 
+        System.out.println(query);
+        return query;
+    }
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Reset search.
+     * Postavlja pocetne vrednosti na polja za unos podataka.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnSBelts1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSBelts1ActionPerformed
         txtDate.setText(null);
         txtName.setText(null);
@@ -346,7 +359,11 @@ public class FrmViewMembers extends javax.swing.JDialog {
         cbCategory.setSelectedItem(null);
         cbDiscipline.setSelectedItem(null);
     }//GEN-LAST:event_btnSBelts1ActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Search.
+     * Pretrazuje clanove na osnovu unetih parametara.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnSearchNameYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchNameYearActionPerformed
         if(!txtName.getText().isEmpty() && txtDate.getText().isEmpty()){
             searchByName();
@@ -396,7 +413,7 @@ public class FrmViewMembers extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDetails;
-    private javax.swing.JButton btnSBelts1;
+    private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSearchNameYear;
     private javax.swing.JButton btnShowAll;
@@ -417,6 +434,10 @@ public class FrmViewMembers extends javax.swing.JDialog {
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Priprema prikaza forme.
+     * @throws Exception Ukoliko se desi greska pri ucitavanju gradova iz sistema.
+     */
     private void prepareView() throws Exception {
         MemberTableModel model= new MemberTableModel(new ArrayList<Member>());
         tblMember.setModel(model);
@@ -430,11 +451,19 @@ public class FrmViewMembers extends javax.swing.JDialog {
         lblPhoto.setIcon(img);
     }
 
+    /**
+     * Ucitava clanove iz baze.
+     * @return lista clanova
+     * @throws Exception Ukoliko se desi greska pri ucitavanju clanova iz sistema.
+     */
     private List<Member> loadMembers() throws Exception {
        List<Member> members= ControllerUI.getInstance().getByQuery("");
        return members;
     }
-
+    /**
+     * Postavljaju se clanovi u tabelu.
+     * @throws Exception Ukoliko se desi greska pri ucitavanju clanova iz sistema.
+     */
     private void formatTable() throws Exception {
         List<Member> members= loadMembers();
         MemberTableModel model= new MemberTableModel(members);
@@ -445,17 +474,32 @@ public class FrmViewMembers extends javax.swing.JDialog {
         }
         tblMember.setModel(model);
     }
-
+    /**
+     * Vrsi validaciju korisnickog unosa, konkretno za ime clana.
+     * Koristi Validator klasu za proveru i generisanje odgovarajuce poruke o gresci.
+     * 
+     * @throws ValidationException Ukoliko postoji neka greška u unosu
+     */
     private void validateInput() throws ValidationException {
          Validator.startValidation().validateNotNullOrEmpty(txtName.getText(),"Insert value for search!").throwIfInvalide();
  
     }
-
+    /**
+     * Vrsi validaciju korisnickog unosa, konkretno za datum rodjenja.
+     * Koristi Validator klasu za proveru i generisanje odgovarajuce poruke o gresci.
+     * 
+     * @throws ValidationException Ukoliko postoji neka greška u unosu
+     */
     private void validateYear() throws ValidationException {
        Validator.startValidation().validateNotNull(txtDate.getText(), "You must insert a year for search!").
                 validateValueIsNumber(txtDate.getText(), "Inserted value is not year!").throwIfInvalide();
     }
 
+    /**
+     * Trazi clanove prema imenu i prezimenu. 
+     * Ukoliko postoje clanovi sa tim imenom i prezimenom, prikazuje poruku o uspjehu i azurira tablicu clanova s rezultatima pretrazivanja. 
+     * Ukoliko ne postoje, pokazuje se poruka o gresci.
+     */
     private void searchByName() {
          try{
             validateInput();
@@ -488,7 +532,11 @@ public class FrmViewMembers extends javax.swing.JDialog {
            
        }
     }
-
+    /**
+     * Trazi clanove prema godini rodjenja.
+     * Ukoliko postoje clanovi sa tom godinom rodjenja, prikazuje poruku o uspjehu i azurira tablicu clanova s rezultatima pretrazivanja. 
+     * Ukoliko ne postoje, pokazuje se poruka o gresci.
+     */
     private void searchByBirthYear() {
         try{
             validateYear();
@@ -504,9 +552,6 @@ public class FrmViewMembers extends javax.swing.JDialog {
                 ((MemberTableModel) tblMember.getModel()).setMembers(members);
                 cbDiscipline.setSelectedItem(null);
                 txtName.setText(null);
-            
-            
-            
        }catch(IndexOutOfBoundsException ex){
            JOptionPane.showMessageDialog(this,"You must year of birth!","Error",JOptionPane.ERROR_MESSAGE);
            
@@ -516,7 +561,11 @@ public class FrmViewMembers extends javax.swing.JDialog {
            
        } 
     }
-
+    /**
+     * Trazi clanove prema disciplini u kojoj se takmice.
+     * Ukoliko postoje clanovi koji se takmice u izabranoj disciplini, prikazuje poruku o uspjehu i azurira tablicu clanova s rezultatima pretrazivanja. 
+     * Ukoliko ne postoje, pokazuje se poruka o gresci.
+     */
     private void searchByDiscipline() {
        Discipline discipline= (Discipline) cbDiscipline.getSelectedItem();
             try{
@@ -535,7 +584,11 @@ public class FrmViewMembers extends javax.swing.JDialog {
                ex.printStackTrace();
            }
     }
-
+    /**
+     * Trazi clanove prema pojasu.
+     * Ukoliko postoje clanovi koji imaju izabrani pojas, prikazuje poruku o uspjehu i azurira tablicu clanova s rezultatima pretrazivanja. 
+     * Ukoliko ne postoje, pokazuje se poruka o gresci.
+     */
     private void searchByBelt() {
         Belt belt= (Belt) cbBelt.getSelectedItem();
             try {
@@ -553,7 +606,11 @@ public class FrmViewMembers extends javax.swing.JDialog {
                ex.printStackTrace();
             }
     }
-
+    /**
+     * Trazi clanove prema kategoriji u kojoj se takmice.
+     * Ukoliko postoje clanovi koji se takmice u izabranoj kategoriji, prikazuje poruku o uspjehu i azurira tablicu clanova s rezultatima pretrazivanja. 
+     * Ukoliko ne postoje, pokazuje se poruka o gresci.
+     */
     private void searchByCategory() {
         Category category=(Category) cbCategory.getSelectedItem();
             try{

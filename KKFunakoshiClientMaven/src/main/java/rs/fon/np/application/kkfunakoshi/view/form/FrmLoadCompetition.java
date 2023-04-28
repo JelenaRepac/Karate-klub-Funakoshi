@@ -13,15 +13,22 @@ import rs.fon.np.application.kkfunakoshi.domain.City;
 import rs.fon.np.application.kkfunakoshi.domain.Competition;
 
 /**
- *
- * @author Jeks
+ * Forma za prikaz konkretnog takmicenja.
+ * @author Jelena Repac
  */
 public class FrmLoadCompetition extends javax.swing.JDialog {
 
     /**
-     * Creates new form FrmCompetition
+     * Takmicenje koje se prikazuje na formi
      */
     private Competition competition;
+    /**
+     * Konstruktor, kreira novi prozor FrmLoadCompetition
+     * @param parent forma iz koje je pozvana 
+     * @param modal odredjuje da li dijalog treba da bude modalan ili ne 
+     * @param competition takmicenje koje se prikazuje na formi
+     * @throws Exception Ukoliko dodje do greske prilikom pripreme prikaza forme
+     */
     public FrmLoadCompetition(java.awt.Frame parent, boolean modal, Competition competition) throws Exception {
         super(parent, modal);
         initComponents();
@@ -133,7 +140,12 @@ public class FrmLoadCompetition extends javax.swing.JDialog {
     private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
-
+    /**
+     * Priprema prikaz forme.
+     * Ucitava gradove iz sistema i postavlja sliku.
+     * 
+     * @throws Exception Ukoliko se desi greska pri ucitavanju gradova iz sistema.
+     */
     private void prepareView() throws Exception {
         loadCities();
         
@@ -143,13 +155,21 @@ public class FrmLoadCompetition extends javax.swing.JDialog {
     
 
     }
-
+    /**
+     * Ucitava gradove iz baze i postavlja ih u formu, JComboBox.
+     * 
+     * @throws Exception Ukoliko dodje do greske prilikom citanja gradova iz baze
+     */
     private void loadCities() throws Exception {
        List<City> cities= ControllerUI.getInstance().getCities();
        cbCity.setModel(new DefaultComboBoxModel(cities.toArray()));
        //cbCity.setSelectedItem(null);
     }
 
+    /**
+     * Postavlja pocetne vrednosti takmicenja, datum, naziv, hala kao i grad u kome se organizuje takmicenje.
+     * 
+     */
     private void setValues() {
         SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
         txtName.setText(competition.getName());

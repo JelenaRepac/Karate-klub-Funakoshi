@@ -14,24 +14,34 @@ import javax.swing.JTextField;
 import rs.fon.np.application.kkfunakoshi.controller.ControllerUI;
 import rs.fon.np.application.kkfunakoshi.domain.CurrentUser;
 import rs.fon.np.application.kkfunakoshi.domain.Trainer;
+import rs.fon.np.application.kkfunakoshi.validation.ValidationException;
 
 
 /**
- *
- * @author Jeks
+ * Predstavlja formu za prijavljivanje korisnika na sistem.
+ * @author Jelena Repac
  */
 public class FrmLogin extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrmLogin
+     * Trener, korisnik koji se prijavljuje na sistem.
      */
    private Trainer currentUser;
+   /**
+    * Glavna forma
+    */
    private FrmMain frmMain;
    
+   /**
+    * Vraca glavnu formu
+    * @return frmMain
+    */
     public FrmMain getFrmMain() {
         return frmMain;
     }
-    
+    /**
+     * Konstruktor, kreira novu formu FrmLogin
+     */
     public FrmLogin() {
         initComponents();
         setTitle("Login");
@@ -105,6 +115,12 @@ public class FrmLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Login.
+     * Vrsi validaciju unetih podataka i prijavljuje korisnika na sistem.
+     * Prikazuje prozor sa porukom ukoliko dodje do greske prilikom unosa podataka ili greske prijavljivanja na sistem.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
        
        
@@ -130,53 +146,36 @@ public class FrmLogin extends javax.swing.JFrame {
        
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-
-    public JButton getBtnLogin() {
-        return btnLogin;
-    }
-
-    public void setBtnLogin(JButton btnLogin) {
-        this.btnLogin = btnLogin;
-    }
-
-    public JLabel getLblPassword() {
-        return lblPassword;
-    }
-
-    public void setLblPassword(JLabel lblPassword) {
-        this.lblPassword = lblPassword;
-    }
-
-    public JLabel getLblUser() {
-        return lblUser;
-    }
-
-    public void setLblUser(JLabel lblUser) {
-        this.lblUser = lblUser;
-    }
-
-    public JPasswordField getTxtPassword() {
-        return txtPassword;
-    }
-
+    
+	/**
+	 * Postavlja vrednost lozinke
+	 * @param txtPassword lozinka korisnika
+	 */
     public void setTxtPassword(JPasswordField txtPassword) {
         this.txtPassword = txtPassword;
     }
-
+    /**
+     * Vraca JTextField komponentu
+     * @return JTextField 
+     */
     public JTextField getTxtUser() {
         return txtUser;
     }
 
     /**
-     * @param args the command line arguments
+     * Postavlja vrednost korisnickog imena
+     * @param txtUser korisnicko ime
      */
     public void setTxtUser(JTextField txtUser) {
         this.txtUser = txtUser;
     }
-    
+    /**
+     * Vraca komponentu JPasswordField
+     * @return JPasswordField komponenta
+     */
+    public javax.swing.JPasswordField getTxtPassword() {
+		return txtPassword;
+	}
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -187,6 +186,12 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Vrsi validaciju korisnickog unosa za korisnicko ime i lozinku.
+     * Koristi Validator klasu za proveru i generisanje odgovarajuce poruke o gresci.
+     * 
+     * @throws ValidationException Ukoliko postoji neka greška u unosu
+     */
     private void validateForm(String username, String password) throws Exception {
         String errorMessage="";
         if(username.isEmpty()){

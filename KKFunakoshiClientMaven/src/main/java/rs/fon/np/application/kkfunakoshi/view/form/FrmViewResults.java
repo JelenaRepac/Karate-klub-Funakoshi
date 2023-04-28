@@ -24,16 +24,23 @@ import rs.fon.np.application.kkfunakoshi.validation.Validator;
 import rs.fon.np.application.kkfunakoshi.view.form.component.table.ResultTableModel;
 
 /**
- *
- * @author Jeks
+ * Predstavlja formu za prikaz svih rezultata.
+ * @author Jelena Repac
  */
 public class FrmViewResults extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmViewResults
-     */
+	/**
+	 * Takmicenje za koje se prikazuju rezultati
+	 */
     private Competition competition;
+    /**
+     * Clan kluba
+     */
     private Member member;
+    /**
+     * Konstruktor
+     * @param competition takmicenje za koje se prikazuju rezultati
+     */
     public FrmViewResults(Competition competition) {
         initComponents();
         
@@ -61,7 +68,7 @@ public class FrmViewResults extends javax.swing.JFrame {
         tbl = new javax.swing.JTable();
         btnShow = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
         cbCompetition = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -99,8 +106,8 @@ public class FrmViewResults extends javax.swing.JFrame {
 
         jLabel1.setText("Competition name:");
 
-        jButton1.setText("Search");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
@@ -151,7 +158,7 @@ public class FrmViewResults extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cbCompetition, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnShow, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
@@ -184,7 +191,7 @@ public class FrmViewResults extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbCompetition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)
+                            .addComponent(btnSearch)
                             .addComponent(jLabel1))))
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,7 +221,11 @@ public class FrmViewResults extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme ShowAllResults.
+     * Omogucava prikaz svih rezultata za prethodno izabrano takmicenje.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
         try {
             List<Result> results= ControllerUI.getInstance().getByQueryResults("");
@@ -235,7 +246,11 @@ public class FrmViewResults extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnShowActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Search.
+     * Vraca sve rezultate izabranog takmicenja i setuje ih u tabelu rezultata.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             Competition c= (Competition) cbCompetition.getSelectedItem();
@@ -262,28 +277,28 @@ public class FrmViewResults extends javax.swing.JFrame {
             Logger.getLogger(FrmViewResults.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme ChangeResult.
+     * Omogucava izmenu rezultata izabranog takmicenja.
+     * Otvara formu za azuriranje rezultata.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         try {
             int selectedRow= tbl.getSelectedRow();
             if(selectedRow==-1){
-                
                 return;
             }
-            
             ResultTableModel model= (ResultTableModel) tbl.getModel();
             Result r= model.getResult(selectedRow);
             if(r.getMember().getName()!=null){
-                new FrmLoadResult(this,true,r).setVisible(true); 
-                
+                new FrmLoadResult(this,true,r).setVisible(true);
                 ResultTableModel rmodel= (ResultTableModel) tbl.getModel();
                 rmodel.refreshView();
                 setNumberOfMedals(rmodel);
             }
             else{
-               
                 new FrmLoadResultTeam(this, true, r).setVisible(true);
-                 
                 ResultTableModel rmodel= (ResultTableModel) tbl.getModel();
                 rmodel.refreshView();
                 setNumberOfMedals(rmodel);
@@ -301,7 +316,7 @@ public class FrmViewResults extends javax.swing.JFrame {
     private javax.swing.JButton btnChange;
     private javax.swing.JButton btnShow;
     private javax.swing.JComboBox<String> cbCompetition;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -315,48 +330,54 @@ public class FrmViewResults extends javax.swing.JFrame {
     private javax.swing.JTextField txtMedals;
     private javax.swing.JTextField txtSilver;
     // End of variables declaration//GEN-END:variables
-
+    /**
+     * Priprema prikaza forme.
+     * Postavlja se slika i rezultati za prosledjeno takmicenje.
+     * 
+     */
     private void prepareView() throws Exception {
         if(competition==null){
             loadCompetitions();
-          
             formatTable();
         }
-        
         else {
             loadCompetitions();
-            
             List<Result> results= ControllerUI.getInstance().getByQueryResults(" WHERE competitionId="+competition.getId()+" ORDER BY medal");
             formatTableCompetitionMember(results);
-            
         }
         ImageIcon img = new ImageIcon("logoIcon.png");
         lblPhoto.setIcon(img);
-       
-        
-        
     }
-
+    /**
+     * Ucitavaju se sva takmicenja iz baze i setuje se ComboBox.
+     * @throws Exception Ukoliko se desi greska prilikom ucitavanja takmicenja iz baze
+     */
     private void loadCompetitions() throws Exception {
         List<Competition> competitions= ControllerUI.getInstance().getByQueryCompetition("");
         cbCompetition.setModel(new DefaultComboBoxModel(competitions.toArray()));
         cbCompetition.setSelectedItem(null);
     }
-
+    /**
+     * Setuje se model za tabelu za prikaz rezultata.
+     */
     private void formatTable() {
        ResultTableModel model= new ResultTableModel(new ArrayList<Result>());
        tbl.setModel(model);
     }
-
-
-
+    /**
+     * Postavlja se broj modelja.
+     * @param model za tabelu za prikaz rezultata
+     */
     private void setNumberOfMedals(ResultTableModel model) {
         txtGold.setText(String.valueOf(model.getGoldMedals()));
         txtSilver.setText(String.valueOf(model.getSilverMedals()));
         txtBronze.setText((String.valueOf(model.getBronzeMedals())));
         txtMedals.setText(String.valueOf(model.getRowCount()));
     }
-
+    /**
+     * Setuje model za tabelu za prikaz svih rezultat koji sadrzi listu svih rezultata iz baze.
+     * @param results lista rezultata
+     */
     private void formatTableCompetitionMember(List<Result> results) {
         ResultTableModel model= new ResultTableModel(results);
         tbl.setModel(model);

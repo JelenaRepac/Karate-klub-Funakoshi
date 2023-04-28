@@ -12,15 +12,21 @@ import rs.fon.np.application.kkfunakoshi.domain.Medal;
 import rs.fon.np.application.kkfunakoshi.domain.Result;
 
 /**
- *
- * @author Jeks
+ * Forma koja prikazuje podatke o konkretnom rezultatu clana karate kluba.
+ * @author Jelena Repac
  */
 public class FrmLoadResult extends javax.swing.JDialog {
 
-    /**
-     * Creates new form FrmLoadResult
-     */
+   /**
+    * Rezultat koji se prikazuje na formi
+    */
     Result r=null;
+    /**
+     * Konstruktor, kreira novi prozor FrmLoadResult
+     * @param parent forma iz koje je pozvana 
+     * @param modal odredjuje da li dijalog treba da bude modalan ili ne 
+     * @param r rezultat koji se prikazuje na formi
+     */
     public FrmLoadResult(java.awt.Frame parent, boolean modal,Result r) {
         super(parent, modal);
         this.r=r;
@@ -138,6 +144,12 @@ public class FrmLoadResult extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme ResultMember.
+     * Omogucava promenu informacija vezanih za ostvareni rezultat clana.
+     * Vrsi azuriranje rezultat u bazi.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnResultMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResultMemberActionPerformed
         try {
             Result newResult= new Result();
@@ -147,9 +159,7 @@ public class FrmLoadResult extends javax.swing.JDialog {
             newResult.setMember(r.getMember());
             newResult.setTeam(r.getTeam());
             
-           
             ControllerUI.getInstance().updateResult(r,newResult);
-            
             
             JOptionPane.showMessageDialog(this, "Succesfully updated result!");
             this.dispose();
@@ -173,17 +183,25 @@ public class FrmLoadResult extends javax.swing.JDialog {
     private javax.swing.JTextField txtMember;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Priprema prikaza forme.
+     */
     private void prepareView() {
         load();
         setValues();
     }
-
+    /**
+     * Postavlja pocetne vrednosti polja forme.
+     */
     private void load() {
         cbCategory.setModel(new DefaultComboBoxModel(Category.values()));
         cbMedals.setModel(new DefaultComboBoxModel(Medal.values()));
         
     }
 
+    /**
+     * Postavlja vrednosti atributa prosledjenog rezultata.
+     */
     private void setValues() {
        txtCompetition.setText(r.getCompetition().toString());
        txtMember.setText(r.getMember().toString());

@@ -26,17 +26,29 @@ import rs.fon.np.application.kkfunakoshi.view.form.component.table.ResultTableMo
 import rs.fon.np.application.kkfunakoshi.view.form.component.table.TeamTableModel;
 
 /**
- *
- * @author Jeks
+ * Forma koja sluzi za unos rezultata takmicenja.
+ * @author Jelena Repac
  */
 public class FrmCompetitionResult extends javax.swing.JDialog {
 
     /**
-     * Creates new form FrmResult
+     * Takmicenje
      */
     Competition c=null;
+    /**
+     * Skup dugmica za tim
+     */
     ButtonGroup groupTeam= new ButtonGroup();
+    /**
+     * Skup dugmica za clana
+     */
     ButtonGroup groupMember= new ButtonGroup();
+    /**
+     * Konstuktor
+     * 
+     * @param parent forma iz koje je pozvana 
+     * @param modal odredjuje da li dijalog treba da bude modalan ili ne 
+     */
     public FrmCompetitionResult(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -400,6 +412,11 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Choose competition.
+     * Nakon izbora takmicenja, onemogucava ponovno biranje.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnChooseCompetitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseCompetitionActionPerformed
        int selectedRow= tblCompetitions.getSelectedRow();
             if(selectedRow==-1){
@@ -419,6 +436,11 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBronze2ActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Save.
+     * Dodaje unete rezultate u sistem i azurira formu.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         try {
             ResultTableModel model= (ResultTableModel) tblResult.getModel();
@@ -440,13 +462,18 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
                 this.dispose();
             }
             
-            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this,ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             refreshView();
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme AddResult(Member).
+     * Kreira novi rezultat clana za izabranu kategoriju i osvojenom medaljom. 
+     * Dodaje rezultat u tabelu rezultata ukoliko rezultat vec ne postoji u tabeli.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnAddResultMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddResultMemberActionPerformed
         int selectedRow= tblMembers.getSelectedRow();
             if(selectedRow==-1){
@@ -502,7 +529,12 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
     private void txtCompetitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCompetitionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCompetitionActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme AddResult(Team).
+     * Kreira novi rezultat tima za izabranu kategoriju i osvojenom medaljom. 
+     * Dodaje rezultat u tabelu rezultata ukoliko rezultat vec ne postoji u tabeli.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnAddResultTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddResultTeamActionPerformed
         int selectedRow= tblTeams.getSelectedRow();
             if(selectedRow==-1){
@@ -539,6 +571,12 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
             groupTeam.clearSelection();
     }//GEN-LAST:event_btnAddResultTeamActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Delete.
+     * Brise izabrani rezultat iz tabele rezultata.
+     * 
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int selectedRow= tblResult.getSelectedRow();
             if(selectedRow==-1){
@@ -550,6 +588,13 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
        
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada korisnik klikne na tabelu clanova, odnosno izabere odredjenog clana.
+     * Za clana koji je izabran klikom na red u kojem se nalazi postavlja se prethodno izabrana kategorija u kojoj se clan takmicio.
+     * U slucaju da prethodno nije izabrano takmicenje prikazuje se prozor sa porukom o gresci.
+     * 
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void tblMembersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMembersMouseClicked
         if(c==null){
            JOptionPane.showMessageDialog(this, "You must select competiton!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -562,13 +607,23 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
             cbCategory.setSelectedItem(cat);
         }
     }//GEN-LAST:event_tblMembersMouseClicked
-
+    /**
+     * Obradjuje dogadjaj kada korisnik klikne na tabelu timova, odnosno izabere odredjeni tim.
+     * U slucaju da prethodno nije izabrano takmicenje prikazuje se prozor sa porukom o gresci.
+     * 
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void tblTeamsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTeamsMouseClicked
         if(c==null){
            JOptionPane.showMessageDialog(this, "You must select competiton!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_tblTeamsMouseClicked
-
+    /**
+     * Obradjuje dogadjaj kada korisnik klikne na tabelu rezultata, odnosno izabere odredjeni rezultat.
+     * U slucaju da prethodno nije izabrano takmicenje prikazuje se prozor sa porukom o gresci.
+     * 
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void tblResultMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblResultMouseClicked
         if(c==null){
            JOptionPane.showMessageDialog(this, "You must select competiton!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -606,6 +661,12 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
     private javax.swing.JTextField txtCompetition;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Priprema za prikaz forme.
+     * Ucitava kategorijie iz sistema, postavlja sliku i postavlja modele za tabele.
+     * 
+     * @throws Exception Ukoliko se desi greska pri ucitavanju kategorija iz sistema.
+     */
     private void prepareView() throws Exception {
         formatTables();
         loadCategory();
@@ -615,6 +676,10 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
         
     }
 
+    /**
+     * Poziva metode za formatiranje tabela.
+     * @throws Exception Ukoliko se desi greska pri ucitavanju takmicenja, clanova, timova i rezultata iz sistema
+     */
     private void formatTables() throws Exception {
         formatTableCompetitions();
         formatTableMembers();
@@ -622,29 +687,46 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
         formatTableResult();
     }
 
+    /**
+     * Setuje model za tabelu za prikaz svih takmicenja koji sadrzi listu svih takmicenja iz baze.
+     * @throws Exception Ukoliko se desi greska prilikom ucitavanja takmicenja iz baze
+     */
     private void formatTableCompetitions() throws Exception {
         List<Competition> competitions= ControllerUI.getInstance().getByQueryCompetition("");
         CompetitionTableModel model= new CompetitionTableModel(competitions);
         tblCompetitions.setModel(model);
     }
-
+    /**
+     * Setuje model za tabelu za prikaz svih clanova koji sadrzi listu svih clanova iz baze.
+     * @throws Exception Ukoliko se desi greska prilikom ucitavanja clanova iz baze
+     */
     private void formatTableMembers() throws Exception {
         List<Member> members= ControllerUI.getInstance().getByQuery("");
         MemberTableModelSimpler model= new MemberTableModelSimpler(members);
         tblMembers.setModel(model);
     }
 
+    /**
+     * Setuje model za tabelu za prikaz svih timova koji sadrzi listu svih timova iz baze.
+     * @throws Exception Ukoliko se desi greska prilikom ucitavanja timova iz baze
+     */
     private void fromatTableTeams() throws Exception {
         List<Team> teams= ControllerUI.getInstance().getByQueryTeams("");
         TeamTableModel model= new TeamTableModel(teams);
         tblTeams.setModel(model);
     }
 
+    /**
+     * Setuje model za tabelu za prikaz svih takmicenja koji sadrzi praznu listu.
+     */
     private void formatTableResult() {
         ResultTableModel model= new ResultTableModel(new ArrayList<Result>());
         tblResult.setModel(model);
     }
 
+    /**
+     * Dodaje dugmice za selektovanje medalja u odgovarajuce grupe.
+     */
     private void buttonGroups() {
         groupMember.add(btnGold1);
         groupMember.add(btnSilver1);
@@ -654,47 +736,51 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
         groupTeam.add(btnBronze2);
     }
 
-   
+   /**
+    * Azurira broj osvojenih medalja clana na osnovu rezultata. 
+    * Vrsi azuiranje clana u bazi i prikazuje azuriranu tabelu svih clanova.
+    * @param r rezultat koji je clan ostvario
+    * @param m clan koji je ostvario rezultat
+    * @throws Exception Ukoliko dodje do greske prilikom azuriranja clana u bazi
+    */
     private void updateMedalsMember(Result r, Member m) throws Exception {
         Member member=r.getMember();
-        Long medals=member.getMedals()+1;
-        Long gold= member.getGoldMedals()+1;
-        Long silver=member.getSilverMedals()+1;
-        Long bronze= member.getBronzeMedals()+1;
         Medal medal= r.getMedals();
-        member.setMedals(medals);
+        member.setMedals(member.getMedals()+1);
         if(medal.equals(Medal.GOLD)){
-            member.setGoldMedals(gold);
+            member.setGoldMedals(member.getGoldMedals()+1);
         }
         else if(medal.equals(Medal.SILVER)){
-            member.setSilverMedals(silver);
+            member.setSilverMedals(member.getSilverMedals()+1);
         }
         else{
-            member.setBronzeMedals(bronze);
+            member.setBronzeMedals(member.getBronzeMedals()+1);
         }
         ControllerUI.getInstance().updateMember(m, member);
         MemberTableModelSimpler model=(MemberTableModelSimpler) tblMembers.getModel();
         model.refreshView();
         tblMembers.setModel(model);
     }
-
+    /**
+     * Azurira broj osvojenih medalja tima na osnovu rezultata. 
+     * Vrsi azuiranje tima u bazi i prikazuje azuriranu tabelu svih timova.
+     * @param r rezultat koji je tim ostvario
+     * @param m tim koji je ostvario rezultat
+     * @throws Exception Ukoliko dodje do greske prilikom azuriranja tima u bazi
+     */
     private void updateMedalsTeam(Result r, Team team) throws Exception {
         for(Member m: team.getMembers()){
             Member member=m;
-            Long medals=member.getMedals()+1;
-            Long gold= member.getGoldMedals()+1;
-            Long silver=member.getSilverMedals()+1;
-            Long bronze= member.getBronzeMedals()+1;
             Medal medal= r.getMedals();
-            member.setMedals(medals);
+            member.setMedals(member.getMedals()+1);
             if(medal.equals(Medal.GOLD)){
-                member.setGoldMedals(gold);
+                member.setGoldMedals( member.getGoldMedals()+1);
             }
             else if(medal.equals(Medal.SILVER)){
-                member.setSilverMedals(silver);
+                member.setSilverMedals(member.getSilverMedals()+1);
             }
             else{
-                member.setBronzeMedals(bronze);
+                member.setBronzeMedals(member.getBronzeMedals()+1);
             }
         ControllerUI.getInstance().updateMember(m, member);
         MemberTableModelSimpler model=(MemberTableModelSimpler) tblMembers.getModel();
@@ -704,6 +790,9 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
         }
     }
 
+    /**
+     * Azurira formu na pocetne vrednosti. 
+     */
     private void refreshView() {
        ResultTableModel model= new ResultTableModel(new ArrayList<Result>());
        tblResult.setModel(model);
@@ -714,7 +803,10 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
        c=null;
        
     }
-
+    /**
+     * Sve dugmice postavlja na default vrednost, kao i da oznacenu kategoriju postavlja na null vrednost.
+     * 
+     */
     private void clearSelection() {
         btnGold1.setSelected(false);
         btnGold2.setSelected(false);
@@ -725,6 +817,9 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
         cbCategory.setSelectedItem(null);
     }
 
+    /**
+     * Ucitava i postavlja vrednost kategorija u ComboBox.
+     */
     private void loadCategory() {
        cbCategory.setModel(new DefaultComboBoxModel(Category.values()));
        cbCategory.setSelectedItem(null);

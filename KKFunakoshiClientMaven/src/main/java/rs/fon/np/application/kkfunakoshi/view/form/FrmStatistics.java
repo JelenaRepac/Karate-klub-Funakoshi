@@ -10,14 +10,16 @@ import rs.fon.np.application.kkfunakoshi.controller.ControllerUI;
 import rs.fon.np.application.kkfunakoshi.domain.Member;
 
 /**
- *
- * @author Jeks
+ * Forma za prikaz statistickih podataka o karate klubu.
+ * @author Jelena Repac
  */
 public class FrmStatistics extends javax.swing.JDialog {
 
-    /**
-     * Creates new form FrmStatistics
-     */
+   /**
+    * Konstruktor
+    * @param parent forma iz koje je pozvana 
+    * @param modal odredjuje da li dijalog treba da bude modalan ili ne 
+    */
     public FrmStatistics(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -142,6 +144,10 @@ public class FrmStatistics extends javax.swing.JDialog {
     private javax.swing.JTextField txtTotalNumberOfMembers;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Priprema prikaza forme.
+     * @throws Exception Ukoliko se desi greska pri ucitavanju gradova iz sistema.
+     */
     private void prepareView() throws Exception {
         
         int numberOfMembers;
