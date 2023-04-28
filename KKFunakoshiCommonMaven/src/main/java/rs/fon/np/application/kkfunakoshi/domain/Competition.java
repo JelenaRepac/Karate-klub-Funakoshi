@@ -38,7 +38,9 @@ public class Competition extends AbstractDO implements Serializable {
      * Grad u kojem se odrzava takmicenje.
      */
     private City city;
-    
+    /**
+     * Formator datuma
+     */
     SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
     /**
      * Bezparametarski konstruktor

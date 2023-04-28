@@ -47,7 +47,15 @@ public class Result extends AbstractDO implements Serializable {
      */
     public Result() {
     }
-
+    /**
+     * Konstruktor
+     * @param id id rezultata
+     * @param competition takmicenje na kome je ostvaren rezultat
+     * @param member clan koji je ostvario rezultat
+     * @param team tim koji je ostvario rezultat
+     * @param medals osvojena medalja
+     * @param category kategorija u kojoj se clan/tim takmicio
+     */
     public Result(Long id, Competition competition, Member member, Team team, Medal medals, Category category) {
         this.id = id;
         this.competition = competition;
@@ -57,6 +65,14 @@ public class Result extends AbstractDO implements Serializable {
         this.category = category;
     }
 
+    /**
+     * Konstruktor
+     * @param competition takmicenje na kome je ostvaren rezultat
+     * @param member clan koji je ostvario rezultat
+     * @param team tim koji je ostvario rezultat
+     * @param medals osvojena medalja
+     * @param category kategorija u kojoj se clan/tim takmicio
+     */
     public Result(Competition competition, Member member, Team team, Medal medals, Category category) {
         
         this.competition = competition;
@@ -66,15 +82,15 @@ public class Result extends AbstractDO implements Serializable {
         this.category = category;
     }
     /**
-     * Vraća ID rezultata takmičenja
-	 * @return ID  rezultata takmičenja
+     * Vraća ID rezultata takmicenja
+	 * @return ID  rezultata takmicenja
      */
     public Long getId() {
         return id;
     }
     /**
      * Postavlja ID rezultata takmicenja
-     * @param ID rezultata takmicenja
+     * @param id ID rezultata takmicenja
      */
     public void setId(Long id) {
         this.id = id;
@@ -88,7 +104,7 @@ public class Result extends AbstractDO implements Serializable {
     }
     /**
      * Postavlja takmicenje na kome je ostvaren rezultat
-     * @param competition
+     * @param competition takmicenje na kome je ostvaren rezultat
      */
     public void setCompetition(Competition competition) {
         this.competition = competition;
@@ -102,7 +118,7 @@ public class Result extends AbstractDO implements Serializable {
     }
     /**
      * Postavlja clana koji je ostvario rezultat
-     * @param member
+     * @param member clan koji je ostvario rezultat
      */
     public void setMember(Member member) {
         this.member = member;
@@ -116,21 +132,21 @@ public class Result extends AbstractDO implements Serializable {
     }
     /**
      * Postavlja medalju osvojenu na takmicenju
-     * @param medals
+     * @param medals osvojena medalja
      */
     public void setMedals(Medal medals) {
         this.medals = medals;
     }
     /**
      * Vraca tim koji je osvojio medalju na takmicenju
-     * @return
+     * @return tim 
      */
     public Team getTeam() {
         return team;
     }
     /**
      * Postavlja tim koji je osvojio medalju na takmicenju
-     * @param team
+     * @param team tim koji je osvojio medalju
      */
     public void setTeam(Team team) {
         this.team = team;
@@ -144,7 +160,7 @@ public class Result extends AbstractDO implements Serializable {
     }
     /**
      * Postavlja kategoriju u kojoj se clan takmicio i osvojio medalju
-     * @param category
+     * @param category kategorija u kojoj se clan takmicio i osvojio medalju
      */
     public void setCategory(Category category) {
         this.category = category;

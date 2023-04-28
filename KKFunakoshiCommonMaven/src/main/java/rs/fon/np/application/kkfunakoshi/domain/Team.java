@@ -44,6 +44,13 @@ public class Team extends AbstractDO implements Serializable {
     public Team() {
     }
 
+    /**
+     * Konstruktor
+     * @param id id tima
+     * @param name naziv tima
+     * @param teamMembers clanovi tima
+     * @param category kategorija u kojoj se tim takmici
+     */
     public Team(Long id, String name, List<Member> teamMembers, Category category) {
         this.id = id;
         this.name = name;
@@ -75,7 +82,7 @@ public class Team extends AbstractDO implements Serializable {
     }
 	/**
 	 * Postavlja ime tima
-	 * @param name
+	 * @param name naziv tima
 	 */
     public void setName(String name) {
         this.name = name;
@@ -89,7 +96,7 @@ public class Team extends AbstractDO implements Serializable {
     }
     /**
      * Postavlja clanove tima
-     * @param teamMembers
+     * @param teamMembers clanovi tima
      */
     public void setMembers(List<Member> teamMembers) {
         this.members = teamMembers;
@@ -103,7 +110,7 @@ public class Team extends AbstractDO implements Serializable {
     }
     /**
      * Postavlja kategoriju u kojoj se tim takmicio
-     * @param category
+     * @param category kategorija u kojoj se tim takmicio
      */
     public void setCategory(Category category) {
         this.category = category;

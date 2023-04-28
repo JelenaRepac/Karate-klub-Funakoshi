@@ -9,6 +9,28 @@ package rs.fon.np.application.kkfunakoshi.domain;
  * @author Jelena Repac
  */
 public enum Category {
-    
-    POLETARAC, PIONIR, NADA, KADET, JUNIOR, SENIOR;
+	/**
+     * Kategorija poletaraca
+     */
+    POLETARAC,
+    /**
+     * Kategorija pionira
+     */
+    PIONIR,
+    /**
+     * Kategorija nada
+     */
+    NADA, 
+    /**
+     * Kategorija kadeta
+     */
+    KADET, 
+    /**
+     * Kategorija juniora
+     */
+    JUNIOR,
+    /**
+     * Kategorija seniora
+     */
+    SENIOR;
 }

@@ -10,6 +10,12 @@ package rs.fon.np.application.kkfunakoshi.communication;
  * @author Jelena Repac
  */
 public enum ResponseType {
-    
-	SUCCESS, ERROR
+    /**
+     * Odgovor je uspesan
+     */
+	SUCCESS,
+	/**
+	 * Odgovor je neuspesan
+	 */
+	ERROR
 }

@@ -48,7 +48,15 @@ public class Trainer extends AbstractDO implements Serializable{
      */
     public Trainer() {
     }
-
+    /**
+     * Konstruktor
+     * @param id id trenere
+     * @param firstname ime trenera
+     * @param lastname prezime trenera
+     * @param username korisnicko ime
+     * @param password lozinka
+     * @param loggedIn status prijavljivanja
+     */
     public Trainer(Long id, String firstname, String lastname, String username, String password, boolean loggedIn) {
         this.id = id;
         this.firstname = firstname;
@@ -67,7 +75,7 @@ public class Trainer extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja status prijavljivanja trenera
-     * @param loggedIn
+     * @param loggedIn status prijavljivanja
      */
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
@@ -96,7 +104,7 @@ public class Trainer extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja ime trenera
-     * @param firstname
+     * @param firstname ime trenera
      */
     public void setFirstname(String firstname) {
         this.firstname = firstname;
@@ -110,7 +118,7 @@ public class Trainer extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja prezime trenera
-     * @param lastname
+     * @param lastname prezime trenera
      */
     public void setLastname(String lastname) {
         this.lastname = lastname;
@@ -124,7 +132,7 @@ public class Trainer extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja korisnicko ime trenera
-     * @param username
+     * @param username korisnicko ime
      */
     public void setUsername(String username) {
         this.username = username;
@@ -138,7 +146,7 @@ public class Trainer extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja lozinku trenera
-     * @param password
+     * @param password lozinka
      */
     public void setPassword(String password) {
         this.password = password;

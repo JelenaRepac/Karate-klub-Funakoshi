@@ -5,10 +5,40 @@
 package rs.fon.np.application.kkfunakoshi.domain;
 
 /**
- * Enum koji označava pojas, ucenicka i majstorska zvanja.
+ * Enum koji oznacava pojas, ucenicka i majstorska zvanja.
  * @author Jelena Repac
  */
 public enum Belt {
-    
-    BELI, ZUTI, NARANDZASTI, CRVENI, ZELENI, PLAVI, BRAON, CRNI;
+    /**
+     * Beli pojas
+     */
+    BELI, 
+    /**
+     * Zuti pojas
+     */
+    ZUTI,
+    /**
+     * Narandzasti pojas
+     */
+    NARANDZASTI,
+    /**
+     * Crveni pojas
+     */
+    CRVENI,
+    /**
+     * Zeleni pojas
+     */
+    ZELENI,
+    /**
+     * Plavi pojas
+     */
+    PLAVI, 
+    /**
+     * Braon pojas
+     */
+    BRAON,
+    /**
+     * Crni pojas
+     */
+    CRNI;
 }

@@ -9,6 +9,16 @@ package rs.fon.np.application.kkfunakoshi.domain;
  * @author Jeks
  */
 public enum Medal {
-    
-    GOLD,SILVER,BRONZE
+    /**
+     * Zlatna medalja
+     */
+    GOLD,
+    /**
+     * Srebrna medalja
+     */
+    SILVER,
+    /**
+     * Bronzana medalja
+     */
+    BRONZE
 }
