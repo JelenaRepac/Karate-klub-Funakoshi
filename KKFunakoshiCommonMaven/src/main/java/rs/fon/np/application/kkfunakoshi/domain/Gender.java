@@ -10,5 +10,12 @@ package rs.fon.np.application.kkfunakoshi.domain;
  */
 public enum Gender {
  
-    MALE,FEMALE;
+	/**
+	 * Muskaraca
+	 */
+    MALE,
+    /**
+     * Zena
+     */
+    FEMALE;
 }

@@ -41,7 +41,13 @@ public class MembershipFee extends AbstractDO implements Serializable{
      */
     public MembershipFee() {
     }
-    
+    /**
+     * Konstruktor
+     * @param id id clanarine
+     * @param member clan kluba
+     * @param date datum placanja clanarine
+     * @param Amount iznos clanarine
+     */
     public MembershipFee(Long id, Member member, Date date, double Amount) {
         this.id = id;
         this.member = member;
@@ -49,6 +55,12 @@ public class MembershipFee extends AbstractDO implements Serializable{
         this.Amount = Amount;
     }
 
+    /**
+     * Konstruktor
+     * @param member clan kluba
+     * @param date datum placanja clanarine
+     * @param Amount iznos clanarine
+     */
     public MembershipFee(Member member, Date date, double Amount) {
         this.member = member;
         this.date = date;
@@ -78,7 +90,7 @@ public class MembershipFee extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja datum uplate clanarine
-     * @param date
+     * @param date datum uplate
      */
     public void setDate(Date date) {
         this.date = date;
@@ -106,7 +118,7 @@ public class MembershipFee extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja clana koji je uplatio clanarinu
-     * @param member 
+     * @param member clan koji je uplatio clanarinu
      */
     public void setMember(Member member) {
         this.member = member;

@@ -9,6 +9,12 @@ package rs.fon.np.application.kkfunakoshi.domain;
  * @author Jelena Repac
  */
 public enum Discipline {
-    
-    KATE, BORBE;
+    /**
+     * Disciplina kate
+     */
+    KATE,
+	/**
+	 * Disciplina borbe
+	 */
+    BORBE;
 }

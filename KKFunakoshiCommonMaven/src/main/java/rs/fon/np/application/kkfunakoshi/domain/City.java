@@ -59,7 +59,7 @@ public class City extends AbstractDO implements Serializable {
     /**
      * Postavlja ID grada, na onu vrednost koju prosledimo kao parametar
      * @param id grada 
-     * @throws Exception 
+     * @throws Exception Ukoliko dodje do greske
      */
     public void setId(Long id) throws Exception {
     	if(id < 0)

@@ -53,7 +53,7 @@ public abstract class AbstractDO {
     /**
      * Postavlja vrednost atributa id.
      * @param id nova vrednost atributa id
-     * @throws Exception ukoliko dodje do greske
+     * @throws Exception Ukoliko dodje do greske prilikom postavljanja id vrednosti
      */
     public abstract void setId(Long id) throws Exception;
     /**

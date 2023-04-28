@@ -106,6 +106,28 @@ public class Member extends AbstractDO implements Serializable{
     public Member() {
         this.membershipFee= new ArrayList<>();
     }
+    /**
+     * Konstruktor
+     * @param memberID id clana
+     * @param name ime
+     * @param lastname prezime
+     * @param gender pol
+     * @param birthday datum rodjenja
+     * @param mothersName ime majke
+     * @param fathersName ime oca
+     * @param city grad u kojem zivi
+     * @param belt pojas
+     * @param medals broj osvojenih medalja
+     * @param discipline disciplina u kojoj se clan takmici
+     * @param category kategorija u kojoj se clan takmici
+     * @param adress adresa stanovanja
+     * @param goldMedals broj osvojenih zlatnih medalja
+     * @param silverMedals broj osvojenih srebrnih medalja
+     * @param bronzeMedals broj osvojenih bronzanih medalja
+     * @param membershipFee clanarine
+     * @param dateOfMembership datum uclanjenja
+     * @param totalDebt ukupan dug
+     */
     public Member(Long memberID, String name, String lastname, Gender gender, Date birthday, String mothersName,
             String fathersName, City city, Belt belt, Long medals, Discipline discipline, Category category,
             String adress, Long goldMedals, Long silverMedals, Long bronzeMedals, List<MembershipFee> membershipFee, Date dateOfMembership, Double totalDebt) {
@@ -129,7 +151,27 @@ public class Member extends AbstractDO implements Serializable{
         this.dateOfMembership= dateOfMembership;
         this.totalDebt=totalDebt;
     }
-
+    /**
+     * Konstruktor
+     * @param name ime
+     * @param lastname prezime
+     * @param gender pol
+     * @param birthday datum rodjenja
+     * @param mothersName ime majke
+     * @param fathersName ime oca
+     * @param city grad u kojem zivi
+     * @param belt pojas
+     * @param medals broj osvojenih medalja
+     * @param discipline disciplina u kojoj se clan takmici
+     * @param category kategorija u kojoj se clan takmici
+     * @param adress adresa stanovanja
+     * @param goldMedals broj osvojenih zlatnih medalja
+     * @param silverMedals broj osvojenih srebrnih medalja
+     * @param bronzeMedals broj osvojenih bronzanih medalja
+     * @param membershipFee clanarine
+     * @param dateOfMembership datum uclanjenja
+     * @param totalDebt ukupan dug
+     */
      public Member(String name, String lastname, Gender gender, Date birthday, String mothersName, 
              String fathersName, City city, Belt belt, Long medals, Discipline discipline, Category category, 
              String adress, Long goldMedals, Long silverMedals, Long bronzeMedals, List<MembershipFee> membershipFee, Date dateOfMembership, Double totalDebt) {
@@ -192,7 +234,8 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja prezime clana
-     * @param lastname
+     * @param lastname prezime clana
+     * 
      */
     public void setLastname(String lastname) {
         this.lastname = lastname;
@@ -206,7 +249,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja datum rodjenja clana
-     * @param birthday 
+     * @param birthday datum rodjenja
      */
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
@@ -220,7 +263,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja ime majke
-     * @param mothersName
+     * @param mothersName ime majke
      */
     public void setMothersName(String mothersName) {
         this.mothersName = mothersName;
@@ -234,7 +277,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja ime oca
-     * @param fathersName
+     * @param fathersName ime oca
      */
     public void setFathersName(String fathersName) {
         this.fathersName = fathersName;
@@ -248,7 +291,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja grad
-     * @param city
+     * @param city grad iz kojeg je clan
      */
     public void setCity(City city) {
         this.city = city;
@@ -262,7 +305,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja pojas clana
-     * @param belt
+     * @param belt pojas
      */
     public void setBelt(Belt belt) {
         this.belt = belt;
@@ -276,7 +319,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja broj osvojenih medalja
-     * @param medals
+     * @param medals broj osvojenih medalja
      */
     public void setMedals(Long medals) {
         this.medals = medals;
@@ -290,7 +333,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja broj zlatnih medalja
-     * @param goldMedals
+     * @param goldMedals zlatne medalje
      */
     public void setGoldMedals(Long goldMedals) {
         this.goldMedals = goldMedals;
@@ -304,7 +347,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja broj srebrnih medalja
-     * @param silverMedals
+     * @param silverMedals srebrne medalje
      */
     public void setSilverMedals(Long silverMedals) {
         this.silverMedals = silverMedals;
@@ -318,7 +361,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja broj bronzanih medalja
-     * @param bronzeMedals
+     * @param bronzeMedals bronzane medalje
      */
     public void setBronzeMedals(Long bronzeMedals) {
         this.bronzeMedals = bronzeMedals;
@@ -332,7 +375,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja kategoriju u kojoj se clan takmici
-     * @param category
+     * @param category kategorija u kojoj se clan takmici
      */
     public void setCategory(Category category) {
         this.category = category;
@@ -346,7 +389,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja disciplinu u kojoj se clan takmici
-     * @param discipline
+     * @param discipline disciplina u kojoj se clan takmici
      */
     public void setDiscipline(Discipline discipline) {
         this.discipline = discipline;
@@ -374,7 +417,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja adresu stanovanja
-     * @param adress
+     * @param adress adresa stanovanja
      */
     public void setAdress(String adress) {
         this.adress = adress;
@@ -388,7 +431,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja pol clana
-     * @param gender
+     * @param gender pol clana
      */
     public void setGender(Gender gender) {
         this.gender = gender;
@@ -402,7 +445,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja datum uclanjenja clana u klub
-     * @param dateOfMembership
+     * @param dateOfMembership datum uclanjenja
      */
     public void setDateOfMembership(Date dateOfMembership) {
         this.dateOfMembership = dateOfMembership;
@@ -416,7 +459,7 @@ public class Member extends AbstractDO implements Serializable{
     }
     /**
      * Postavlja ukupnu vrednost duga clana
-     * @param totalDebt
+     * @param totalDebt ukupan dug
      */
     public void setTotalDebt(Double totalDebt) {
         this.totalDebt = totalDebt;
