@@ -20,43 +20,81 @@ import rs.fon.np.application.kkfunakoshi.domain.Discipline;
 import rs.fon.np.application.kkfunakoshi.domain.Gender;
 
 /**
- *
- * @author Jeks
+ * Predstavlja model za uproscenu tabelu Member
+ * @author Jelena Repac
  */
 public class MemberTableModelSimpler extends AbstractTableModel{
-    
-     List<Member> members;
+	/**
+	 * Lista clanova za prikaz u tabeli
+	 */
+    List<Member> members;
+    /**
+     * Nazivi kolona u tabeli
+     */
     String[] columnNames= new String[]{"Name","Lastname","Gender","Date of birth",
         "Belt", "Discipline","Category","Medals","Gold","Silver","Bronze"};
+    /**
+     * Klase kolona u tabeli
+     */
     Object[] columnClass= new Object[]{String.class, String.class,String.class, String.class, Belt.class,Discipline.class, Category.class,
         String.class,String.class,String.class,String.class}; 
+    /**
+     * Formator datuma
+     */
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
+    /**
+     * Konstruktor
+     * @param members clanovi za prikaz u tabeli
+     */
     public MemberTableModelSimpler(List<Member> members) {
         this.members=members;
     }
-
+    /**
+     * Vraca broj redova tabele.
+     * @return broj redova tabele
+     */
     @Override
     public int getRowCount() {
       return members.size();
     }
-
+    /**
+     * Vraca broj kolona tabele.
+     * @return broj kolona
+     */
     @Override
     public int getColumnCount() {
             return columnClass.length;
-       }
+    }
+    /**
+     * Vraca naziv odredjene kolone.
+     * Ukoliko je prosledjen broj kolone veci od broja kolona ili ukoliko je prosledjeni broj manji od nule vraca se n/a vrednost.
+     * @param column kolona ciji naziv trazimo
+     * @return naziv kolone
+     */
     @Override
     public String getColumnName(int column) {
         if(column>columnNames.length || column<0) return "n/a";
         return columnNames[column];
     }
 
+    /**
+     * Vraca klasu odredjene kolone.
+     * Ukoliko je prosledjen broj kolone veci od broja kolona ili ukoliko je prosledjeni broj manji od nule vraca se n/a vrednost.
+     * @param columnIndex kolona ciju klasu trazimo
+     * @return klasa odredjene kolone
+     */
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         if(columnIndex<0 || columnIndex>columnClass.length) return Object.class;
         return (Class) columnClass[columnIndex];
     }
-    
+    /**
+     * Vraca vrednost koja se nalazi u odredjenom redu i koloni.
+     * @param rowIndex indeks reda
+     * @param columnIndex indeks kolone
+     * @return vrednost u odredjenom redu i koloni
+     */
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Member m= members.get(rowIndex);
@@ -85,11 +123,14 @@ public class MemberTableModelSimpler extends AbstractTableModel{
             return m.getBronzeMedals();
         default:
             return "n/a";
+        }
     }
-
-
-
-    }
+    /**
+     * Postavlja vrednost na odredjeni red i kolonu.
+     * @param rowIndex indeks reda
+     * @param columnIndex indeks kolone
+     * @param aValue vrednost koja se postavlja
+     */
      @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         Member m = members.get(rowIndex);
@@ -118,44 +159,77 @@ public class MemberTableModelSimpler extends AbstractTableModel{
                 break;
             }
         }
-
+     /**
+      * Proverava da li celija moze da se menja.
+      * @param rowIndex indeks reda
+      * @param columnIndex indeks kolone
+      * @return false indikator da celije u odredjenom redu i koloni nisu promenljive
+      */
     @Override
      public boolean isCellEditable(int rowIndex, int columnIndex) {
         return false;
     }
-    
+    /**
+     * Metoda za dodavanje clana u listu clanova.
+     * @param m clan
+     */
      public void addMember(Member m){
          members.add(m);
          fireTableRowsInserted(members.size()-1, members.size()-1);
      }
-
+	 /**
+	  * Vraca listu svih clanova.
+	  * @return List lista clanova
+	  */
     public List<Member> getMembers() {
         return members;
     }
-
+    /**
+     * Vraca clana sa odredjene pozicije u tabeli.
+     * @param row red u kojem se nalazi clan
+     * @return clan clan sa odredjene pozicije
+     */
     public Member getMember(int row){
         return members.get(row);
     }
-    
+    /**
+     * Brise clana sa odredjene pozicije u tabeli.
+     * @param row red u kojem se nalazi clan
+     */
     public void deleteMember(int row) {
         members.remove(row);
         fireTableDataChanged();
     }
+    /**
+     * Brise prosledjenog clana iz tabele.
+     * @param member clan kojeg brisemo iz tabele
+     */
     public void deleteMember(Member member){
         members.remove(member);
         fireTableDataChanged();
     }
-     
+    /**
+     * Menja trenutnu listu sa novom listom clanova.
+     * @param members lista svih clanova iz tabele
+     */
     public void setMembers(List<Member> members){
         this.members=members;
         fireTableDataChanged();
     }
-    
+    /**
+     * Azurira tabelu clanova sa podacima iz baze.
+     * @throws Exception ukoliko dodje do greske prilikom preuzimanja podataka iz baze
+     */
     public void refreshView() throws Exception{
         members= ControllerUI.getInstance().getByQuery("");
         fireTableDataChanged();
     }
-
+    /**
+     * Provera da li prosledjen clan postoji u listi.
+     * 
+     * @param m clan koji se proverava
+     * @return true ukoliko clan vec postoji u listi
+     */
     public boolean contains(Member m) {
          
         for(Member member: members){
