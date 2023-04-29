@@ -59,11 +59,11 @@ public class City extends AbstractDO implements Serializable {
     /**
      * Postavlja ID grada, na onu vrednost koju prosledimo kao parametar
      * @param id grada 
-     * @throws Exception Ukoliko dodje do greske
+     * @throws IllegalArgumentException Ukoliko je id negativan broj
      */
-    public void setId(Long id) throws Exception {
+    public void setId(Long id){
     	if(id < 0)
-             throw new Exception("ID must be 0 or larger number");
+             throw new IllegalArgumentException("ID must be 0 or larger number");
     	this.id = id;
     }
     /**
@@ -90,11 +90,11 @@ public class City extends AbstractDO implements Serializable {
     /**
      * Postavlja vrednost imena grada na onu vrednost koju prosledimo kao parametar.
      * @param name ime grada 
-     * @throws Exception ukoliko je prosledjeno ime krace od 2 karaktera.
+     * @throws IllegalArgumentException ukoliko je prosledjeno ime krace od 2 karaktera.
      */
-    public void setName(String name) throws Exception {
+    public void setName(String name) {
     	if(name.length() < 2)
-            throw new Exception("City name must have at least 2 characters");     
+            throw new IllegalArgumentException("City name must have at least 2 characters");     
         this.name = name;
     }
 

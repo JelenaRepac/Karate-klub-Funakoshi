@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Predstavlja karate takmicenje. Sadrzi informacije kao sto su id takmicenja, naziv istog, kao i grad, datum i mesto odrzavanja takmicenja.
@@ -50,7 +51,7 @@ public class Competition extends AbstractDO implements Serializable {
 
     /**
      * Konstruktor koji kao parametar prima sva polja klase.
-     * @param id id takmicenja
+     * @param id id takmicenja 
      * @param name naziv takmicenja
      * @param date datum odrzavanja
      * @param competitionHall hala u kojoj se odrzava
@@ -74,8 +75,12 @@ public class Competition extends AbstractDO implements Serializable {
     
     /**
      * Postavlja vrednost id-a.
+     * @param id Id takmicenja
+     * @throws IllegalArgumentException Ukoliko je id negativan broj
      */
-    public void setId(Long id) {
+    public void setId(Long id){
+    	if(id < 0)
+            throw new IllegalArgumentException("Id takmicenja ne sme biti negativan broj");
         this.id = id;
     }
 
@@ -89,8 +94,14 @@ public class Competition extends AbstractDO implements Serializable {
     /**
      * Postavlja naziv takmicenja.
      * @param name naziv takmicenja
+     * @throws IllegalArgumentException Stvara se izuzetak ukoliko je prosledjeni naziv kraci od 5 karaktera ili prazan string
+     * @throws NullPointerException Ukoliko je takmicenje null
      */
     public void setName(String name) {
+    	if(name == null )
+    		throw new NullPointerException("Naziv takmicenja ne sme biti null");
+    	if(name.length() < 5 || name.isEmpty())
+            throw new IllegalArgumentException("Naziv takmicenja mora imati minimum 5 karaktera niti biti prazan string");
         this.name = name;
     }
     /**
@@ -104,8 +115,13 @@ public class Competition extends AbstractDO implements Serializable {
     /**
      * Postavlja datum odrzavanja takmicenja
      * @param date datum odrzavanja
+     * @throws IllegalArgumentException Ukoliko je datum pre danasnjeg
      */
     public void setDate(Date date) {
+    	Date currentDate = new Date();
+    	System.out.println(currentDate);
+        if (date.before(currentDate)) 
+            throw new IllegalArgumentException("Datum ne sme biti pre danasnjeg!");
         this.date = date;
     }
     
@@ -119,8 +135,11 @@ public class Competition extends AbstractDO implements Serializable {
     /**
      * Postavlja grad u kojem se odrzava takmmicenje
      * @param city grad u kojem se odrzava takmicenje
+     * @throws IllegalArgumentException Stvara se izuzetak ukoliko prosledjeni grad nije potpuno inicijalizovan
      */
     public void setCity(City city) {
+    	if(city == null || city.getId() ==0 || city.getName().equals("") || city.getPtt()==0 )
+    		throw new IllegalArgumentException("Grad mora biti u potpunosti inicijalizovan");
         this.city = city;
     }
     /**
@@ -133,17 +152,42 @@ public class Competition extends AbstractDO implements Serializable {
     /**
      * Postavlja halu u kojoj se odrzava takmicenje
      * @param competitionHall hala odrzavanja
+     * @throws IllegalArgumentException Stvara se izuzetak ukoliko je prosledjeni naziv kraci od 5 karaktera 
+     * @throws NullPointerException Ukoliko je naziv hale null
      */
     public void setCompetitionHall(String competitionHall) {
+    	if(competitionHall==null)
+    		throw new NullPointerException("Naziv hale ne sme biti null");
+    	if(competitionHall.length() < 5)
+            throw new IllegalArgumentException("Naziv hale mora imati minimum 5 karaktera");
         this.competitionHall = competitionHall;
     }
 
+    
     @Override
-    public String toString() {
-        return  name;
-    }
+	public String toString() {
+		return "Competition [id=" + id + ", name=" + name + ", date=" + date + ", competitionHall=" + competitionHall
+				+ ", city=" + city + "]";
+	}
 
-    @Override
+	@Override
+	public int hashCode() {
+		return Objects.hash(competitionHall, date, id, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Competition other = (Competition) obj;
+		return  Objects.equals(id, other.id) && Objects.equals(name, other.name);
+	}
+
+	@Override
     public String getAttributeList() {
        return "name, date, competitionHall, cityId";
     }
@@ -181,7 +225,12 @@ public class Competition extends AbstractDO implements Serializable {
 
     @Override
     public void setForeignId(Long id) {
-        setId(id);
+        try {
+			setId(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
     }
 

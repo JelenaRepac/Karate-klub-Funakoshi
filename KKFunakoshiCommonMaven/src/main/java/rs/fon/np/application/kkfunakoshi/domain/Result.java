@@ -91,8 +91,11 @@ public class Result extends AbstractDO implements Serializable {
     /**
      * Postavlja ID rezultata takmicenja
      * @param id ID rezultata takmicenja
+     * @throws IllegalArgumentException Ukoliko je id negativan broj ili jednak nuli
      */
     public void setId(Long id) {
+    	if(id<0 || id==0)
+    		throw new IllegalArgumentException("Id ne sme biti negativan broj ili jednak nuli");
         this.id = id;
     }
     /**
@@ -105,9 +108,12 @@ public class Result extends AbstractDO implements Serializable {
     /**
      * Postavlja takmicenje na kome je ostvaren rezultat
      * @param competition takmicenje na kome je ostvaren rezultat
+     * @throws IllegalArgumentException Ukoliko takmicenje nije u potpunosti inicijalizovano
      */
     public void setCompetition(Competition competition) {
-        this.competition = competition;
+    	if(competition==null || competition.getId()==null || competition.getCity()==null || competition.getName().equals("") || competition.getCompetitionHall().equals("") || competition.getDate()==null )
+    		throw new IllegalArgumentException("Takmicenje mora biti u potpunosti inicijalizovano");
+    	this.competition = competition;
     }
     /**
      * Vraca clana koji je ostvario rezultat
@@ -241,7 +247,15 @@ public class Result extends AbstractDO implements Serializable {
         t.setId(rs.getLong("teamId"));
         
         Competition c= new Competition();
-        c.setId(rs.getLong("competitionId"));
+        try {
+			c.setId(rs.getLong("competitionId"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         return new Result(rs.getLong("id"), c, m, t, Medal.valueOf(rs.getString("medal")), Category.valueOf(rs.getString("category")));
     }
