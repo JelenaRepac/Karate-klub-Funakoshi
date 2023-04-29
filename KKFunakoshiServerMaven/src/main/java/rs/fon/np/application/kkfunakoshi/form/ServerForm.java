@@ -14,15 +14,22 @@ import javax.swing.JOptionPane;
 import  rs.fon.np.application.kkfunakoshi.server.thread.ServerThread;
 
 /**
- *
- * @author Jeks
+ * Predstavlja glavnu serversku formu.
+ * @author Jelena Repac
  */
 public class ServerForm extends javax.swing.JFrame {
 
-    
+    /**
+     * Serverska nit
+     */
     private ServerThread serverThread;
+    /**
+     * Objekat TrainerForm
+     */
     private TrainerForm u;
-    
+    /**
+     * Konstruktor
+     */
     public ServerForm() {
         initComponents();
         btnStop.setEnabled(false);
@@ -86,8 +93,8 @@ public class ServerForm extends javax.swing.JFrame {
         serverStatus = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItemUsers = new javax.swing.JMenuItem();
+        jMenuSettings = new javax.swing.JMenuItem();
+        jMenuUsers = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -140,21 +147,21 @@ public class ServerForm extends javax.swing.JFrame {
 
         jMenu1.setText("Server");
 
-        jMenuItem1.setText("Settings");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuSettings.setText("Settings");
+        jMenuSettings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(jMenuSettings);
 
-        jMenuItemUsers.setText("Users");
-        jMenuItemUsers.addActionListener(new java.awt.event.ActionListener() {
+        jMenuUsers.setText("Users");
+        jMenuUsers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemUsersActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItemUsers);
+        jMenu1.add(jMenuUsers);
 
         jMenuBar1.add(jMenu1);
 
@@ -191,6 +198,11 @@ public class ServerForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Start.
+     * Pokrece serverksu nit.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         
         try {
@@ -205,7 +217,11 @@ public class ServerForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Server je pokrenut.");
         }
     }//GEN-LAST:event_btnStartActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Stop.
+     * Zaustavlja server, odjavljuje korisnike sa sistema, prekida komunikaciju.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
         if(serverThread!=null){
         try {
@@ -219,7 +235,11 @@ public class ServerForm extends javax.swing.JFrame {
         }
         }
     }//GEN-LAST:event_btnStopActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne stavka menija Settings.
+     * Otvara formu za podesavanje informacija vezanih za konekciju sa bazom.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         try {
             new FrmSettings(this, true).setVisible(true);
@@ -227,7 +247,11 @@ public class ServerForm extends javax.swing.JFrame {
             Logger.getLogger(ServerForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne stavka menija Users.
+     * Otvara formu za prikaz svih trenera, odnosno korisnika.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void jMenuItemUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemUsersActionPerformed
         new TrainerForm(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItemUsersActionPerformed
@@ -273,9 +297,9 @@ public class ServerForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuSettings;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItemUsers;
+    private javax.swing.JMenuItem jMenuUsers;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel serverStatus;

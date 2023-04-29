@@ -9,8 +9,8 @@ import  rs.fon.np.application.kkfunakoshi.domain.Competition;
 import  rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja se odnosi na vracanje liste takmicenja koji zadovoljavaju odredjeni uslov
+ * @author Jelena Repac
  */
 public class GetCompetitionsByQuerySO extends AbstractSO{
 
@@ -34,7 +34,10 @@ public class GetCompetitionsByQuerySO extends AbstractSO{
         }
       
     }
-
+    /**
+     * Vraca listu takmicenja iz baze
+     * @return lista takmicenja
+     */
     public List<Competition> getCompetitions() {
         return competitions;
     }

@@ -15,8 +15,8 @@ import rs.fon.np.application.kkfunakoshi.domain.Team;
 import rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja se odnosi na vracanje liste svih rezultata koji zadovoljavaju odredjeni uslov.
+ * @author Jelena Repac
  */
 public class GetByQueryResultSO extends AbstractSO {
     
@@ -68,7 +68,10 @@ public class GetByQueryResultSO extends AbstractSO {
         member.setMembershipFee(membershipFees);
         return member;
     }
-
+    /**
+     * Vraca listu rezultat iz baze
+     * @return lista rezultat
+     */
     public List<Result> getResults() {
         return results;
     }

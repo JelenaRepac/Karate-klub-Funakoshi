@@ -13,8 +13,8 @@ import rs.fon.np.application.kkfunakoshi.domain.Team;
 import rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja se odnosi na dodavanje rezultata.
+ * @author Jelena Repac
  */
 public class AddResultSO extends AbstractSO{
     

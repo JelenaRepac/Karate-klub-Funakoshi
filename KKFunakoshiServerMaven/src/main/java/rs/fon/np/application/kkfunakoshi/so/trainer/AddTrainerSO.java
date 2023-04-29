@@ -9,8 +9,8 @@ import rs.fon.np.application.kkfunakoshi.domain.Trainer;
 import rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja se odnosi na dodavanje trenera.
+ * @author Jelena Repac
  */
 public class AddTrainerSO extends AbstractSO{
 
@@ -40,6 +40,16 @@ public class AddTrainerSO extends AbstractSO{
        }
     }
 
+       /**
+        * Provera da li trener postoji u bazi
+        * @param trainer korisnik
+        * @return 
+        * 	<ul>
+        * 		<li>true - ukoliko trener vec postoji u bazi</li>
+        * 		<li>false - ukoliko trener ne postoji u bazi</li>
+        * 	</ul>
+        * @throws Exception Ukoliko dodje do greske u radu sa bazom
+        */
     private boolean checkIfExists(Trainer trainer) throws Exception {
         try {
             List<Trainer> trainers= repository.getAll(new Trainer());

@@ -9,8 +9,8 @@ import rs.fon.np.application.kkfunakoshi.domain.Team;
 import rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja se odnosi na dodavanje tima.
+ * @author Jelena Repac
  */
 public class AddTeamSO extends AbstractSO {
 
@@ -41,6 +41,16 @@ public class AddTeamSO extends AbstractSO {
        }
     }
 
+    /**
+     * Provera da li tim vec postoji u bazi.
+     * @param team tim
+     * @return 
+     * <ul>
+        * 		<li>true - ukoliko tim vec postoji u bazi</li>
+        * 		<li>false - ukoliko tim ne postoji u bazi</li>
+        * 	</ul>
+     * @throws Exception Ukoliko dodje do greske u radu sa bazom
+     */
     private boolean checkIfExists(Team team) throws Exception {
         
         List<Team> teams= repository.getByQuery(new Team(), "");

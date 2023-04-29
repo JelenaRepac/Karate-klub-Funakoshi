@@ -10,8 +10,8 @@ import rs.fon.np.application.kkfunakoshi.domain.MembershipFee;
 import rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja se odnosi na vracanje liste svih clanova.
+ * @author Jelena Repac
  */
 public class GetAllMembersSO extends AbstractSO{
 
@@ -41,6 +41,10 @@ public class GetAllMembersSO extends AbstractSO{
        
     }
 
+    /**
+     * Vraca listu clanova iz baze
+     * @return lista clanova
+     */
     public List<Member> getMembers() {
         return members;
     }

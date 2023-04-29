@@ -23,46 +23,83 @@ import rs.fon.np.application.kkfunakoshi.domain.Team;
 import rs.fon.np.application.kkfunakoshi.domain.Trainer;
 
 /**
- *
+ * Klasa koja obradjuje zahteve korisnika.
  * @author Jelena Repac
  */
 public class HandleClientsRequest extends Thread {
     
+	/**
+	 * Soket
+	 */
     private Socket socket;
+    /**
+     * Serverska nit
+     */
     private ServerThread server;
+    /**
+     * Korisnik
+     */
     private Trainer user;
     
-    
+    /**
+     * Konstruktor
+     * @param server serverska nit
+     * @param socket soket
+     */
     public HandleClientsRequest(ServerThread server,Socket socket) {
         this.socket = socket;
         this.server=server;
     }
 
+    /**
+     * Vraca soket
+     * @return soket
+     */
     public Socket getSocket() {
         return socket;
     }
 
+    /**
+     * Postavlja soket
+     * @param socket soket
+     */
     public void setSocket(Socket socket) {
         this.socket = socket;
     }
 
+    /**
+     * Vraca serversku nit 
+     * @return serverska nit
+     */
     public ServerThread getServer() {
         return server;
     }
-
+    /**
+     * Postavlja serversku nit
+     * @param server serverska nit
+     */
     public void setServer(ServerThread server) {
         this.server = server;
     }
-
+    /**
+     * Vraca korisnika
+     * @return korisnik
+     */
     public Trainer getUser() {
         return user;
     }
 
+    /**
+     * Postavlja korisnika
+     * @param user korisnik
+     */
     public void setUser(Trainer user) {
         this.user = user;
     }
 
-    
+    /**
+     * Metoda koja se pokrece nakon kreiranja objekta HandleClientRequest
+     */
     @Override
     public void run() {
           try {
@@ -75,7 +112,9 @@ public class HandleClientsRequest extends Thread {
             System.out.println("Client aborted the program.");
         }
     }
-    
+    /**
+     * Prekida komunikaciju
+     */
     void stopCommunication(){
         try{
             Response response= new Response();
@@ -90,7 +129,12 @@ public class HandleClientsRequest extends Thread {
             System.out.println("Error stopping communication - class Handle..");
         }
     }
-    
+    /**
+     * Obradjuje zahtev poslat od strane korisnika
+     * @param socket soket
+     * @return odgovor
+     * @throws Exception Ukoliko dodje do greske prilikom obrade zahteva
+     */
      public Response handleClientsRequest(Socket socket) throws Exception {
          Response response= null;
          while(true){
@@ -164,6 +208,11 @@ public class HandleClientsRequest extends Thread {
          
      }
 
+     /**
+      * Obradjuje zahtev korisnika za prijavljivanje na sistem
+      * @param u korisnik
+      * @return odgovor od strane servera
+      */
     private Response login(Trainer u) {
         Response response= new Response();
         try {
@@ -184,14 +233,20 @@ public class HandleClientsRequest extends Thread {
         }
         return response;
     }
-    
+    /**
+     * Obradjuje zahtev korisnika za odjavljivanje sa sistema
+     * @param request korisnikov zahtev
+     */
      private void logout(Request request) {
         Trainer user= (Trainer) request.getArgument();
         Controller.getInstance().logout(user);
         server.setUserLoggedIn(user, false);
     }
     
-
+     /**
+      * Obradjuje zahtev korisnika za vracanje liste clanova
+      * @return odgovor od strane servera
+      */
     private Response getMembers() {
         Response response= new Response();
         try{
@@ -207,7 +262,10 @@ public class HandleClientsRequest extends Thread {
         return response;    
     }
 
-
+    /**
+     * Obradjuje zahtev korisnika za vracanje liste gradova
+     * @return odgovor od strane servera
+     */
     private Response getCities() {
        Response response= new Response();
         try {
@@ -221,7 +279,11 @@ public class HandleClientsRequest extends Thread {
         }
         return response;
     }
-
+    /**
+     * Obradjuje zahtev korisnika za dodavanje clana
+     * @param member clan 
+     * @return odgovor od strane servera
+     */
     private Response addMember(Member member) {
         Response response= new Response();
         try {
@@ -235,7 +297,11 @@ public class HandleClientsRequest extends Thread {
         }
         return response;
     }
-
+    /**
+     * Obradjuje zahtev korisnika za vracanje liste clanova koji zadovoljavaju odredjeni uslov
+     * @param request korisnikov zahtev
+     * @return odgovor od strane servera
+     */
     private Response getMembersByQuery(Request request) {
       String query= (String) request.getArgument();
       Response response= new Response();
@@ -251,6 +317,11 @@ public class HandleClientsRequest extends Thread {
         return response;
     }
 
+    /**
+     * Obradjuje zahtev korisnika za brisanje korisnika
+     * @param request korisnikov zahtev
+     * @return odgovor od strane servera
+     */
     private Response deleteMember(Request request) {
         Response response= new Response();
         try {
@@ -263,7 +334,11 @@ public class HandleClientsRequest extends Thread {
         }
         return response;
     }
-
+    /**
+     * Obradjuje zahtev korisnika za azuriranje clana
+     * @param request korisnikov zahtev
+     * @return odgovor od strane servera
+     */
     private Response updateMember(Request request) {
         Member oldMember= ((List<Member>) request.getArgument()).get(0);
         Member newMember= ((List<Member>) request.getArgument()).get(1);
@@ -281,9 +356,11 @@ public class HandleClientsRequest extends Thread {
         }
         return response;
     }
-
-    
-   
+    /**
+     * Obradjuje zahtev korisnika za dodavanje takmicenja
+     * @param competition takmicenje 
+     * @return odgovor od strane servera
+     */
     private Response addCompetition(Competition competition) {
        Response response= new Response();
         try {
@@ -297,7 +374,11 @@ public class HandleClientsRequest extends Thread {
         }
         return response;
     }
-
+    /**
+     * Obradjuje zahtev korisnika za vracanje liste takmicenja
+     * @param request korisnikov zahtev
+     * @return odgovor od strane servera
+     */
     private Response getCompetitions(Request request) {
         
         Response response= new Response();
@@ -312,7 +393,11 @@ public class HandleClientsRequest extends Thread {
         }
         return response;
     }
-
+    /**
+     * Obradjuje zahtev korisnika za vracanje liste takmicenja koji zadovoljavaju odredjeni uslov
+     * @param request korisnikov zahtev
+     * @return odgovor od strane servera
+     */
     private Response getCompetitionsByQuery(Request request) {
       String query= (String) request.getArgument();
       Response response= new Response();
@@ -327,7 +412,11 @@ public class HandleClientsRequest extends Thread {
         }
         return response;
     }
-
+    /**
+     * Obradjuje zahtev korisnika za dodavanje tima
+     * @param team tim
+     * @return odgovor od strane servera
+     */
     private Response addTeam(Team team) {
         Response response= new Response();
         try {
@@ -341,7 +430,11 @@ public class HandleClientsRequest extends Thread {
         }
         return response;
     }
-
+    /**
+     * Obradjuje zahtev korisnika za vracanje liste timova
+     * @param request korisnikov zahtev
+     * @return odgovor od strane servera
+     */
     private Response getTeams(Request request) {
         String query= (String) request.getArgument();
         Response response= new Response();
@@ -356,7 +449,11 @@ public class HandleClientsRequest extends Thread {
         }
         return response;
     }
-
+    /**
+     * Obradjuje zahtev korisnika za dodavanje rezultata
+     * @param result rezultat
+     * @return odgovor od strane servera
+     */
     private Response addResults(Result result) {
         Response response= new Response();
         try {
@@ -370,7 +467,11 @@ public class HandleClientsRequest extends Thread {
         }
         return response;
     }
-
+    /**
+     * Obradjuje zahtev korisnika za vracanje liste rezultata koji zadovoljavaju odredjeni uslov
+     * @param request korisnikov zahtev
+     * @return odgovor od strane servera
+     */
     private Response getResultsByQuery(Request request) {
         String query= (String) request.getArgument();
         Response response= new Response();
@@ -385,7 +486,11 @@ public class HandleClientsRequest extends Thread {
         }
         return response;
     }
-
+    /**
+     * Obradjuje zahtev korisnika za azuriranje rezultata
+     * @param request korisnikov zahtev
+     * @return odgovor od strane servera
+     */
     private Response updateResult(Request request) {
         Result oldResult= ((List<Result>) request.getArgument()).get(0);
         Result newResult= ((List<Result>) request.getArgument()).get(1);

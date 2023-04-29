@@ -8,8 +8,8 @@ import rs.fon.np.application.kkfunakoshi.domain.Trainer;
 import rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja se odnosi na brisanje trenera.
+ * @author Jelena Repac
  */
 public class RemoveTrainerSO extends AbstractSO {
 
@@ -31,6 +31,11 @@ public class RemoveTrainerSO extends AbstractSO {
        
     }
 
+    /**
+     * Proverava da li je trener sadrzi id.
+     * @param u trener
+     * @throws Exception Ukoliko trener ne sadrzi id
+     */
     private void checkValueConstraints(Trainer u) throws Exception {
        if(u.getId().equals(null)){
            throw new Exception("Trainer ID is not sent!");

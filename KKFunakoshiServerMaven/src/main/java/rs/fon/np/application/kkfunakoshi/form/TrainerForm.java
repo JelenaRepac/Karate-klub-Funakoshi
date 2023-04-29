@@ -13,15 +13,20 @@ import javax.swing.JTextField;
 import  rs.fon.np.application.kkfunakoshi.form.tableModel.TableModelTrainer;
 
 /**
- *
- * @author Jeks
+ * Predstavlja formu za prikaz trenera.
+ * @author Jelena Repac
  */
 public class TrainerForm extends javax.swing.JDialog {
 
     /**
-     * Creates new form UsersForm
+     * Forma iz koje je pozvana
      */
     Frame parent;
+    /**
+     * Konstruktor
+     * @param parent forma iz koje je pozvana 
+     * @param modal odredjuje da li dijalog treba da bude modalan ili ne 
+     */
     public TrainerForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.parent=parent;
@@ -40,6 +45,10 @@ public class TrainerForm extends javax.swing.JDialog {
         }
     }
 
+    /**
+     * Vraca objekat JTable korisnika
+     * @return JTable korisnika
+     */
     public JTable getTblUsers() {
         return tblUsers;
     }
@@ -158,6 +167,11 @@ public class TrainerForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Delete.
+     * Brise trenera ukoliko je selektovan.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         
         int selectedRow= tblUsers.getSelectedRow();
@@ -181,6 +195,11 @@ public class TrainerForm extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Add.
+     * Otvara formu za dodavanje novog trenera.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void btnAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUserActionPerformed
         try {
             new AddNewTrainerForm(parent, true).setVisible(true);
@@ -203,6 +222,10 @@ public class TrainerForm extends javax.swing.JDialog {
     private javax.swing.JTable tblUsers;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Priprema prikaza forme.
+     * @throws Exception Ukoliko dodje do greske 
+     */
     private void prepareView() throws Exception {
         TableModelTrainer tm= new TableModelTrainer();
         tblUsers.setModel(tm);

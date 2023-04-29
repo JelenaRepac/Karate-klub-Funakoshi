@@ -146,7 +146,7 @@ public class Controller {
 //    }
     /**
      * Metoda koja dodaje clana u bazu
-     * @param clan koji se dodaje u bazu
+     * @param member clan koji se dodaje u bazu
      * @throws Exception Ukoliko dodje do greske prilikom dodavanja clana u bazu
      */
     public void addMember(Member member)throws Exception{

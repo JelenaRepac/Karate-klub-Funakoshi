@@ -12,13 +12,16 @@ import java.util.Properties;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Jeks
+ *  Predstavlja formu za azuriranje neophodnih podataka za povezivanje sa bazom.
+ * @author Jelena Repac
  */
 public class FrmSettings extends javax.swing.JDialog {
 
     /**
-     * Creates new form FrmSettings
+     * Konstruktor
+     * @param parent forma iz koje je pozvana 
+     * @param modal odredjuje da li dijalog treba da bude modalan ili ne 
+     * @throws IOException Ukoliko dodje do I/O greske
      */
     public FrmSettings(java.awt.Frame parent, boolean modal) throws IOException {
         super(parent, modal);
@@ -104,7 +107,12 @@ public class FrmSettings extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Save.
+     * Setuje unete vrednosti koje su neophodne za konektovanje sa bazom.
+     * Ukoliko dodje greske, prikazuje se prozor sa porukom o gresci.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if("".equals(txtUrl.getText().trim()) || txtUsername.getText().trim().equals("")){
                 JOptionPane.showMessageDialog(this, "You must insert a value for url and username!","Error",JOptionPane.ERROR_MESSAGE);
@@ -140,6 +148,11 @@ public class FrmSettings extends javax.swing.JDialog {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Priprema prikaza forme.
+     * @throws FileNotFoundException Ukoliko putanja do fajla ne postoji
+     * @throws IOException Ukoliko dodje do I/O greske
+     */
     private void prepareView() throws FileNotFoundException, IOException {
         Properties properties = new Properties();
         properties.load(new FileInputStream("./src/main/resources/dbconfig.properties"));

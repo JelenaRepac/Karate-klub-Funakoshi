@@ -18,8 +18,8 @@ import rs.fon.np.application.kkfunakoshi.db.DbRepository;
 import rs.fon.np.application.kkfunakoshi.domain.AbstractDO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja obezbedjuje metode koje su neophodne za rad sa objektima.
+ * @author Jelena Repac
  */
 public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
 

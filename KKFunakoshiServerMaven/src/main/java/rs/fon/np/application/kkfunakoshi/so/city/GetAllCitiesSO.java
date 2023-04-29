@@ -9,8 +9,8 @@ import rs.fon.np.application.kkfunakoshi.domain.City;
 import rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja se odnosi na vracanje svih gradova
+ * @author Jelena Repac
  */
 public class GetAllCitiesSO extends AbstractSO{
 
@@ -26,6 +26,10 @@ public class GetAllCitiesSO extends AbstractSO{
         cities=repository.getAll(new City());
     }
 
+    /**
+     * Vraca listu gradova iz baze
+     * @return lista gradova
+     */
     public List<City> getCities() {
         return cities;
     }

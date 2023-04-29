@@ -9,8 +9,8 @@ import rs.fon.np.application.kkfunakoshi.domain.Trainer;
 import rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja se odnosi na vracanje trenera
+ * @author Jelena Repac
  */
 public class GetTrainerSO extends AbstractSO {
 
@@ -27,6 +27,10 @@ public class GetTrainerSO extends AbstractSO {
        trainers= repository.getAll(new Trainer());
     }
 
+    /**
+     * Vraca sve trenere iz baze
+     * @return lista trenera
+     */
     public List<Trainer> getTrainers() {
         return trainers;
     }

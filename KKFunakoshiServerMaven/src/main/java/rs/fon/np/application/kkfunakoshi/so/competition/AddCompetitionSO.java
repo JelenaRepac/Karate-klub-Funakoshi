@@ -9,8 +9,8 @@ import  rs.fon.np.application.kkfunakoshi.domain.Competition;
 import  rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja se odnosi na dodavanje takmicenja.
+ * @author Jelena Repac
  */
 public class AddCompetitionSO extends AbstractSO{
 

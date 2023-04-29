@@ -14,7 +14,7 @@ public class Server {
 
 	/**
 	 * Poziva metodu za otvaranje serverske forme
-	 * @param args
+	 * @param args args
 	 */
     public static void main(String[] args) {
         Server server = new Server();

@@ -10,8 +10,8 @@ import rs.fon.np.application.kkfunakoshi.domain.Team;
 import rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja se odnosi na vracanje liste svih timova koji zadovoljavaju odredjeni uslov.
+ * @author Jelena Repac
  */
 public class GetTeamsByQuerySO extends AbstractSO {
 
@@ -39,10 +39,19 @@ public class GetTeamsByQuerySO extends AbstractSO {
         }
     }
 
+    /**
+     * Vraca listu timova iz baze
+     * @return lista timova
+     */
     public List<Team> getTeams() {
         return teams;
     }
 
+    /**
+     * Vrsi proveru da li neki od timova sadrzi null vrednosti
+     * @param teams timovi
+     * @return lista timova
+     */
     private List<Team> filterTeam(List<Team> teams) {
         List<Team> returnTeams=new ArrayList<>();
         for(Team t: teams){

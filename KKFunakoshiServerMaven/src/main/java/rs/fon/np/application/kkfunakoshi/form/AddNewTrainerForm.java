@@ -14,13 +14,15 @@ import rs.fon.np.application.kkfunakoshi.validation.ValidationException;
 import rs.fon.np.application.kkfunakoshi.validation.Validator;
 
 /**
- *
- * @author Jeks
+ * Forma za dodavanje trenera.
+ * @author Jelena Repac
  */
 public class AddNewTrainerForm extends javax.swing.JDialog {
 
     /**
-     * Creates new form AddNewTrainerForm
+     * Konstruktor
+     * @param parent forma iz koje je pozvana 
+     * @param modal odredjuje da li dijalog treba da bude modalan ili ne 
      */
     public AddNewTrainerForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -188,6 +190,13 @@ public class AddNewTrainerForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obradjuje dogadjaj kada se pritisne dugme Add.
+     * Dodaje trenera u bazu.
+     * Ukoliko dodje do greske, prikazuje se prozor sa porukom o gresci.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     * 
+     */
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         try {
             validateForm();
@@ -213,7 +222,12 @@ public class AddNewTrainerForm extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, ex.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAddActionPerformed
-
+    /**
+     * Obradjuje dogadjaj kada korisnik misom napusti polje za unos lozinke.
+     * Proverava da li je lozinka jednaka prethodno unetoj.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     * 
+     */
     private void txtRepeatedPasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRepeatedPasswordMouseExited
         if(!String.copyValueOf(txtPassword.getPassword()).equals(String.copyValueOf(txtRepeatedPassword.getPassword())) 
                 || String.copyValueOf(txtRepeatedPassword.getPassword()).equals("")){
@@ -225,7 +239,12 @@ public class AddNewTrainerForm extends javax.swing.JDialog {
             lblRepeatedPass.setForeground(Color.GREEN);
         }
     }//GEN-LAST:event_txtRepeatedPasswordMouseExited
-
+    /**
+     * Obradjuje dogadjaj kada korisnik misom napusti polje za unos lozinke.
+     * Proverava da li lozinka zadovoljava format.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     * 
+     */
     private void txtPasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMouseExited
         if(validatePassword(String.valueOf(txtPassword.getPassword()).trim(), "........(.)*")==false){
             lblRepeatedPass1.setText("Password must contains 8 characters");
@@ -234,7 +253,11 @@ public class AddNewTrainerForm extends javax.swing.JDialog {
             lblRepeatedPass1.setText(null);
         }
     }//GEN-LAST:event_txtPasswordMouseExited
-
+    /**
+     * Obradjuje dogadjaj kada se unosi ime trenera.
+     * Ukoliko je duzina imena manja od 2 karaktera, postavlja se poruka o gresci u labelu.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
        if(txtName.getText().length()<2){
             txtNameError.setText("The trainer name must contain at least 2 letters");
@@ -242,7 +265,11 @@ public class AddNewTrainerForm extends javax.swing.JDialog {
         txtNameError.setText(null);
         }
     }//GEN-LAST:event_txtNameKeyTyped
-
+    /**
+     * Obradjuje dogadjaj kada se unosi prezime trenera.
+     * Ukoliko je duzina prezimena manja od 2 karaktera, postavlja se poruka o gresci u labelu.
+     * @param evt dogadjaj koji pokrece ovu metodu
+     */
     private void txtLastnameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLastnameKeyTyped
         if(txtLastname.getText().length()<2){
             lblLastnameErro.setText("The trainer lastname must contain at least 2 letters");
@@ -270,7 +297,14 @@ public class AddNewTrainerForm extends javax.swing.JDialog {
     private javax.swing.JPasswordField txtRepeatedPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
-
+    /**
+     *  
+     * Vrsi validaciju korisnickog unosa za informacije o treneru.
+     * Koristi Validator klasu za proveru i generisanje odgovarajuce poruke o gresci.
+     * 
+     * @throws ValidationException Ukoliko postoji neka greška u unosu
+     *
+     */
     private void validateForm() throws ValidationException {
         Validator.startValidation().validateNotNullOrEmpty(txtName.getText().trim(), "You must insert name.")
                 .validateNotNullOrEmpty(txtLastname.getText().trim(), "You must insert lastname.")
@@ -282,6 +316,9 @@ public class AddNewTrainerForm extends javax.swing.JDialog {
                 .throwIfInvalide();
     }
 
+    /**
+     * Resetuje polja forme.
+     */
     private void resetFields() {
         txtLastname.setText(null);
         txtUsername.setText(null);
@@ -292,6 +329,9 @@ public class AddNewTrainerForm extends javax.swing.JDialog {
         lblRepeatedPass1.setText(null);
     }
 
+    /**
+     * Priprema prikaza forme.
+     */
     private void prepareView() {
         lblLastnameErro.setText(null);
         txtNameError.setText(null);
@@ -299,6 +339,16 @@ public class AddNewTrainerForm extends javax.swing.JDialog {
         lblRepeatedPass1.setText(null);
     }
 
+    /**
+     *  Validacija lozinke
+     * @param value lozinka
+     * @param format format koji lozinka mora da zadovolji
+     * @return
+     *  <ul>
+     *  	<li>true - ukoliko lozinka odgovara formatu</li>
+     *  	<li>false - ukoliko lozinka ne odgovara formatu</li>
+     *  </ul>
+     */
     public boolean validatePassword(String value, String format) {
         Pattern p = Pattern.compile(format);
         Matcher m = p.matcher(value);

@@ -9,8 +9,8 @@ import  rs.fon.np.application.kkfunakoshi.domain.Member;
 import  rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja se odnosi na dodavanje clana.
+ * @author Jelena Repac
  */
 public class AddMemberSO extends AbstractSO {
     

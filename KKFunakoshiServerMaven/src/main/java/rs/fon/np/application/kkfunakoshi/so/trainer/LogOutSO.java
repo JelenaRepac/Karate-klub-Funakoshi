@@ -9,13 +9,15 @@ import rs.fon.np.application.kkfunakoshi.repository.impl.RepositoryDBTrainer;
 import rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja se odnosi na odjavljivanje korisnika sa sistema
+ * @author Jelena Repac
  */
 public class LogOutSO extends AbstractSO{
 
     private RepositoryDBTrainer repositoryUser;
-    
+    /**
+     * Konstruktor
+     */
     public LogOutSO() {
         repositoryUser=new RepositoryDBTrainer();
     }

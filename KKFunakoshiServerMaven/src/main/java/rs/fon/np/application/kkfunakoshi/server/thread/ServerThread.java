@@ -21,15 +21,27 @@ import rs.fon.np.application.kkfunakoshi.form.TrainerForm;
 import rs.fon.np.application.kkfunakoshi.form.tableModel.TableModelTrainer;
 
 /**
- *
+ * Predstavlja serversku nit koja je pokrenuta uz pomoc serverskog soketa i sluzi za osluskivanje zahteva od strane klijenta.
  * @author Jelena Repac
  */
 public class ServerThread  extends Thread{
-    
+    /**
+     * Serverski soket
+     */
     private ServerSocket serverSocket;
+    /**
+     * Lista korisnika
+     */
     private List<HandleClientsRequest> clients;
+    /**
+     * Forma za prikaz trenera/korisnika
+     */
     private TrainerForm usersForm;
     
+    /**
+     * Konstruktor 
+     * @throws IOException Ukoliko dodje do I/O greske
+     */
    public ServerThread() throws IOException{
        Properties properties= new Properties();
        properties.load(new FileInputStream(ServerConstants.SERVER_CONFIG_FILE_PATH));
@@ -38,6 +50,9 @@ public class ServerThread  extends Thread{
        clients = new ArrayList<>();
    }
 
+   /**
+    * Metoda koja se pokrece nakon kreiranja objekta klase
+    */
     @Override
     public void run() {
         try {
@@ -51,12 +66,19 @@ public class ServerThread  extends Thread{
 
     }
 
+    /**
+     * Metoda za povezivanje sa korisnikom
+     * @param s soket
+     */
     private void connectClient(Socket s) {
        HandleClientsRequest client= new HandleClientsRequest(this,s);
        clients.add(client);
        client.start();
     }
-   
+   /**
+    * Metoda koja sluzi za prekidanje komunikacije i zatvaranje soketa
+    * @throws IOException Ukoliko dodje do I/O greske
+    */
    public void stopCommunication() throws IOException {
         for(HandleClientsRequest client: clients){
             client.stopCommunication();
@@ -70,22 +92,38 @@ public class ServerThread  extends Thread{
         serverSocket.close();
     }
 
+   /**
+    * Metoda za brisanje kliijenta, odnosno niti klijenta
+    * @param ct HandleClientRequest
+    */
     void removeClient(HandleClientsRequest ct) {
         clients.remove(ct);
         System.out.println("Client thread removed.");
     }
 
+    /**
+     * Metoda koja postavlja stanje korisnika
+     * @param dbUser korisnik
+     * @param loggedIn stanje
+     */
     void setUserLoggedIn(Trainer dbUser, boolean loggedIn) {
        ((TableModelTrainer) usersForm.getTblUsers().getModel()).updateUser(dbUser,loggedIn);
        
     }
 
+    /**
+     * Metoda za odjavljivanje korisnika
+     * @param ct Nit korisnika
+     * @throws IOException Ukoliko dodje do I/O greske
+     */
     void logout(HandleClientsRequest ct) throws IOException{
         ct.getSocket().close();
         removeClient(ct);
     }
    
-    
+    /**
+     * Metoda za odjavljivanje svih krosnika sa sistema
+     */
     public void logOutAllUsers(){
         for(HandleClientsRequest client:clients){
             Trainer u= client.getUser();
@@ -98,6 +136,10 @@ public class ServerThread  extends Thread{
         }
     }
 
+    /**
+     * Postavljanje forme
+     * @param u forma za prikaz svih trenera
+     */
     public void setTrainersForm(TrainerForm u) {
         usersForm=u;
     }

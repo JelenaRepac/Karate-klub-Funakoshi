@@ -10,14 +10,16 @@ import rs.fon.np.application.kkfunakoshi.repository.impl.RepositoryDBTrainer;
 import rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
- *
- * @author Jeks
+ * Klasa koja se odnosi na prijavljivanje korisnika na sistem
+ * @author Jelena Repac
  */
 public class LoginSO extends AbstractSO {
 
     private Trainer currentUser;
     private RepositoryDBTrainer repositoryTrainer;
-
+    /**
+     * Konstruktor
+     */
     public LoginSO() {
         repositoryTrainer= new RepositoryDBTrainer();
     }
@@ -58,6 +60,10 @@ public class LoginSO extends AbstractSO {
        
     }
 
+    /**
+     * Vraca trenutno prijavljenog korisnika
+     * @return trener
+     */
     public Trainer getCurrentUser() {
         return currentUser;
     }
