@@ -5,6 +5,7 @@
 package rs.fon.np.application.kkfunakoshi.repository.impl;
 
 import java.sql.Connection;
+import org.json.simple.JSONObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.PrintStream;
+import java.io.FileOutputStream;
 import rs.fon.np.application.kkfunakoshi.*;
 import rs.fon.np.application.kkfunakoshi.db.DbConnectionFactory;
 import rs.fon.np.application.kkfunakoshi.db.DbRepository;
@@ -61,6 +64,7 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
                 Long id = rsKey.getLong(1);
                 t.setId(id);
             }
+           
             statement.close();
             rsKey.close();
         } catch (SQLException ex) {
@@ -133,8 +137,8 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
     }
 
     @Override
-    public List<AbstractDO> getByQuery(AbstractDO t,String query) throws Exception {
-            List<AbstractDO> abstractDOs= new ArrayList<>();
+    public ArrayList<AbstractDO> getByQuery(AbstractDO t,String query) throws Exception {
+    	ArrayList<AbstractDO> abstractDOs= new ArrayList<>();
             Connection connection= DbConnectionFactory.getInstance().getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(t.getStatementSelectAllQuery()+query);

@@ -1,6 +1,10 @@
 package rs.fon.np.application.kkfunakoshi.repository;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import rs.fon.np.application.kkfunakoshi.domain.AbstractDO;
+import rs.fon.np.application.kkfunakoshi.domain.MembershipFee;
 /**
  * Interfejs koji sadrzi metode za CRUD operacije nad objektima.
  * 
@@ -48,7 +52,7 @@ public interface Repository<T> {
 	     * @return lista objekata
 	     * @throws Exception Ukoliko dodje do greske prilikom vracanja liste objekata
 	     */
-	    List<T> getByQuery(T t,String query) throws Exception;
+	    ArrayList<AbstractDO> getByQuery(T t,String query) throws Exception;
 	    /**
 	     * Azurira objekat 
 	     * @param oldT postojeci objekat

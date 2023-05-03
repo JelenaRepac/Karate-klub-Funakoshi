@@ -24,8 +24,11 @@ public class CurrentUser {
     /**
      * Postavlja trenutno prijavljenog korisnika.
      * @param currentUser trenutno prijavljeni korisnik
+     * @throws NullPointerException Ukoliko je prosledjena vrednost jednaka null
      */
     public static void setCurrentUser(Trainer currentUser) {
+    	if(currentUser == null)
+    		throw new NullPointerException("Ukoliko je prosledjena vrednost null");
         CurrentUser.currentUser = currentUser;
     }
     

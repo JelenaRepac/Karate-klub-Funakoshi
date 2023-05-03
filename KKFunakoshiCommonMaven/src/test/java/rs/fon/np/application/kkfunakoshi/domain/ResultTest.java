@@ -74,32 +74,13 @@ class ResultTest {
     	r.setCompetition(example1);
     	assertEquals(example1, r.getCompetition());
     }
-    @Test
-    void testSetClanNeodgVrednost() {
-    	assertThrows(IllegalArgumentException.class, 
-    			()-> r.setMember(m2));
-    }
-    @Test
-    void testSetClanSveOK() {
-    	r.setMember(m1);
-    	assertEquals(m1, r.getMember());
-    }
+   
     @Test
     void testSetMedaljuNull() {
     	assertThrows(NullPointerException.class, 
     			()-> r.setMedals(null));
     }
-    @Test
-    void testSetTimNeodgVrednost() {
-    	System.out.println(t2);
-    	assertThrows(IllegalArgumentException.class, 
-    			()-> r.setTeam(t2));
-    }
-    @Test
-    void testSetTimSveOK() {
-    	r.setTeam(t1);
-    	assertEquals(t1, r.getTeam());
-    }
+    
     @Test
     void testSetKategorijaNull() {
     	assertThrows(NullPointerException.class, 

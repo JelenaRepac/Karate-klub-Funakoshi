@@ -32,7 +32,7 @@ public class GetMembersByQuerySO extends AbstractSO{
             
             members= repository.getByQuery(new Member(), query);
             for(Member m: members){
-                List<MembershipFee> membershipFees= repository.getByQuery(new MembershipFee(), " WHERE memberId="+m.getMemberID());
+                ArrayList<MembershipFee> membershipFees= repository.getByQuery(new MembershipFee(), " WHERE memberId="+m.getMemberID());
                 m.setMembershipFee(membershipFees);
             }
             

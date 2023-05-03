@@ -125,18 +125,9 @@ public class Result extends AbstractDO implements Serializable {
     /**
      * Postavlja clana koji je ostvario rezultat
      * @param member clan koji je ostvario rezultat
-     * @throws IllegalArgumentException Ukoliko clan nije u potpunosti inicijalizovan
-     */
+     * */
     public void setMember(Member member) {
-    	if(member== null || member.getId()==null ||
-    			member.getName().equals("") || member.getLastname().equals("") ||
-    			member.getAdress().equals("") || member.getBelt()==null ||
-    			member.getCategory()==null || member.getCity()==null || 
-    			member.getDiscipline()==null || member.getTotalDebt()==null ||
-    			member.getMothersName().equals("") || member.getFathersName().equals("") ||
-    			member.getDateOfMembership()==null || member.getGender()==null)
-    		throw new IllegalArgumentException("Clan mora biti u potpunosti inicijalizovan");
-        this.member = member;
+    	this.member = member;
     }
     /**
      * Vraca medalju koja je osvojena na takmicenju
@@ -165,13 +156,10 @@ public class Result extends AbstractDO implements Serializable {
     /**
      * Postavlja tim koji je osvojio medalju na takmicenju
      * @param team tim koji je osvojio medalju
-     * @throws IllegalArgumentException Ukoliko prosledjeni tim nije u potpunosti inicijalizovan
-     */
+     *
+     **/
     public void setTeam(Team team) {
-    	if(team== null || team.getId()==null || team.getName().equals("")
-    			|| team.getMembers()==null || team.getCategory()==null) 
-    		throw new IllegalArgumentException("Prosledjeni tim nije u potpunosti inicijalizovan");
-        this.team = team;
+    	this.team = team;
     }
     /**
      * Vraca kategoriju u kojoj se clan kluba takmicio i osvojio medalju

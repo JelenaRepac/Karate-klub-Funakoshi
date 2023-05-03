@@ -462,12 +462,8 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja listu clanarina
      * @param membershipFee clanarina clana
-     * @throws NullPointerException Ukoliko je lista prosledjenih clanarina null ili prazna
      */
     public void setMembershipFee(List<MembershipFee> membershipFee) {
-    	if(membershipFee==null || membershipFee.isEmpty()){
-    		throw new NullPointerException("Ukoliko je prosledjena lista clanarina null ili prazna");
-    	}
         this.membershipFee = membershipFee;
     }
     /**
