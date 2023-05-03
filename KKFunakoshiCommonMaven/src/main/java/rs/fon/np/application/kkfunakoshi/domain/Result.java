@@ -125,8 +125,17 @@ public class Result extends AbstractDO implements Serializable {
     /**
      * Postavlja clana koji je ostvario rezultat
      * @param member clan koji je ostvario rezultat
+     * @throws IllegalArgumentException Ukoliko clan nije u potpunosti inicijalizovan
      */
     public void setMember(Member member) {
+    	if(member== null || member.getId()==null ||
+    			member.getName().equals("") || member.getLastname().equals("") ||
+    			member.getAdress().equals("") || member.getBelt()==null ||
+    			member.getCategory()==null || member.getCity()==null || 
+    			member.getDiscipline()==null || member.getTotalDebt()==null ||
+    			member.getMothersName().equals("") || member.getFathersName().equals("") ||
+    			member.getDateOfMembership()==null || member.getGender()==null)
+    		throw new IllegalArgumentException("Clan mora biti u potpunosti inicijalizovan");
         this.member = member;
     }
     /**
@@ -139,8 +148,11 @@ public class Result extends AbstractDO implements Serializable {
     /**
      * Postavlja medalju osvojenu na takmicenju
      * @param medals osvojena medalja
+     * @throws NullPointerException Ukoliko je medalja null
      */
     public void setMedals(Medal medals) {
+    	if(medals==null)
+    		throw new NullPointerException("Prosledjena medalja ne sme biti null");
         this.medals = medals;
     }
     /**
@@ -153,8 +165,12 @@ public class Result extends AbstractDO implements Serializable {
     /**
      * Postavlja tim koji je osvojio medalju na takmicenju
      * @param team tim koji je osvojio medalju
+     * @throws IllegalArgumentException Ukoliko prosledjeni tim nije u potpunosti inicijalizovan
      */
     public void setTeam(Team team) {
+    	if(team== null || team.getId()==null || team.getName().equals("")
+    			|| team.getMembers()==null || team.getCategory()==null) 
+    		throw new IllegalArgumentException("Prosledjeni tim nije u potpunosti inicijalizovan");
         this.team = team;
     }
     /**
@@ -167,8 +183,11 @@ public class Result extends AbstractDO implements Serializable {
     /**
      * Postavlja kategoriju u kojoj se clan takmicio i osvojio medalju
      * @param category kategorija u kojoj se clan takmicio i osvojio medalju
+     * @throws NullPointerException Ukoliko je kategorija null
      */
     public void setCategory(Category category) {
+    	if(category==null)
+    		throw new NullPointerException("Kategorija ne sme biti null");
         this.category = category;
     }
 

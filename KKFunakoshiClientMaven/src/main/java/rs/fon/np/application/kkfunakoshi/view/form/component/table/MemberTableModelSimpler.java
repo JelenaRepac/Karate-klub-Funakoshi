@@ -6,6 +6,7 @@ package rs.fon.np.application.kkfunakoshi.view.form.component.table;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +28,7 @@ public class MemberTableModelSimpler extends AbstractTableModel{
 	/**
 	 * Lista clanova za prikaz u tabeli
 	 */
-    List<Member> members;
+    ArrayList<Member> members;
     /**
      * Nazivi kolona u tabeli
      */
@@ -47,7 +48,7 @@ public class MemberTableModelSimpler extends AbstractTableModel{
      * Konstruktor
      * @param members clanovi za prikaz u tabeli
      */
-    public MemberTableModelSimpler(List<Member> members) {
+    public MemberTableModelSimpler(ArrayList<Member> members) {
         this.members=members;
     }
     /**
@@ -181,7 +182,7 @@ public class MemberTableModelSimpler extends AbstractTableModel{
 	  * Vraca listu svih clanova.
 	  * @return List lista clanova
 	  */
-    public List<Member> getMembers() {
+    public ArrayList<Member> getMembers() {
         return members;
     }
     /**
@@ -212,7 +213,7 @@ public class MemberTableModelSimpler extends AbstractTableModel{
      * Menja trenutnu listu sa novom listom clanova.
      * @param members lista svih clanova iz tabele
      */
-    public void setMembers(List<Member> members){
+    public void setMembers(ArrayList<Member> members){
         this.members=members;
         fireTableDataChanged();
     }

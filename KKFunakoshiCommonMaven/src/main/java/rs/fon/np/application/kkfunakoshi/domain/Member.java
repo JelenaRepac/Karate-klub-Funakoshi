@@ -130,7 +130,7 @@ public class Member extends AbstractDO implements Serializable{
      */
     public Member(Long memberID, String name, String lastname, Gender gender, Date birthday, String mothersName,
             String fathersName, City city, Belt belt, Long medals, Discipline discipline, Category category,
-            String adress, Long goldMedals, Long silverMedals, Long bronzeMedals, List<MembershipFee> membershipFee, Date dateOfMembership, Double totalDebt) {
+            String adress, Long goldMedals, Long silverMedals, Long bronzeMedals, ArrayList<MembershipFee> membershipFee, Date dateOfMembership, Double totalDebt) {
         this.memberID = memberID;
         this.name = name;
         this.lastname = lastname;
@@ -207,8 +207,11 @@ public class Member extends AbstractDO implements Serializable{
      * 
      * Postavlja vrednost id-a
      * @param memberID id clana
+     * @throws IllegalArgumentException Ukoliko je id clana negativan broj
      */
     public void setMemberID(Long memberID) {
+    	if(memberID < 0)
+            throw new IllegalArgumentException("Id clana ne sme biti negativan broj");
         this.memberID = memberID;
     }
     /**
@@ -221,8 +224,14 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja ime clana
      * @param name ime clana
+     * @throws NullPointerException Ukoliko je prosledjeno ime null
+     * @throws IllegalArgumentException Ukoliko ime clana ima manje od 3 karaktera
      */
     public void setName(String name) {
+    	if(name == null )
+    		throw new NullPointerException("Ime clana ne sme biti null");
+    	if(name.length() < 3 || name.isEmpty())
+            throw new IllegalArgumentException("Ime clana mora imati minimum 3 karaktera niti biti prazan string");
         this.name = name;
     }
     /**
@@ -235,9 +244,14 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja prezime clana
      * @param lastname prezime clana
-     * 
+     * @throws NullPointerException Ukoliko je prosledjeno prezime null
+     * @throws IllegalArgumentException Ukoliko prezime clana ima manje od 3 karaktera
      */
     public void setLastname(String lastname) {
+    	if(lastname == null )
+    		throw new NullPointerException("Prezime clana ne sme biti null");
+    	if(lastname.length() < 3 || lastname.isEmpty())
+            throw new IllegalArgumentException("Prezime clana mora imati minimum 3 karaktera niti biti prazan string");
         this.lastname = lastname;
     }
     /**
@@ -250,8 +264,15 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja datum rodjenja clana
      * @param birthday datum rodjenja
+     * @throws NullPointerException Ukoliko je datum null
+     * @throws IllegalArgumentException Ukoliko je prosledjeni datum rodjenja nakon sadasnjeg
      */
     public void setBirthday(Date birthday) {
+    	if(birthday==null)
+    		throw new NullPointerException("Datum rodjenja ne sme biti null");
+    	Date currentDate = new Date();
+        if (birthday.after(currentDate)) 
+            throw new IllegalArgumentException("Datum rodjenja ne sme biti nakon danasnjeg!");
         this.birthday = birthday;
     }
     /**
@@ -264,8 +285,14 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja ime majke
      * @param mothersName ime majke
+     * @throws NullPointerException Ukoliko je prosledjeno ime majke null
+     * @throws IllegalArgumentException Ukoliko ime majke clana ima manje od 3 karaktera
      */
     public void setMothersName(String mothersName) {
+    	if(mothersName == null )
+    		throw new NullPointerException("Ime majke clana ne sme biti null");
+    	if(mothersName.length() < 3 || mothersName.isEmpty())
+            throw new IllegalArgumentException("Ime majke clana mora imati minimum 3 karaktera niti biti prazan string");
         this.mothersName = mothersName;
     }
     /**
@@ -278,8 +305,14 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja ime oca
      * @param fathersName ime oca
+     * @throws NullPointerException Ukoliko je prosledjeno ime oca null
+     * @throws IllegalArgumentException Ukoliko ime oca clana ima manje od 3 karaktera
      */
     public void setFathersName(String fathersName) {
+    	if(fathersName == null )
+    		throw new NullPointerException("Ime oca clana ne sme biti null");
+    	if(fathersName.length() < 3 || fathersName.isEmpty())
+            throw new IllegalArgumentException("Ime oca clana mora imati minimum 3 karaktera niti biti prazan string");
         this.fathersName = fathersName;
     }
     /**
@@ -292,8 +325,12 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja grad
      * @param city grad iz kojeg je clan
+     * @throws IllegalArgumentException Stvara se izuzetak ukoliko prosledjeni grad nije potpuno inicijalizovan
+     
      */
     public void setCity(City city) {
+    	if(city == null || city.getId() ==0 || city.getName().equals("") || city.getPtt()==0 )
+    		throw new IllegalArgumentException("Grad mora biti u potpunosti inicijalizovan");
         this.city = city;
     }
     /**
@@ -306,8 +343,11 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja pojas clana
      * @param belt pojas
+     * @throws NullPointerException Ukoliko je prosledjeni pojas null
      */
     public void setBelt(Belt belt) {
+    	if(belt==null)
+    		throw new NullPointerException("Pojas ne sme biti null");
         this.belt = belt;
     }
     /**
@@ -320,8 +360,11 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja broj osvojenih medalja
      * @param medals broj osvojenih medalja
+     * @throws IllegalArgumentException Ukoliko je prosledjen broj medalja nula ili negativan broj
      */
     public void setMedals(Long medals) {
+    	if(medals<0 || medals==0)
+    		throw new IllegalArgumentException("Ukoliko je prosledjeni broj medalja 0 ili manji od nule");
         this.medals = medals;
     }
     /**
@@ -334,8 +377,11 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja broj zlatnih medalja
      * @param goldMedals zlatne medalje
+     * @throws IllegalArgumentException Ukoliko je prosledjen broj medalja nula ili negativan broj
      */
     public void setGoldMedals(Long goldMedals) {
+    	if(goldMedals<0 || goldMedals==0)
+    		throw new IllegalArgumentException("Ukoliko je prosledjeni broj medalja 0 ili manji od nule");
         this.goldMedals = goldMedals;
     }
     /**
@@ -348,8 +394,11 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja broj srebrnih medalja
      * @param silverMedals srebrne medalje
+     * @throws IllegalArgumentException Ukoliko je prosledjen broj medalja nula ili negativan broj
      */
     public void setSilverMedals(Long silverMedals) {
+    	if(silverMedals<0 || silverMedals==0)
+    		throw new IllegalArgumentException("Ukoliko je prosledjeni broj medalja 0 ili manji od nule");
         this.silverMedals = silverMedals;
     }
     /**
@@ -362,8 +411,11 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja broj bronzanih medalja
      * @param bronzeMedals bronzane medalje
+     * @throws IllegalArgumentException Ukoliko je prosledjen broj medalja nula ili negativan broj
      */
     public void setBronzeMedals(Long bronzeMedals) {
+    	if(bronzeMedals<0 || bronzeMedals==0)
+    		throw new IllegalArgumentException("Ukoliko je prosledjeni broj medalja 0 ili manji od nule");
         this.bronzeMedals = bronzeMedals;
     }
     /**
@@ -376,8 +428,11 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja kategoriju u kojoj se clan takmici
      * @param category kategorija u kojoj se clan takmici
+     * @throws NullPointerException Ukoliko je kategorija null
      */
     public void setCategory(Category category) {
+    	if(category==null)
+    		throw new NullPointerException("Kategorija ne sme biti null");
         this.category = category;
     }
     /**
@@ -390,8 +445,11 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja disciplinu u kojoj se clan takmici
      * @param discipline disciplina u kojoj se clan takmici
+     * @throws NullPointerException Ukoliko je disciplina null
      */
     public void setDiscipline(Discipline discipline) {
+    	if(discipline==null)
+    		throw new NullPointerException("Disciplina ne sme biti null");
         this.discipline = discipline;
     }
     /**
@@ -404,8 +462,12 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja listu clanarina
      * @param membershipFee clanarina clana
+     * @throws NullPointerException Ukoliko je lista prosledjenih clanarina null ili prazna
      */
     public void setMembershipFee(List<MembershipFee> membershipFee) {
+    	if(membershipFee==null || membershipFee.isEmpty()){
+    		throw new NullPointerException("Ukoliko je prosledjena lista clanarina null ili prazna");
+    	}
         this.membershipFee = membershipFee;
     }
     /**
@@ -418,8 +480,14 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja adresu stanovanja
      * @param adress adresa stanovanja
+     * @throws NullPointerException Ukoliko je prosledjena adresa jednaka null
+     * @throws IllegalArgumentException Ukoliko prosledjena adresa ne sadrzi minimum 5 karaktera
      */
     public void setAdress(String adress) {
+    	if(adress==null)
+    		throw new NullPointerException("Ukoliko je prosledjena adresa null");
+    	if(adress.length()<5)
+    		throw new IllegalArgumentException("Prosledjena adresa ne sadrzi minimum 5 karaktera");
         this.adress = adress;
     }
     /**
@@ -432,8 +500,11 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja pol clana
      * @param gender pol clana
+     * @throws NullPointerException Ukoliko je pol clana null
      */
     public void setGender(Gender gender) {
+    	if(gender==null)
+    		throw new NullPointerException("Ukoliko je pol null");
         this.gender = gender;
     }
     /**
@@ -446,8 +517,15 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja datum uclanjenja clana u klub
      * @param dateOfMembership datum uclanjenja
+     * @throws NullPointerException Ukoliko je datum null
+     * @throws IllegalArgumentException Ukoliko je prosledjeni datum uclanjenja nakon sadasnjeg
      */
     public void setDateOfMembership(Date dateOfMembership) {
+    	if(dateOfMembership==null)
+    		throw new NullPointerException("Datum uclanjenja ne sme biti null");
+    	Date currentDate = new Date();
+        if (dateOfMembership.after(currentDate)) 
+            throw new IllegalArgumentException("Datum uclanjenja ne sme biti nakon danasnjeg!");
         this.dateOfMembership = dateOfMembership;
     }
     /**
@@ -460,18 +538,24 @@ public class Member extends AbstractDO implements Serializable{
     /**
      * Postavlja ukupnu vrednost duga clana
      * @param totalDebt ukupan dug
+     * @throws NullPointerException Ukoliko je ukupan dug clana manji od nule
      */
     public void setTotalDebt(Double totalDebt) {
+    	if(totalDebt<0)
+    		throw new NullPointerException("Ukoliko je ukupan dug manji od nule");
         this.totalDebt = totalDebt;
     }
 
     
-    @Override
-    public String toString() {
-        return ((name!=null)?name:"")+" "+((lastname!=null)?lastname:"");
-    }
+   
 
     @Override
+	public String toString() {
+		return "Member [name=" + name + ", lastname=" + lastname + ", birthday=" + birthday + ", discipline="
+				+ discipline + ", category=" + category + ", adress=" + adress + ", dateOfMembership="
+				+ dateOfMembership + "]";
+	}
+	@Override
     public String getAttributeList() {
         return "name,lastname,gender,dateOfBirth,mothersName,fathersName,"
                 + "adress,belt,dateOfMembership,medals,goldMedals,silverMedals,bronzeMedals,"

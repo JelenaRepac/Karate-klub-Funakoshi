@@ -47,7 +47,7 @@ public class FrmLoadMember extends javax.swing.JDialog {
     /**
      * Lista novo dodatih clanarina.
      */
-    private List<MembershipFee> newFees;
+    private ArrayList<MembershipFee> newFees;
     /**
      * Formator datuma
      */

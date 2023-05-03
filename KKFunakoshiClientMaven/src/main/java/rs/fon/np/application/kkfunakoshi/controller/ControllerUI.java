@@ -119,13 +119,13 @@ public class ControllerUI {
      * @return lista svih clanova karate kluba 
      * @throws Exception ukoliko dodje do greske prilikom primanja odgovora
      */
-    public List<Member> getByQuery(String query) throws Exception {
+    public ArrayList<Member> getByQuery(String query) throws Exception {
         Request request= new Request(Operations.GET_MEMBERS_BY_QUERY, query);
         Response response= Communication.getInstance().sendRequest(request);
         if(response.getResponseType().equals(ResponseType.ERROR)){
             throw response.getException();
         }
-        return (List<Member>) response.getResult();
+        return (ArrayList<Member>) response.getResult();
     }
 
     /**

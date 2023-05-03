@@ -49,7 +49,7 @@ class CompetitionTest {
 		String name= "Kup";
 		Throwable exception= assertThrows(IllegalArgumentException.class, 
 				()-> c.setName(name));
-		assertEquals("Naziv takmicenja mora imati minimum 5 karaktera", exception.getMessage());
+		assertEquals("Naziv takmicenja mora imati minimum 5 karaktera niti biti prazan string", exception.getMessage());
 	}
 	@Test
 	void testSetNazivNull() {

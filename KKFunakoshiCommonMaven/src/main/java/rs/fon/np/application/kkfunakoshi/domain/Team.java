@@ -29,7 +29,7 @@ public class Team extends AbstractDO implements Serializable {
     /**
      * Lista clanova tima
      */
-    private List<Member> members;
+    private ArrayList<Member> members;
     /**
      * Kategorija u kojoj se tim takmici
      */
@@ -37,7 +37,7 @@ public class Team extends AbstractDO implements Serializable {
     /**
      * Lista clanova tima
      */
-    private List<Member> teamMembers= new ArrayList<>();
+    private ArrayList<Member> teamMembers= new ArrayList<>();
     /**
      * Bezparametarski konstruktor
      */
@@ -51,10 +51,10 @@ public class Team extends AbstractDO implements Serializable {
      * @param teamMembers clanovi tima
      * @param category kategorija u kojoj se tim takmici
      */
-    public Team(Long id, String name, List<Member> teamMembers, Category category) {
+    public Team(Long id, String name, ArrayList<Member> teamMembers, Category category) {
         this.id = id;
         this.name = name;
-        this.members = members;
+        this.members = teamMembers;
         this.category = category;
     }
 
@@ -71,6 +71,8 @@ public class Team extends AbstractDO implements Serializable {
      * @param id tima
      */
     public void setId(Long id) {
+    	if(id < 0)
+            throw new IllegalArgumentException("ID must be 0 or larger number");
         this.id = id;
     }
     /**
@@ -85,20 +87,24 @@ public class Team extends AbstractDO implements Serializable {
 	 * @param name naziv tima
 	 */
     public void setName(String name) {
+    	if(name.length() < 5)
+            throw new IllegalArgumentException("Team name must have at least 5 characters");     
         this.name = name;
     }
     /**
      * Vraca listu clanova tima
      * @return lista clanova tima
      */
-    public List<Member> getMembers() {
+    public ArrayList<Member> getMembers() {
         return members;
     }
     /**
      * Postavlja clanove tima
      * @param teamMembers clanovi tima
      */
-    public void setMembers(List<Member> teamMembers) {
+    public void setMembers(ArrayList<Member> teamMembers) {
+    	if(teamMembers==null || teamMembers.isEmpty())
+    		throw new NullPointerException("List of team members cant be null or empty");
         this.members = teamMembers;
     }
     /**
@@ -113,6 +119,8 @@ public class Team extends AbstractDO implements Serializable {
      * @param category kategorija u kojoj se tim takmicio
      */
     public void setCategory(Category category) {
+    	if(category==null)
+    		throw new NullPointerException("Category cant be null");
         this.category = category;
     }
 

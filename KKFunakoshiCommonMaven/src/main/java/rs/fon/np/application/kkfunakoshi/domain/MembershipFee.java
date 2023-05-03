@@ -77,8 +77,11 @@ public class MembershipFee extends AbstractDO implements Serializable{
     /**
      * Postavlja vrednost id-a clanarine
      * @param id clanarine
+     * @throws IllegalArgumentException Ukoliko je id clanarine negativan broj
      */
     public void setId(Long id) {
+    	if(id < 0)
+            throw new IllegalArgumentException("Id clanarine ne sme biti negativan broj");
         this.id = id;
     }
     /**
@@ -91,8 +94,13 @@ public class MembershipFee extends AbstractDO implements Serializable{
     /**
      * Postavlja datum uplate clanarine
      * @param date datum uplate
+     * @throws IllegalArgumentException Ukoliko je datum pre danasnjeg
      */
     public void setDate(Date date) {
+    	Date currentDate = new Date();
+    	System.out.println(currentDate);
+        if (date.before(currentDate)) 
+            throw new IllegalArgumentException("Datum ne sme biti pre danasnjeg!");
         this.date = date;
     }
     /**
@@ -105,8 +113,11 @@ public class MembershipFee extends AbstractDO implements Serializable{
     /**
      * Postavlja novcani iznos clanarine
      * @param Amount novcani iznos clanarine
+     * @throws IllegalArgumentException Ukoliko je novcani iznos nula ili manji od nule
      */
     public void setAmount(double Amount) {
+    	if(Amount<0 || Amount==0)
+    		throw new IllegalArgumentException("Iznos ne sme biti nula ili manji od nule");
         this.Amount = Amount;
     }
     /**
@@ -119,14 +130,23 @@ public class MembershipFee extends AbstractDO implements Serializable{
     /**
      * Postavlja clana koji je uplatio clanarinu
      * @param member clan koji je uplatio clanarinu
+     * @throws IllegalArgumentException Ukoliko clan nije u potpunosti inicijalizovan
      */
     public void setMember(Member member) {
-        this.member = member;
+    	if(member== null || member.getId()==null ||
+    			member.getName().equals("") || member.getLastname().equals("") ||
+    			member.getAdress().equals("") || member.getBelt()==null ||
+    			member.getCategory()==null || member.getCity()==null || 
+    			member.getDiscipline()==null || member.getTotalDebt()==null ||
+    			member.getMothersName().equals("") || member.getFathersName().equals("") ||
+    			member.getDateOfMembership()==null || member.getGender()==null)
+    		throw new IllegalArgumentException("Clan mora biti u potpunosti inicijalizovan");
+       this.member = member;
     }
 
     @Override
     public String toString() {
-        return "MembershipFee{" + "date=" + new java.sql.Date(getDate().getTime()) + ", Amount=" + Amount + ",Member="+getMember()+'}';
+        return "MembershipFee{" + "date=" + date+ ", Amount=" + Amount + ",Member="+getMember()+'}';
     }
 
     @Override

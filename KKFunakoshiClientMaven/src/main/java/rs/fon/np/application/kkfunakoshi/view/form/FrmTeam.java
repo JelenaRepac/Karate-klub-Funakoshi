@@ -339,7 +339,7 @@ public class FrmTeam extends javax.swing.JDialog {
             Discipline discipline= (Discipline) cbDiscipline.getSelectedItem();
             
             String query="WHERE m.gender='"+gender.toString()+"' AND m.discipline='"+discipline.toString()+"' AND m.category='"+category.toString()+"'";
-            List<Member> members= ControllerUI.getInstance().getByQuery(query);
+            ArrayList<Member> members= ControllerUI.getInstance().getByQuery(query);
             formatTableMember(members);
             if(members.size()!=0){
             JOptionPane.showMessageDialog(this, "The system found members!");
@@ -380,7 +380,7 @@ public class FrmTeam extends javax.swing.JDialog {
             validateInput();
             String name= txtNameTeam.getText().trim();
             MemberTableModelSimpler model= (MemberTableModelSimpler) tblTeam.getModel();
-            List<Member> members= model.getMembers();
+            ArrayList<Member> members= model.getMembers();
             Team team= new Team();
             team.setName(name);
             team.setMembers(members);
@@ -494,7 +494,7 @@ public class FrmTeam extends javax.swing.JDialog {
      * Formatira tabelu za prikaz clanova. 
      * @param members lista clanova
      */
-    private void formatTableMember(List<Member> members) {
+    private void formatTableMember(ArrayList<Member> members) {
         MemberTableModelSimpler model= new MemberTableModelSimpler(members);
         tblMembers.setModel(model);
     }
@@ -502,7 +502,7 @@ public class FrmTeam extends javax.swing.JDialog {
      * Formatira tabelu za prikaz timova. 
      * @param members lista timova
      */
-    private void formatTableTeam(List<Member> members) {
+    private void formatTableTeam(ArrayList<Member> members) {
         MemberTableModelSimpler model= new MemberTableModelSimpler(members);
         tblTeam.setModel(model);
     }

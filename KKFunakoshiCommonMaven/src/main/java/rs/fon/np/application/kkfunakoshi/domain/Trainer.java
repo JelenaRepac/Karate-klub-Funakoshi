@@ -93,6 +93,8 @@ public class Trainer extends AbstractDO implements Serializable{
      */
     @Override
     public void setId(Long id) {
+    	if(id < 0)
+            throw new IllegalArgumentException("ID must be 0 or larger number");
         this.id = id;
     }
     /**
@@ -107,6 +109,8 @@ public class Trainer extends AbstractDO implements Serializable{
      * @param firstname ime trenera
      */
     public void setFirstname(String firstname) {
+    	if(firstname.length() < 5)
+            throw new IllegalArgumentException("Trainer name must have at least 5 characters");     
         this.firstname = firstname;
     }
     /**
@@ -121,6 +125,8 @@ public class Trainer extends AbstractDO implements Serializable{
      * @param lastname prezime trenera
      */
     public void setLastname(String lastname) {
+    	if(lastname.length() < 5)
+            throw new IllegalArgumentException("Trainer lastname must have at least 5 characters");     
         this.lastname = lastname;
     }
     /**
@@ -135,6 +141,8 @@ public class Trainer extends AbstractDO implements Serializable{
      * @param username korisnicko ime
      */
     public void setUsername(String username) {
+        if(username.length() < 4)
+            throw new IllegalArgumentException("Username must have at least 4 characters");
         this.username = username;
     }
     /**
@@ -149,6 +157,8 @@ public class Trainer extends AbstractDO implements Serializable{
      * @param password lozinka
      */
     public void setPassword(String password) {
+        if(password.length() < 8)
+            throw new IllegalArgumentException("Password must have at least 8 characters");
         this.password = password;
     }
 
@@ -158,45 +168,23 @@ public class Trainer extends AbstractDO implements Serializable{
 
     }
 
+    
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 73 * hash + Objects.hashCode(this.id);
-        hash = 73 * hash + Objects.hashCode(this.firstname);
-        hash = 73 * hash + Objects.hashCode(this.lastname);
-        hash = 73 * hash + Objects.hashCode(this.username);
-        hash = 73 * hash + Objects.hashCode(this.password);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Trainer other = (Trainer) obj;
-        if (!Objects.equals(this.firstname, other.firstname)) {
-            return false;
-        }
-        if (!Objects.equals(this.lastname, other.lastname)) {
-            return false;
-        }
-        if (!Objects.equals(this.username, other.username)) {
-            return false;
-        }
-        if (!Objects.equals(this.password, other.password)) {
-            return false;
-        }
-        return Objects.equals(this.id, other.id);
-    }
-
-    @Override
+	public int hashCode() {
+		return Objects.hash(id, username);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Trainer other = (Trainer) obj;
+		return Objects.equals(id, other.id) && Objects.equals(username, other.username);
+	}
+	@Override
     public String getAttributeList() {
         return "firstname,lastname,username,password,loggedIn";
     }

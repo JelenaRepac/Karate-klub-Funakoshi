@@ -701,7 +701,7 @@ public class FrmCompetitionResult extends javax.swing.JDialog {
      * @throws Exception Ukoliko se desi greska prilikom ucitavanja clanova iz baze
      */
     private void formatTableMembers() throws Exception {
-        List<Member> members= ControllerUI.getInstance().getByQuery("");
+        ArrayList<Member> members= ControllerUI.getInstance().getByQuery("");
         MemberTableModelSimpler model= new MemberTableModelSimpler(members);
         tblMembers.setModel(model);
     }

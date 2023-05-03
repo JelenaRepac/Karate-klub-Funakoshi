@@ -119,7 +119,6 @@ public class Competition extends AbstractDO implements Serializable {
      */
     public void setDate(Date date) {
     	Date currentDate = new Date();
-    	System.out.println(currentDate);
         if (date.before(currentDate)) 
             throw new IllegalArgumentException("Datum ne sme biti pre danasnjeg!");
         this.date = date;
