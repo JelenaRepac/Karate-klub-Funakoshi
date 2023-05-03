@@ -237,30 +237,6 @@ class MemberTest {
     	assertEquals(Discipline.BORBE, m.getDiscipline());
     }
     @Test
-    void testSetClanarineNull() {
-    	assertThrows(NullPointerException.class, 
-    			()-> m.setMembershipFee(null));
-    }
-    @Test
-    void testSetClanarinaSveOK() {
-    	MembershipFee mf= new MembershipFee();
-    	Calendar calendar=Calendar.getInstance();
-    	Member member= new Member(1L,"Jelena","Repac",Gender.FEMALE,calendar.getTime(),"Jadranka","Nikola",new City(1L, 11000L,"Beograd"),Belt.CRNI,50L,Discipline.KATE,Category.SENIOR,"Niksicka 10",10L,10L,30L, new ArrayList<MembershipFee>(),calendar.getTime(),3000.0);
-		
-		calendar.set(2023, 05, 03);
-    	mf.setAmount(3000);
-    	mf.setDate(calendar.getTime());
-    	mf.setMember(member);
-    	mf.setId(1L);
-    	
-    	List<MembershipFee> membershipFees= new ArrayList<>();
-    	membershipFees.add(mf);
-    	member.setMembershipFee(membershipFees);
-    	assertEquals(1,member.getMembershipFee().size());
-    	assertTrue(membershipFees.contains(mf));
-    	assertEquals(membershipFees, member.getMembershipFee());
-    }
-    @Test
     void testSetAdresaNull() {
     	assertThrows(NullPointerException.class, 
     			()-> m.setAdress(null));

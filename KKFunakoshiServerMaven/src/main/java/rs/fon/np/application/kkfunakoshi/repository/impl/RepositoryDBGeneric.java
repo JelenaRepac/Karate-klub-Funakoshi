@@ -64,7 +64,17 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
                 Long id = rsKey.getLong(1);
                 t.setId(id);
             }
-           
+            JSONObject object = new JSONObject();
+            String[] columns = t.getAttributeList().split(",");
+            String[] values = t.getAttributeValues().split(",");
+            for(int i = 0; i < columns.length; i++)
+            {
+                object.put(columns[i], values[i]);
+            }
+            PrintStream ostr = new PrintStream(new FileOutputStream("./src/main/resources/last_added_value.json"));
+            ostr.print(object.toJSONString());
+            ostr.println();
+            ostr.close();
             statement.close();
             rsKey.close();
         } catch (SQLException ex) {
