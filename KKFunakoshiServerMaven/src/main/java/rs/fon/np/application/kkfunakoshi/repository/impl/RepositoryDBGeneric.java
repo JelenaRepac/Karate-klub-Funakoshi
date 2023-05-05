@@ -5,6 +5,8 @@
 package rs.fon.np.application.kkfunakoshi.repository.impl;
 
 import java.sql.Connection;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +16,16 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.RandomAccessFile;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import rs.fon.np.application.kkfunakoshi.*;
 import rs.fon.np.application.kkfunakoshi.db.DbConnectionFactory;
 import rs.fon.np.application.kkfunakoshi.db.DbRepository;
@@ -72,8 +83,8 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
                 object.put(columns[i], values[i]);
             }
             PrintStream ostr = new PrintStream(new FileOutputStream("./src/main/resources/last_added_value.json"));
+            ostr.print("New "+t.getClassName()+"\n");
             ostr.print(object.toJSONString());
-            ostr.println();
             ostr.close();
             statement.close();
             rsKey.close();
@@ -100,6 +111,7 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
             if (rsKey.next()) {
                 Long id = rsKey.getLong(1);
                 newT.setId(id);
+                
                 
                 for(int j=0; j<newT.getNumberOfBountObject(); j++){
                 AbstractDO abstractDO;
@@ -140,6 +152,26 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
             String query = sb.toString();
             Statement statement = connection.createStatement();
             statement.executeUpdate(query);
+            
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(t);
+            
+            String filePath = "./src/main/resources/deleted_" + t.getClassName() + ".json";
+            File jsonFile = new File(filePath);
+            FileWriter fileWriter = new FileWriter(jsonFile, true);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            if (jsonFile.length() == 0) {
+                printWriter.print("[");
+            } else {
+                RandomAccessFile raf = new RandomAccessFile(jsonFile, "rw");
+                long pos = raf.length() - 1;
+                raf.setLength(pos);
+                printWriter.print(",");
+                printWriter.print("\n");
+            }
+            printWriter.print(json);
+            printWriter.print("]");
+            printWriter.close();
             statement.close();
         } catch (SQLException ex) {
             throw ex;
