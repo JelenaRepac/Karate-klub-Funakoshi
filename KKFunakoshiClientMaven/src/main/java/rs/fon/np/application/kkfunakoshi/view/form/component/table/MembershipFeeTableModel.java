@@ -85,7 +85,7 @@ public class MembershipFeeTableModel extends AbstractTableModel{
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         if(columnIndex<0 || columnIndex>columnClass.length) return Object.class;
-        return (Class) columnClass[columnIndex];
+        return (Class<?>) columnClass[columnIndex];
     }
     /**
      * Vraca naziv odredjene kolone.

@@ -26,6 +26,7 @@ import rs.fon.np.application.kkfunakoshi.domain.AbstractDO;
  */
 public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
 
+	
      @Override
     public List<AbstractDO> getAll(AbstractDO t) throws Exception {
             List<AbstractDO> abstractDOs= new ArrayList<>();
@@ -56,7 +57,7 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
                     .append(t.getAttributeValues())
                     .append(")");
             String query = sb.toString();
-            System.out.println(query);
+            
             Statement statement = connection.createStatement();
             statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
             ResultSet rsKey = statement.getGeneratedKeys();

@@ -10,6 +10,7 @@ import rs.fon.np.application.kkfunakoshi.domain.Member;
 import rs.fon.np.application.kkfunakoshi.domain.MembershipFee;
 import rs.fon.np.application.kkfunakoshi.domain.Result;
 import rs.fon.np.application.kkfunakoshi.domain.Team;
+import rs.fon.np.application.kkfunakoshi.domain.Trainer;
 import rs.fon.np.application.kkfunakoshi.so.AbstractSO;
 
 /**
@@ -22,10 +23,13 @@ public class DeleteMemberSO extends AbstractSO {
     
     @Override
     protected void precondition(Object param) throws Exception {
-       if(param==null || !(param instanceof Member)){
-         throw new Exception("Object is the wrong type!");
-            
-        } else {
+    	if(param == null){
+            throw new NullPointerException("The object cant be null!");
+        }
+        if(!(param instanceof Member)){
+            throw new Exception("The object is the wrong type!");
+        }
+        else {
             Member member = (Member) param;
             try {
                 checkStructuralConstraints(member);
@@ -91,7 +95,7 @@ public class DeleteMemberSO extends AbstractSO {
            
             List<Result> results = repository.getByQuery(new Result(), query);
             if (results!=null && results.size() > 0) {
-                throw new Exception("Member has results. It can't be deleted!.");
+                throw new Exception("Member has results. It can't be deleted!");
             }
         } catch (Exception ex) {
             throw ex;

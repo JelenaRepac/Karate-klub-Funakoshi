@@ -152,6 +152,7 @@ public class Trainer extends AbstractDO implements Serializable{
     public String getPassword() {
         return password;
     }
+    
     /**
      * Postavlja lozinku trenera
      * @param password lozinka

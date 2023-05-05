@@ -41,7 +41,9 @@ public class AddCompetitionSO extends AbstractSO{
     private boolean checkIfExists(Competition competition) throws Exception {
         List<Competition> commpetitions= repository.getAll(new Competition());
         for(Competition c: commpetitions){
-            if(c.getName().equals(competition.getName()) && c.getDate().equals(competition.getDate())){
+        	
+            if(c.getName().equals(competition.getName()) && c.getCompetitionHall().equals(competition.getCompetitionHall()) &&
+            	c.getCity().equals(competition.getCity())){
                 return true;
             }
         }

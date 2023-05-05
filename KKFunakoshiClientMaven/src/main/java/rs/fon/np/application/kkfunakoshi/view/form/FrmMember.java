@@ -577,7 +577,7 @@ public class FrmMember extends javax.swing.JDialog {
           
              member= new Member(name, lastname,gender, birthday, mothersName,
                     fathersName, city, belt, Long.parseLong("0"), discipline, category,
-                    adress, 0L,0L,0L,new ArrayList(),dateOfMembership,totalDebt);
+                    adress, 0L,0L,0L,new ArrayList<MembershipFee>(),dateOfMembership,totalDebt);
              
             MembershipFeeTableModel model= (MembershipFeeTableModel) tblMembershipFee.getModel();
             List<MembershipFee> membershipFees= model.getMembershipFees();
@@ -779,9 +779,9 @@ public class FrmMember extends javax.swing.JDialog {
      * Postavlja pocetne vrednosti polja forme.
      */
     private void load() {
-        cbBelt.setModel(new DefaultComboBoxModel(Belt.values()));
-        cbCategory.setModel(new DefaultComboBoxModel(Category.values()));
-        cbDiscipline.setModel(new DefaultComboBoxModel(Discipline.values()));
+        cbBelt.setModel(new DefaultComboBoxModel<Object>(Belt.values()));
+        cbCategory.setModel(new DefaultComboBoxModel<Object>(Category.values()));
+        cbDiscipline.setModel(new DefaultComboBoxModel<Object>(Discipline.values()));
         cbGender.setModel(new DefaultComboBoxModel(Gender.values()));
     }
     /**
@@ -808,7 +808,7 @@ public class FrmMember extends javax.swing.JDialog {
      */
     private void loadCities() throws Exception {
        List<City> cities= ControllerUI.getInstance().getCities();
-       cbCity.setModel(new DefaultComboBoxModel(cities.toArray()));
+       cbCity.setModel(new DefaultComboBoxModel<Object>(cities.toArray()));
     }
 
     /**

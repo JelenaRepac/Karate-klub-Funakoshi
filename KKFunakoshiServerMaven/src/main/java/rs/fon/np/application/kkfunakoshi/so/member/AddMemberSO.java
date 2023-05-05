@@ -42,8 +42,7 @@ public class AddMemberSO extends AbstractSO {
     private boolean checkIfExists(Member member) throws Exception {
         List<Member> members= repository.getAll(new Member());
         for(Member m: members){
-            if(m.getName().equals(member.getName()) && m.getLastname().equals(member.getLastname()) 
-                    && m.getBirthday().equals(member.getBirthday())){
+            if(m.getName().equals(member.getName()) && m.getLastname().equals(member.getLastname())){
                 return true;
             }
         }

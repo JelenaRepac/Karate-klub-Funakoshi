@@ -16,9 +16,13 @@ public class RemoveTrainerSO extends AbstractSO {
     
     @Override
     protected void precondition(Object param) throws Exception {
-         if(param==null || !(param instanceof Trainer)){
+         if(param == null){
+             throw new NullPointerException("The object cant be null!");
+         }
+         if(!(param instanceof Trainer)){
              throw new Exception("The object is the wrong type!");
          }
+         
          else{
              Trainer u=(Trainer) param;
              checkValueConstraints(u);
@@ -34,11 +38,11 @@ public class RemoveTrainerSO extends AbstractSO {
     /**
      * Proverava da li je trener sadrzi id.
      * @param u trener
-     * @throws Exception Ukoliko trener ne sadrzi id
+     * @throws NullPointerException Ukoliko trener ne sadrzi id
      */
-    private void checkValueConstraints(Trainer u) throws Exception {
-       if(u.getId().equals(null)){
-           throw new Exception("Trainer ID is not sent!");
+    private void checkValueConstraints(Trainer u)  {
+       if(u.getId()==null){
+           throw new NullPointerException("Trainer ID is not sent!");
        }
     }
     
