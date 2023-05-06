@@ -3,7 +3,6 @@ package rs.fon.np.application.kkfunakoshi.so.member;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
