@@ -27,6 +27,8 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import rs.fon.np.application.kkfunakoshi.*;
 import rs.fon.np.application.kkfunakoshi.db.DbConnectionFactory;
@@ -139,29 +141,45 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
 	       } catch (SQLException ex) {
 	           throw ex;
 	       }
+       		if(oldT.getClassName().equals("member")) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String oldJson = gson.toJson(oldT);
             String newJson = gson.toJson(newT);
 
-            saveToFileObjectUpdated(oldT,oldJson);
-            saveToFileObjectUpdated(newT,newJson);
+            saveToFileObjectUpdated(oldT,oldJson,newT,newJson);
+       		}
        }
 
-    private void saveToFileObjectUpdated(AbstractDO ab, String json) {
-    	File jsonFile= new File("./src/main/resources/updated_values.json");
+    private void saveToFileObjectUpdated(AbstractDO abOld, String jsonOld,AbstractDO abNew, String jsonNew) {
+    	File jsonFile= new File("./src/main/resources/updated_member_values.json");
         try (FileWriter writer = new FileWriter(jsonFile,true)) {
         	PrintWriter printWriter= new PrintWriter(writer);
-        	printWriter.print("UPDATED "+ab.getClassName());
+        	Gson gson= new GsonBuilder().setPrettyPrinting().create();
         	if (jsonFile.length() == 0) {
-                printWriter.print("[");
+        		JsonObject comment= new JsonObject();
+        		printWriter.print("[");
+        		comment.addProperty("updatedObject", abOld.getClassName());
+        		printWriter.print(comment);
+        		printWriter.print(",");
+        		printWriter.print("\n");
+                
             } else {
                 RandomAccessFile raf = new RandomAccessFile(jsonFile, "rw");
                 long pos = raf.length() - 1;
                 raf.setLength(pos);
                 printWriter.print(",");
+                JsonObject comment= new JsonObject();
+        		comment.addProperty("updatedObject", abOld.getClassName());
+        		 printWriter.print("\n");
+        		 printWriter.print("\n");
+        		printWriter.print(comment);
+        		printWriter.print(",");
                 printWriter.print("\n");
             }
-            printWriter.print(json);  
+        	
+            printWriter.print(jsonOld); 
+            printWriter.print(",");
+            printWriter.print(jsonNew);
             printWriter.print("]");
             printWriter.close();
         } catch (IOException e) {
