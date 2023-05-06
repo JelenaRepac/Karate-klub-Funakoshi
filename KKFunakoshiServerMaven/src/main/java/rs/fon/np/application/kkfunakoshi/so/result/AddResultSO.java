@@ -46,6 +46,7 @@ public class AddResultSO extends AbstractSO{
      private boolean ckeckIfExcists(Result result) throws Exception {
         
         List<Result> results= getResults();
+        if(result!=null) {
         for(Result r: results){
             if(r.getMember()!=null){
                 if(r.getCompetition().getName().equals(result.getCompetition().getName())
@@ -66,7 +67,7 @@ public class AddResultSO extends AbstractSO{
                 }
                 break;
             }
-        }
+        }}
         return false;
     }
     

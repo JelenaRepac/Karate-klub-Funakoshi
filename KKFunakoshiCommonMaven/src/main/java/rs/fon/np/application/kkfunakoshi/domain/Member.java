@@ -7,6 +7,7 @@ package rs.fon.np.application.kkfunakoshi.domain;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,8 @@ import java.util.List;
  * @author Jelena Repac
  */
 public class Member extends AbstractDO implements Serializable{
+	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+
     /**
      * Id clana.
      */
@@ -547,9 +550,13 @@ public class Member extends AbstractDO implements Serializable{
 
     @Override
 	public String toString() {
-		return "Member [name=" + name + ", lastname=" + lastname + ", birthday=" + birthday + ", discipline="
+    	String formattedBirthday = DATE_FORMAT.format(birthday);
+    	System.out.println(formattedBirthday);
+        String formattedDateOfMembership = DATE_FORMAT.format(dateOfMembership);
+
+		return "Member [name=" + name + ", lastname=" + lastname + ", birthday=" + formattedBirthday + ", discipline="
 				+ discipline + ", category=" + category + ", adress=" + adress + ", dateOfMembership="
-				+ dateOfMembership + "]";
+				+ formattedDateOfMembership + "]";
 	}
 	@Override
     public String getAttributeList() {

@@ -29,7 +29,6 @@ public class GetAllCitiesSOTest {
         assertNotNull(getAllCitiesSO.getCities());
         assertTrue(getAllCitiesSO.getCities().size() > 0);
         for (City city : getAllCitiesSO.getCities()) {
-        	System.out.println(city.toString());
             assertNotNull(city.getId());
             assertNotNull(city.getName());
         }
