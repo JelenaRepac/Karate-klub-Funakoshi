@@ -1,0 +1,16 @@
+[{
+  "id": 57,
+  "firstname": "Danijela",
+  "lastname": "Pudaric",
+  "username": "dacika",
+  "password": "daca2000",
+  "loggedIn": false
+},
+{
+  "id": 58,
+  "firstname": "Jelena",
+  "lastname": "Repac",
+  "username": "jeca",
+  "password": "jeca2001",
+  "loggedIn": false
+}]

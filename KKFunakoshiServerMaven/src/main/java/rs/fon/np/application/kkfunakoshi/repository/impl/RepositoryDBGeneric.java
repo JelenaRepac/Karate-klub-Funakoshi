@@ -23,6 +23,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -46,7 +48,7 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
             while(resultSet.next()){
                 abstractDOs.add(t.getEntityFromResultSet(resultSet));
             }
-        
+            
             return abstractDOs;
     }
     
@@ -114,31 +116,62 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
                 
                 
                 for(int j=0; j<newT.getNumberOfBountObject(); j++){
-                AbstractDO abstractDO;
-                for(int i=0; i<newT.getNumberOfAttributesBoundObjects(); i++){
-                    abstractDO=(AbstractDO) newT.getBoundObject(j,i);
-                    System.out.println(abstractDO.toString());
-                    abstractDO.setForeignId(id);
-                    StringBuilder sbBoundObject = new StringBuilder();
-                    sbBoundObject.append("UPDATE ")
-                            .append(abstractDO.getClassName())
-                            .append(" SET ")
-                            .append(abstractDO.setAttributeValues())
-                            .append(" WHERE ")
-                            .append(abstractDO.getQueryCondition());
-                    String queryBound = sbBoundObject.toString();
-                    System.out.println(queryBound);
-                    statement.executeUpdate(queryBound);
-                    
-                }
+		            AbstractDO abstractDO;
+		            for(int i=0; i<newT.getNumberOfAttributesBoundObjects(); i++){
+		                abstractDO=(AbstractDO) newT.getBoundObject(j,i);
+		                System.out.println(abstractDO.toString());
+		                abstractDO.setForeignId(id);
+		                StringBuilder sbBoundObject = new StringBuilder();
+		                sbBoundObject.append("UPDATE ")
+		                        .append(abstractDO.getClassName())
+		                        .append(" SET ")
+		                        .append(abstractDO.setAttributeValues())
+		                        .append(" WHERE ")
+		                        .append(abstractDO.getQueryCondition());
+		                String queryBound = sbBoundObject.toString();
+		                System.out.println(queryBound);
+		                statement.executeUpdate(queryBound);
+		                
+		            }
                 }
             }
-            
-            statement.close();
-        } catch (SQLException ex) {
-            throw ex;
+		    statement.close();
+	       } catch (SQLException ex) {
+	           throw ex;
+	       }
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String oldJson = gson.toJson(oldT);
+            String newJson = gson.toJson(newT);
+
+            saveToFileObjectUpdated(oldT,oldJson);
+            saveToFileObjectUpdated(newT,newJson);
+       }
+
+    private void saveToFileObjectUpdated(AbstractDO ab, String json) {
+    	File jsonFile= new File("./src/main/resources/updated_values.json");
+        try (FileWriter writer = new FileWriter(jsonFile,true)) {
+        	PrintWriter printWriter= new PrintWriter(writer);
+        	printWriter.print("UPDATED "+ab.getClassName());
+        	if (jsonFile.length() == 0) {
+                printWriter.print("[");
+            } else {
+                RandomAccessFile raf = new RandomAccessFile(jsonFile, "rw");
+                long pos = raf.length() - 1;
+                raf.setLength(pos);
+                printWriter.print(",");
+                printWriter.print("\n");
+            }
+            printWriter.print(json);  
+            printWriter.print("]");
+            printWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    
     }
+            
+        
+    
 
     @Override
     public void delete(AbstractDO t) throws Exception {
@@ -189,6 +222,17 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
                 abstractDOs.add(t.getEntityFromResultSet(resultSet));
             }
         
+            if(t.getClassName().equals("member")) {
+            	
+            	Gson gson= new GsonBuilder().setPrettyPrinting().create();
+	            FileWriter fileWriter= new FileWriter("./src/main/resources/"+t.getClassName()+".json");
+	            PrintWriter printWriter= new PrintWriter(fileWriter);
+	            printWriter.print(gson.toJson(abstractDOs));
+	            printWriter.flush();
+	            printWriter.close();
+	            fileWriter.close();
+            }
+            
             return abstractDOs;
     }
 
@@ -269,6 +313,7 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
             statement.executeUpdate(query);
             statement.close();
     }
+    
 
    
     @Override

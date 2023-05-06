@@ -128,7 +128,7 @@ public class City extends AbstractDO implements Serializable {
 
     @Override
     public String getClassName() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    	return "city";
     }
 
     @Override
