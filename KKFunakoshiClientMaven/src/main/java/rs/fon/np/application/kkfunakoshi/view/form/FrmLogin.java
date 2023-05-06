@@ -47,7 +47,7 @@ public class FrmLogin extends javax.swing.JFrame {
         setTitle("Login");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        txtPassword.setText("dacika2000");
+        txtPassword.setText("daca2000");
         txtUser.setText("daca");
    }
 

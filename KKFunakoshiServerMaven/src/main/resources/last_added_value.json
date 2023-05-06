@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 {"competitionId":"223","teamId":"null","medal":"'BRONZE'","category":"'SENIOR'","memberId":"106"}
+=======
+New result
+{"competitionId":"1","teamId":"null","medal":"'GOLD'","category":"'PIONIR'","memberId":"1"}
+>>>>>>> refs/heads/json

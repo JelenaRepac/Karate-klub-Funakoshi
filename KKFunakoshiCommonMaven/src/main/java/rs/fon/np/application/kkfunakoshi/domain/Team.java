@@ -37,7 +37,7 @@ public class Team extends AbstractDO implements Serializable {
     /**
      * Lista clanova tima
      */
-    private ArrayList<Member> teamMembers= new ArrayList<>();
+    private transient ArrayList<Member> teamMembers= new ArrayList<>();
     /**
      * Bezparametarski konstruktor
      */

@@ -5,6 +5,8 @@
 package rs.fon.np.application.kkfunakoshi.repository.impl;
 
 import java.sql.Connection;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +16,20 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.RandomAccessFile;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import rs.fon.np.application.kkfunakoshi.*;
 import rs.fon.np.application.kkfunakoshi.db.DbConnectionFactory;
 import rs.fon.np.application.kkfunakoshi.db.DbRepository;
@@ -36,7 +51,7 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
             while(resultSet.next()){
                 abstractDOs.add(t.getEntityFromResultSet(resultSet));
             }
-        
+            
             return abstractDOs;
     }
     
@@ -73,8 +88,8 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
                 object.put(columns[i], values[i]);
             }
             PrintStream ostr = new PrintStream(new FileOutputStream("./src/main/resources/last_added_value.json"));
+            ostr.print("New "+t.getClassName()+"\n");
             ostr.print(object.toJSONString());
-            ostr.println();
             ostr.close();
             statement.close();
             rsKey.close();
@@ -102,32 +117,80 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
                 Long id = rsKey.getLong(1);
                 newT.setId(id);
                 
+                
                 for(int j=0; j<newT.getNumberOfBountObject(); j++){
-                AbstractDO abstractDO;
-                for(int i=0; i<newT.getNumberOfAttributesBoundObjects(); i++){
-                    abstractDO=(AbstractDO) newT.getBoundObject(j,i);
-                    System.out.println(abstractDO.toString());
-                    abstractDO.setForeignId(id);
-                    StringBuilder sbBoundObject = new StringBuilder();
-                    sbBoundObject.append("UPDATE ")
-                            .append(abstractDO.getClassName())
-                            .append(" SET ")
-                            .append(abstractDO.setAttributeValues())
-                            .append(" WHERE ")
-                            .append(abstractDO.getQueryCondition());
-                    String queryBound = sbBoundObject.toString();
-                    System.out.println(queryBound);
-                    statement.executeUpdate(queryBound);
-                    
-                }
+		            AbstractDO abstractDO;
+		            for(int i=0; i<newT.getNumberOfAttributesBoundObjects(); i++){
+		                abstractDO=(AbstractDO) newT.getBoundObject(j,i);
+		                System.out.println(abstractDO.toString());
+		                abstractDO.setForeignId(id);
+		                StringBuilder sbBoundObject = new StringBuilder();
+		                sbBoundObject.append("UPDATE ")
+		                        .append(abstractDO.getClassName())
+		                        .append(" SET ")
+		                        .append(abstractDO.setAttributeValues())
+		                        .append(" WHERE ")
+		                        .append(abstractDO.getQueryCondition());
+		                String queryBound = sbBoundObject.toString();
+		                System.out.println(queryBound);
+		                statement.executeUpdate(queryBound);
+		                
+		            }
                 }
             }
-            
-            statement.close();
-        } catch (SQLException ex) {
-            throw ex;
+		    statement.close();
+	       } catch (SQLException ex) {
+	           throw ex;
+	       }
+       		if(oldT.getClassName().equals("member")) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String oldJson = gson.toJson(oldT);
+            String newJson = gson.toJson(newT);
+
+            saveToFileObjectUpdated(oldT,oldJson,newT,newJson);
+       		}
+       }
+
+    private void saveToFileObjectUpdated(AbstractDO abOld, String jsonOld,AbstractDO abNew, String jsonNew) {
+    	File jsonFile= new File("./src/main/resources/updated_member_values.json");
+        try (FileWriter writer = new FileWriter(jsonFile,true)) {
+        	PrintWriter printWriter= new PrintWriter(writer);
+        	Gson gson= new GsonBuilder().setPrettyPrinting().create();
+        	if (jsonFile.length() == 0) {
+        		JsonObject comment= new JsonObject();
+        		printWriter.print("[");
+        		comment.addProperty("updatedObject", abOld.getClassName());
+        		printWriter.print(comment);
+        		printWriter.print(",");
+        		printWriter.print("\n");
+                
+            } else {
+                RandomAccessFile raf = new RandomAccessFile(jsonFile, "rw");
+                long pos = raf.length() - 1;
+                raf.setLength(pos);
+                printWriter.print(",");
+                JsonObject comment= new JsonObject();
+        		comment.addProperty("updatedObject", abOld.getClassName());
+        		 printWriter.print("\n");
+        		 printWriter.print("\n");
+        		printWriter.print(comment);
+        		printWriter.print(",");
+                printWriter.print("\n");
+            }
+        	
+            printWriter.print(jsonOld); 
+            printWriter.print(",");
+            printWriter.print(jsonNew);
+            printWriter.print("]");
+            printWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    
     }
+            
+        
+    
 
     @Override
     public void delete(AbstractDO t) throws Exception {
@@ -141,6 +204,26 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
             String query = sb.toString();
             Statement statement = connection.createStatement();
             statement.executeUpdate(query);
+            
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(t);
+            
+            String filePath = "./src/main/resources/deleted_" + t.getClassName() + ".json";
+            File jsonFile = new File(filePath);
+            FileWriter fileWriter = new FileWriter(jsonFile, true);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            if (jsonFile.length() == 0) {
+                printWriter.print("[");
+            } else {
+                RandomAccessFile raf = new RandomAccessFile(jsonFile, "rw");
+                long pos = raf.length() - 1;
+                raf.setLength(pos);
+                printWriter.print(",");
+                printWriter.print("\n");
+            }
+            printWriter.print(json);
+            printWriter.print("]");
+            printWriter.close();
             statement.close();
         } catch (SQLException ex) {
             throw ex;
@@ -158,6 +241,17 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
                 abstractDOs.add(t.getEntityFromResultSet(resultSet));
             }
         
+            if(t.getClassName().equals("member")) {
+            	
+            	Gson gson= new GsonBuilder().setPrettyPrinting().create();
+	            FileWriter fileWriter= new FileWriter("./src/main/resources/"+t.getClassName()+".json");
+	            PrintWriter printWriter= new PrintWriter(fileWriter);
+	            printWriter.print(gson.toJson(abstractDOs));
+	            printWriter.flush();
+	            printWriter.close();
+	            fileWriter.close();
+            }
+            
             return abstractDOs;
     }
 
@@ -238,6 +332,7 @@ public class RepositoryDBGeneric  implements DbRepository<AbstractDO>  {
             statement.executeUpdate(query);
             statement.close();
     }
+    
 
    
     @Override
