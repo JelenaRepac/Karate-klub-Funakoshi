@@ -25,7 +25,6 @@ import java.util.List;
  * @author Jelena Repac
  */
 public class Member extends AbstractDO implements Serializable{
-	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * Id clana.
@@ -550,13 +549,10 @@ public class Member extends AbstractDO implements Serializable{
 
     @Override
 	public String toString() {
-    	String formattedBirthday = DATE_FORMAT.format(birthday);
-    	System.out.println(formattedBirthday);
-        String formattedDateOfMembership = DATE_FORMAT.format(dateOfMembership);
 
-		return "Member [name=" + name + ", lastname=" + lastname + ", birthday=" + formattedBirthday + ", discipline="
+		return "Member [name=" + name + ", lastname=" + lastname + ", birthday=" + birthday + ", discipline="
 				+ discipline + ", category=" + category + ", adress=" + adress + ", dateOfMembership="
-				+ formattedDateOfMembership + "]";
+				+ dateOfMembership + "]";
 	}
 	@Override
     public String getAttributeList() {
